@@ -1,7 +1,7 @@
 name: Agent Lab - build and real browser smoke
 on:
   push:
-    branches: [master, 'feat/**', 'agent/**']
+    branches: [master]
   pull_request:
   workflow_dispatch:
 permissions:
