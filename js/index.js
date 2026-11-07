@@ -2,7 +2,7 @@ import * as Sentry from "@sentry/browser";
 import { Integrations } from "@sentry/tracing";
 import { Wasm as WasmIntegration } from "@sentry/wasm";
 import { boot } from "./boot";
-if (!window.location.host.startsWith("localhost")) {
+if (!window.location.host.startsWith("localhost") && !window.location.pathname.endsWith("/agent.html")) {
   Sentry.init({
     dsn: "https://4bf8c3ab764f40569d573fc4021efe40@o40136.ingest.sentry.io/1331284",
 
@@ -19,6 +19,9 @@ if (!window.location.host.startsWith("localhost")) {
 
 import "./api";
 import { Universe } from "../crate/pkg";
+import { Species } from "../crate/pkg/sandtable";
+import * as wasm from "../crate/pkg/sandtable_bg.wasm";
+import { createAgentLab } from "./agentLab";
 
 import { startWebGL } from "./render";
 import { fps } from "./fps";
@@ -28,6 +31,8 @@ import { startFluid } from "./fluid";
 import {} from "./layout";
 
 const isBench = window.location.pathname === "/bench";
+const isAgentMode = window.location.pathname.endsWith("/agent.html") || new URLSearchParams(window.location.search).has("agent");
+if (isAgentMode) window.paused = true;
 if (window.safari) {
   history.pushState(null, null, location.href);
   window.onpopstate = function (event) {
@@ -99,11 +104,18 @@ if (!isBench) {
   fluid = window.f;
   drawSand = window.r;
 }
+let agentLab = null;
+if (!isBench && isAgentMode) {
+  agentLab = createAgentLab({ universe, memory: wasm.memory, species: Species, fluid, render: drawSand, mode: "lab" });
+  window.agentLab = agentLab;
+}
+
 const renderLoop = () => {
   if (!window.paused) {
     fps.render(); // new
     universe.tick();
     fluid.update();
+    agentLab?.notifyTick();
   }
   drawSand();
 
@@ -112,7 +124,7 @@ const renderLoop = () => {
 renderLoop();
 window.u = universe;
 
-if (!isBench) {
+if (!isBench && !isAgentMode) {
   boot(width, height);
 }
 
@@ -123,6 +135,7 @@ function reset() {
   fluid.update();
 
   universe.reset();
+  agentLab?.notifyManualEdit();
 }
 
 document.addEventListener("keydown", function (event) {

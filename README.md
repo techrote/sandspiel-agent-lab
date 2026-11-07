@@ -29,3 +29,8 @@ a successor to my previous efforts in [javascript](https://github.com/MaxBittker
 
 Fluid simulation code adopted from
 https://github.com/PavelDoGreat/WebGL-Fluid-Simulation
+
+
+## Agent Lab fork
+
+This fork adds a validated browser-control harness for research and actual Playwright capture without modifying native material physics. Read [RAG.md](RAG.md) for architecture, integration status and acceptance gates, and [AGENT_LAB.md](AGENT_LAB.md) for the `/agent.html` command interface. GitHub Actions builds and tests the real Rust/WebAssembly game and packages captured evidence. Upstream MIT license and original source attribution are retained.

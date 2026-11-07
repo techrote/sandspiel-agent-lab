@@ -150,4 +150,5 @@ const paint = (event) => {
     sizeMap[window.UI.state.size],
     window.UI.state.selectedElement
   );
+  window.agentLab?.notifyManualEdit();
 };

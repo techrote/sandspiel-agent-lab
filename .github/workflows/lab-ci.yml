@@ -1,0 +1,71 @@
+name: Agent Lab - build and real browser smoke
+on:
+  push:
+    branches: [master, 'feat/**', 'agent/**']
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: sandspiel-lab-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build-and-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - name: Set up wasm-pack
+        run: cargo install wasm-pack --locked --version 0.13.1
+      - name: Install pinned JavaScript dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build original physics with agent harness
+        run: pnpm run build
+      - name: Validate browser entry and bundle
+        run: |
+          test -s dist/index.html
+          test -s dist/agent.html
+          test -s dist/agent.css
+          find dist -type f | sort | head -40
+      - name: Unit test bounded agent commands
+        run: node --test tests/agentLab.test.mjs
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Browser test dependencies
+        run: |
+          python3 -m pip install 'playwright==1.56.0' 'Pillow>=11,<13'
+          python3 -m playwright install --with-deps chromium
+      - name: Start static server and capture genuine browser session
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 --directory dist > /tmp/sandspiel-agent-lab-http.log 2>&1 &
+          echo $! > /tmp/sandspiel-agent-lab-http.pid
+          python3 scripts/smoke.py --url http://127.0.0.1:8765/agent.html --out evidence/smoke
+      - name: Upload actual browser evidence (even if test failed)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sandspiel-agent-lab-browser-${{ github.run_id }}
+          path: |
+            evidence/
+            /tmp/sandspiel-agent-lab-http.log
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Upload compiled browser application
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sandspiel-agent-lab-web-${{ github.sha }}
+          path: dist/
+          retention-days: 14
