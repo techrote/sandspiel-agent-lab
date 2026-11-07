@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   build-and-smoke:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
@@ -52,14 +52,17 @@ jobs:
           python3 -m http.server 8765 --bind 127.0.0.1 --directory dist > /tmp/sandspiel-agent-lab-http.log 2>&1 &
           echo $! > /tmp/sandspiel-agent-lab-http.pid
           python3 scripts/smoke.py --url http://127.0.0.1:8765/agent.html --out evidence/smoke
+      - name: Preserve server log
+        if: always()
+        run: |
+          mkdir -p evidence/smoke
+          cp /tmp/sandspiel-agent-lab-http.log evidence/smoke/http.log 2>/dev/null || true
       - name: Upload actual browser evidence (even if test failed)
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: sandspiel-agent-lab-browser-${{ github.run_id }}
-          path: |
-            evidence/
-            /tmp/sandspiel-agent-lab-http.log
+          path: evidence/
           if-no-files-found: warn
           retention-days: 14
       - name: Upload compiled browser application
