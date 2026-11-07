@@ -1,0 +1,378 @@
+{
+  "format": "sandspiel-lab-session/v1",
+  "name": "The Rain Reliquary — an abandoned botanical observatory (unverified score)",
+  "persistCells": true,
+  "commands": [
+    {
+      "op": "reset",
+      "label": "blank world",
+      "capture": true
+    },
+    {
+      "op": "rect",
+      "material": "Sand",
+      "x": 0,
+      "y": 280,
+      "width": 300,
+      "height": 20,
+      "label": "buried foundation"
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "diameter": 9,
+      "from": {
+        "x": 28,
+        "y": 279
+      },
+      "to": {
+        "x": 28,
+        "y": 83
+      }
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "diameter": 9,
+      "from": {
+        "x": 270,
+        "y": 279
+      },
+      "to": {
+        "x": 270,
+        "y": 83
+      }
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "diameter": 7,
+      "from": {
+        "x": 28,
+        "y": 83
+      },
+      "to": {
+        "x": 91,
+        "y": 52
+      }
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "diameter": 7,
+      "from": {
+        "x": 270,
+        "y": 83
+      },
+      "to": {
+        "x": 208,
+        "y": 52
+      }
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "diameter": 6,
+      "from": {
+        "x": 91,
+        "y": 52
+      },
+      "to": {
+        "x": 208,
+        "y": 52
+      },
+      "label": "observatory roof",
+      "capture": true
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "diameter": 5,
+      "from": {
+        "x": 56,
+        "y": 252
+      },
+      "to": {
+        "x": 102,
+        "y": 224
+      }
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "diameter": 5,
+      "from": {
+        "x": 243,
+        "y": 252
+      },
+      "to": {
+        "x": 198,
+        "y": 224
+      }
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "diameter": 5,
+      "from": {
+        "x": 102,
+        "y": 224
+      },
+      "to": {
+        "x": 120,
+        "y": 178
+      }
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "diameter": 5,
+      "from": {
+        "x": 198,
+        "y": 224
+      },
+      "to": {
+        "x": 180,
+        "y": 178
+      }
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "diameter": 5,
+      "from": {
+        "x": 120,
+        "y": 178
+      },
+      "to": {
+        "x": 150,
+        "y": 153
+      }
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "diameter": 5,
+      "from": {
+        "x": 180,
+        "y": 178
+      },
+      "to": {
+        "x": 150,
+        "y": 153
+      }
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 150,
+      "y": 151,
+      "diameter": 25
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 119,
+      "y": 178,
+      "diameter": 13
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 181,
+      "y": 178,
+      "diameter": 13
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 97,
+      "y": 224,
+      "diameter": 11
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 203,
+      "y": 224,
+      "diameter": 11
+    },
+    {
+      "op": "paint",
+      "material": "Water",
+      "x": 150,
+      "y": 108,
+      "diameter": 31,
+      "label": "first suspended rain"
+    },
+    {
+      "op": "step",
+      "ticks": 120,
+      "label": "evolution 1 — inspect before revision",
+      "capture": true
+    },
+    {
+      "op": "inspect",
+      "x": 90,
+      "y": 80,
+      "width": 120,
+      "height": 160,
+      "includeCells": false,
+      "label": "first structural census"
+    },
+    {
+      "op": "paint",
+      "material": "Seed",
+      "x": 74,
+      "y": 230,
+      "diameter": 5
+    },
+    {
+      "op": "paint",
+      "material": "Seed",
+      "x": 225,
+      "y": 230,
+      "diameter": 5
+    },
+    {
+      "op": "paint",
+      "material": "Seed",
+      "x": 84,
+      "y": 191,
+      "diameter": 5
+    },
+    {
+      "op": "paint",
+      "material": "Seed",
+      "x": 215,
+      "y": 191,
+      "diameter": 5
+    },
+    {
+      "op": "paint",
+      "material": "Water",
+      "x": 75,
+      "y": 244,
+      "diameter": 19
+    },
+    {
+      "op": "paint",
+      "material": "Water",
+      "x": 224,
+      "y": 244,
+      "diameter": 19
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "diameter": 4,
+      "from": {
+        "x": 102,
+        "y": 224
+      },
+      "to": {
+        "x": 78,
+        "y": 203
+      },
+      "label": "second-pass botanical buttress"
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "diameter": 4,
+      "from": {
+        "x": 198,
+        "y": 224
+      },
+      "to": {
+        "x": 222,
+        "y": 203
+      }
+    },
+    {
+      "op": "step",
+      "ticks": 120,
+      "label": "evolution 2 — inspect before revision",
+      "capture": true
+    },
+    {
+      "op": "inspect",
+      "x": 45,
+      "y": 170,
+      "width": 210,
+      "height": 110,
+      "includeCells": false,
+      "label": "second structural census"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 78,
+      "y": 202,
+      "diameter": 15
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 222,
+      "y": 202,
+      "diameter": 15
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 60,
+      "y": 130,
+      "diameter": 19
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 240,
+      "y": 130,
+      "diameter": 19
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "diameter": 3,
+      "from": {
+        "x": 28,
+        "y": 120
+      },
+      "to": {
+        "x": 60,
+        "y": 130
+      },
+      "label": "third-pass hanging garden"
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "diameter": 3,
+      "from": {
+        "x": 270,
+        "y": 120
+      },
+      "to": {
+        "x": 240,
+        "y": 130
+      }
+    },
+    {
+      "op": "step",
+      "ticks": 120,
+      "label": "evolution 3 — final observed state",
+      "capture": true
+    },
+    {
+      "op": "inspect",
+      "x": 0,
+      "y": 40,
+      "width": 300,
+      "height": 240,
+      "includeCells": false,
+      "label": "final material census"
+    }
+  ]
+}
