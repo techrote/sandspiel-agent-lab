@@ -49,47 +49,55 @@ def main():
             history.append({"command": command if command.get("op") != "importCells" else {"op": "importCells", "format": command.get("format")}, "result": {k: v for k, v in result.items() if k != "cellsBase64"}})
             return demand(result, expect)
 
-        catalog = invoke({"op": "catalog"}, "observed")
-        assert {"Wood", "Water", "Wall"}.issubset({m["name"] for m in catalog["materials"]})
-        assert page.evaluate("Boolean(document.getElementById('sand-canvas').getContext('webgl'))"), "WebGL context missing"
-        page.screenshot(path=str(out / "00-blank.png"))
+        try:
+            catalog = invoke({"op": "catalog"}, "observed")
+            assert {"Wood", "Water", "Wall"}.issubset({m["name"] for m in catalog["materials"]})
+            assert page.evaluate("Boolean(document.getElementById('sand-canvas').getContext('webgl'))"), "WebGL context missing"
+            page.screenshot(path=str(out / "00-blank.png"))
 
-        first = invoke({"op": "line", "material": "Wood", "from": {"x": 28, "y": 230}, "to": {"x": 28, "y": 270}, "diameter": 3})
-        assert first["changedCells"] >= 20, first
-        original = invoke({"op": "inspect", "x": 24, "y": 226, "width": 10, "height": 50}, "observed")
-        assert original["region"]["counts"].get("Wood", 0) >= 20
-        page.screenshot(path=str(out / "01-wood.png"))
-        invoke({"op": "rect", "material": "Wall", "x": 102, "y": 205, "width": 80, "height": 75, "fill": False})
-        invoke({"op": "paint", "material": "Water", "x": 140, "y": 180, "diameter": 28})
-        water_before = invoke({"op": "inspect", "x": 102, "y": 160, "width": 80, "height": 120}, "observed")
-        assert water_before["region"]["counts"].get("Water", 0) > 0
-        page.screenshot(path=str(out / "02-water-before.png"))
+            first = invoke({"op": "line", "material": "Wood", "from": {"x": 28, "y": 230}, "to": {"x": 28, "y": 270}, "diameter": 3})
+            assert first["changedCells"] >= 20, first
+            original = invoke({"op": "inspect", "x": 24, "y": 226, "width": 10, "height": 50}, "observed")
+            assert original["region"]["counts"].get("Wood", 0) >= 20
+            page.screenshot(path=str(out / "01-wood.png"))
+            invoke({"op": "rect", "material": "Wall", "x": 102, "y": 205, "width": 80, "height": 75, "fill": False})
+            invoke({"op": "paint", "material": "Water", "x": 140, "y": 180, "diameter": 28})
+            water_before = invoke({"op": "inspect", "x": 102, "y": 160, "width": 80, "height": 120}, "observed")
+            assert water_before["region"]["counts"].get("Water", 0) > 0
+            page.screenshot(path=str(out / "02-water-before.png"))
 
-        # Advance native physics AND WebGL fluid, while remaining paused between commands.
-        invoke({"op": "step", "ticks": 120})
-        page.wait_for_timeout(300)
-        water_after = invoke({"op": "inspect", "x": 102, "y": 160, "width": 80, "height": 120}, "observed")
-        assert water_after["region"]["counts"].get("Wall", 0) > 0
-        page.screenshot(path=str(out / "03-after-120.png"))
+            # Advance native physics AND WebGL fluid, while remaining paused between commands.
+            invoke({"op": "step", "ticks": 120})
+            page.wait_for_timeout(300)
+            water_after = invoke({"op": "inspect", "x": 102, "y": 160, "width": 80, "height": 120}, "observed")
+            assert water_after["region"]["counts"].get("Wall", 0) > 0
+            page.screenshot(path=str(out / "03-after-120.png"))
 
-        exported = invoke({"op": "exportCells"}, "observed")
-        checkpoint = {"format": exported["format"], "width": exported["width"], "height": exported["height"], "cellsBase64": exported["cellsBase64"], "fidelity": exported["fidelity"]}
-        (out / "checkpoint-cells-only.json").write_text(json.dumps(checkpoint), encoding="utf-8")
-        invoke({"op": "reset"})
-        empty = invoke({"op": "inspect", "x": 24, "y": 226, "width": 10, "height": 50}, "observed")
-        assert not empty["region"]["counts"].get("Wood", 0)
-        invoke({"op": "importCells", **checkpoint})
-        restored = invoke({"op": "inspect", "x": 24, "y": 226, "width": 10, "height": 50}, "observed")
-        assert restored["region"]["counts"].get("Wood", 0) == original["region"]["counts"].get("Wood", 0)
-        page.screenshot(path=str(out / "04-restored.png"))
+            # The simulation may move or transform the original Wood. Verify
+            # against the actual immediately pre-reset state, not the pre-step state.
+            before_reset_region = invoke({"op": "inspect", "x": 24, "y": 226, "width": 10, "height": 50}, "observed")
+            exported = invoke({"op": "exportCells"}, "observed")
+            checkpoint = {"format": exported["format"], "width": exported["width"], "height": exported["height"], "cellsBase64": exported["cellsBase64"], "fidelity": exported["fidelity"]}
+            (out / "checkpoint-cells-only.json").write_text(json.dumps(checkpoint), encoding="utf-8")
+            invoke({"op": "reset"})
+            empty = invoke({"op": "inspect", "x": 24, "y": 226, "width": 10, "height": 50}, "observed")
+            assert not empty["region"]["counts"].get("Wood", 0)
+            invoke({"op": "importCells", **checkpoint})
+            restored = invoke({"op": "inspect", "x": 24, "y": 226, "width": 10, "height": 50}, "observed")
+            assert restored["region"]["counts"] == before_reset_region["region"]["counts"], "region material counts did not survive restore"
+            exported_again = invoke({"op": "exportCells"}, "observed")
+            assert exported_again["cellsBase64"] == exported["cellsBase64"], "full native cell array differs after import"
+            page.screenshot(path=str(out / "04-restored.png"))
 
-        stale = invoke({"op": "paint", "material": "Wood", "x": 10, "y": 10, "expectedRevision": 0}, "refused")
-        assert "stale" in stale["reason"]
-        bad = invoke({"op": "paint", "material": "NotAMaterial", "x": 10, "y": 10}, "refused")
-        assert "unknown material" in bad["reason"]
-        report = {"ok": True, "source_sha": os.environ.get("GITHUB_SHA"), "steps": 120, "initial_wood": original["region"]["counts"]["Wood"], "restored_wood": restored["region"]["counts"]["Wood"], "water_before": water_before["region"]["counts"].get("Water", 0), "water_after": water_after["region"]["counts"].get("Water", 0), "final_status": page.evaluate("window.agentLab.status()"), "page_errors": console_errors}
-        (out / "session.json").write_text(json.dumps(history, indent=2), encoding="utf-8")
-        (out / "report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
+            stale = invoke({"op": "paint", "material": "Wood", "x": 10, "y": 10, "expectedRevision": 0}, "refused")
+            assert "stale" in stale["reason"]
+            bad = invoke({"op": "paint", "material": "NotAMaterial", "x": 10, "y": 10}, "refused")
+            assert "unknown material" in bad["reason"]
+            report = {"ok": True, "source_sha": os.environ.get("GITHUB_SHA"), "steps": 120, "initial_wood": original["region"]["counts"]["Wood"], "wood_after_120_in_original_region": before_reset_region["region"]["counts"].get("Wood", 0), "restored_wood_in_original_region": restored["region"]["counts"].get("Wood", 0), "cells_restored_byte_exact": True, "water_before": water_before["region"]["counts"].get("Water", 0), "water_after": water_after["region"]["counts"].get("Water", 0), "final_status": page.evaluate("window.agentLab.status()"), "page_errors": console_errors}
+            (out / "session.json").write_text(json.dumps(history, indent=2), encoding="utf-8")
+            (out / "report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
+        finally:
+            (out / "session.json").write_text(json.dumps(history, indent=2), encoding="utf-8")
         context.close()
         video_path = Path(page.video.path())
         if video_path.exists() and shutil.which("ffmpeg"):
