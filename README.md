@@ -62,11 +62,11 @@ The compiled site can optionally be published using [`pages.yml`](https://github
 | Evidence | What it verifies |
 | --- | --- |
 | [Build and smoke run 42374743617](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42374743617) | Real Chromium/WebGL, Wood/Wall/Water edits, 120 native + fluid steps, cells-only round-trip |
-| [Current feature-head CI 42376224346](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42376224346) | Rust/WASM and real-browser validation passed at implementation head `90d4b99c` |
+| [Repaired feature-head CI 42383555262](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42383555262) | Rust/WASM and real-browser validation passed at repair code head `3933e7d`; 7 JavaScript and 5 Python tests passed |
 | [Woodland session 42375727238](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42375727238) | 20 accepted commands, 240 native steps, observed growth, actual screenshot/video and material census |
-| [Cold cache 42376259313](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42376259313) / [warm cache 42376483034](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42376483034) | Source-matched browser cache reused successfully; warm run skipped build toolchain and webpack |
+| [Repaired cache cold/warm 42383661354](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42383661354) | Attempt 1 built and saved corrected v2 cache; attempt 2 restored it and skipped Rust, Node and Webpack while completing the actual browser session |
 
-The first agent test uses **structured geometric commands**, which are more accurate than ordinary mouse drawing. It must **not** be described as an independent, like-for-like completion of Luna's recorded challenge.
+The first agent test uses **structured geometric commands**, which are more accurate than ordinary mouse drawing. It must **not** be described as an independent, like-for-like completion of Luna's recorded challenge. Independent review led to narrow fixes for tick-budget enforcement, typed JSON options, truthful runtime failure receipts and cache invalidation; PR #1 still requires final guarded merge admission.
 
 ## Important limitations
 

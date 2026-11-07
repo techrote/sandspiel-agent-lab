@@ -46,7 +46,7 @@ Recording files are produced by Playwright during an actual browser session. The
 
 ### Unfinished work
 
-- Independent technical and security review of latest PR #1 head, all workflows and the documented credential handover.
+- Independent pre-repair review is complete; source-matched post-repair qualification and guarded owner admission remain the next integration gates (see repair update below).
 - Full Luna comparison: attractive dense forest; isolated material apparatus; separate preparation/repair/challenge allowances; permitted ignition; actual `Fire` versus `Gas` inspection; human-free recording. Not yet demonstrated.
 - Mouse-equivalent baseline distinct from structured drawing; independent comparison must start from equivalent source and world state.
 - Explicit native/full-GPU checkpoint semantics if truly persistent evolving sessions become necessary.
@@ -55,3 +55,15 @@ Recording files are produced by Playwright during an actual browser session. The
 ### Review and next gate
 
 Read `docs/REVIEWER_BRIEF.md`. **Do not merge PR #1 simply because the smoke CI is green.** Validate the exact current PR head and the distinct `agent/sessions` runner head, including the cache, command limits, reported outcomes and absence of credential leakage. After independent review, perform source-matched gates and a guarded merge decision.
+
+## Independent review repair follow-up — 2026-11-07
+
+The independent assessment found a P1 signed-step-budget bypass and narrow P2/P3 problems in boolean coercion, malformed command handling, partial-mutation receipts, browser-cache invalidation and observational command counting. No original Rust physics or WebGL-fluid source modifications were required.
+
+- **Repaired code:** [PR #1 commit `3933e7d`](https://github.com/techrote/sandspiel-agent-lab/commit/3933e7d7518bb16fb4510150ed7bfad08cb2f7c3).
+- **Matched implementation CI:** [42383555262](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42383555262), passing seven JavaScript tests, five Python regression tests, Rust/WASM/Webpack, genuine Chromium/WebGL smoke and cells-only exact byte roundtrip. The tested PR merge commit `036984164c13ddd5dfec2a002b23e96ed01266d1` has the identical tree `aef300d6ab8e2761efc742134356eff3df820b26` to the code repair head.
+- **Execution branch:** `agent/sessions` at `c5988836c0ddd6a46eac62f14ad472680befb2f8`, preserving its session JSON. [42383661354](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42383661354) attempt 1 cold-built and saved the corrected v2 compiled cache; attempt 2 hit that exact cache, skipped compilation, executed all four commands and five native ticks, and reported no page errors.
+- **Scope:** The 240-step woodland and screenshot/video evidence remain separately valid earlier functional evidence; the post-repair execution branch ran its current four-command cache scenario, **not** a new Luna-equivalent forest/apparatus challenge. Browser recording duration is not native tick count.
+- **Credential boundary:** No new private provider key is needed or referenced. The inherited public Firebase browser configuration in `js/api.js` is not a secret to hand to ChatGPT. Any future credential-bearing job must use reviewed executable code and GitHub environment authorization, not an unprotected agent-writable branch.
+
+PR #1 remains draft and unmerged. Require successful current-final-head CI after this documentation update and explicit independent/owner merge admission. Do not replace real Sandspiel with a surrogate or broaden the repair into an agent platform.
