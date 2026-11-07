@@ -1,6 +1,6 @@
 {
   "format": "sandspiel-lab-session/v1",
-  "name": "THE MOTH-LIGHT OBSERVATORY — v2 observed repair: seed terraces, inner vines, and falling water",
+  "name": "THE MOTH-LIGHT OBSERVATORY — v3: original Sandspiel cloner-fed rain experiment",
   "persistCells": true,
   "recording": {
     "mode": "paced",
@@ -1141,22 +1141,6 @@
       "label": "first rain caught by orbit"
     },
     {
-      "op": "paint",
-      "material": "Ice",
-      "diameter": 3,
-      "x": 133,
-      "y": 77,
-      "label": "v2: separated blue glint above arch"
-    },
-    {
-      "op": "paint",
-      "material": "Ice",
-      "diameter": 3,
-      "x": 170,
-      "y": 76,
-      "label": "v2: second upper glint"
-    },
-    {
       "op": "resume",
       "ticks": 110,
       "label": "evolution I: the first rain",
@@ -1258,6 +1242,32 @@
         "y": 254
       },
       "label": "observed adaptation I: water descent toward basin"
+    },
+    {
+      "op": "paint",
+      "material": "Cloner",
+      "x": 149,
+      "y": 229,
+      "diameter": 1,
+      "label": "v3 experiment: original native Cloner establishes a water source",
+      "capture": true
+    },
+    {
+      "op": "paint",
+      "material": "Water",
+      "x": 148,
+      "y": 229,
+      "diameter": 1,
+      "label": "v3 experiment: Cloner learns adjacent Water"
+    },
+    {
+      "op": "inspect",
+      "x": 138,
+      "y": 219,
+      "width": 31,
+      "height": 68,
+      "includeCells": false,
+      "label": "fountain baseline: water and live Cloner census"
     },
     {
       "op": "resume",
@@ -1472,12 +1482,12 @@
     },
     {
       "op": "inspect",
-      "x": 103,
-      "y": 114,
-      "width": 90,
-      "height": 98,
+      "x": 138,
+      "y": 219,
+      "width": 31,
+      "height": 68,
       "includeCells": false,
-      "label": "final seed-heart material evidence"
+      "label": "fountain final: water, Cloner and pool after 350 ticks"
     },
     {
       "op": "status",
