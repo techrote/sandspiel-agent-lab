@@ -185,7 +185,7 @@ def main():
     report["source_identity"] = source_identity(args.dist)
     (out / "build-identity.json").write_text(json.dumps(report["source_identity"], indent=2), encoding="utf-8")
     from playwright.sync_api import sync_playwright
-    from scripts.recording_integrity import inspect_recording
+    from recording_integrity import inspect_recording
 
     server = None
     failure = None
