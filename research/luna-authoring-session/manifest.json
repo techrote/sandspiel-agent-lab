@@ -19,7 +19,7 @@
     "sampling": "purposive selection of sparse keyframes and short screenshot sequences; not a complete event log or exhaustive recording",
     "index_images": "optional index/gallery previews must not be used as pixel-level evidence",
     "archival_encoding": "Lossless WebP (exact=True): every output RGB pixel compared with corresponding lossless PNG decoded frame; RGB pixel array SHA256 recorded; no resampling or quantisation introduced",
-    "verification": "Each lossless WebP was decoded and compared for RGB pixel equality against its lossless PNG extraction from the input H264; all 27 comparisons passed.",
+    "verification": "Each lossless WebP was decoded and compared for RGB pixel equality against its lossless PNG extraction from the input H264; all 31 comparisons passed.",
     "source_timing_note": "Timestamps identify requested elapsed source positions (seconds). The exact decoded frame presentation timestamp is not separately guaranteed; ±one frame is an approximate targeting tolerance, not a measured bound."
   },
   "frames": [
