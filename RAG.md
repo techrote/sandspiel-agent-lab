@@ -3,7 +3,7 @@
 **Repository:** `techrote/sandspiel-agent-lab`  
 **Upstream:** `MaxBittker/sandspiel` at `9936e06b07a583aedfba9589c0cead2917f405fb` (MIT)  
 **Project objective:** let an agent inside ordinary ChatGPT interact with the *actual* Sandspiel client, observe real rendering and native cell data, and record reproducible sessions. **Do not require Work mode, rewrite physics, or pretend an offline surrogate is a gameplay result.**  
-**Status (2026-11-07):** Operational v1 proof-of-concept: Rust/WASM + Webpack source-matched CI **passed** [run 42375713505](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42375713505); real Chromium smoke (Wood/Wall/Water, 120 steps, exact cells-only roundtrip) passed [run 42374743617](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42374743617). The chat-triggered, allowlisted GitHub Actions session ran 20 drawing/inspection/step commands with 240 native ticks, no browser errors, and saved screenshots/video/cell snapshot in [run 42375727238](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42375727238). Its artifact ZIP transferred successfully back into the ChatGPT container. Local container Chromium cannot navigate localhost (`ERR_BLOCKED_BY_ADMINISTRATOR`); this remote browser bridge is the supported execution path. Added dist cache for later command-batch latency reduction, pending cache-hit validation. This is a small structured-tool test, NOT Luna's full challenge, and Actions runs do not yet preserve native session state across separate invocations.
+**Status (2026-11-07):** The real Sandspiel Rust/WASM browser build, bounded Playwright control and screenshot/video evidence pipeline are proven. Source-matched browser CI passed [42376224346](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42376224346); independently authored woodland [42375727238](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42375727238) passed (20 commands, 240 native ticks). Both the browser bundle and evidence ZIP were transferred to ChatGPT. The local Chromium navigation policy blocks localhost; GitHub-hosted Chromium and the `agent/sessions` JSON workflow are the operational route. Warm cache [42376483034](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42376483034) succeeded and skipped Rust/WASM/webpack rebuild. Full Luna challenge, mouse-equivalent comparison and exact evolving-state persistence are **not complete**. PR #1 is draft and unmerged; this documentation commit requires fresh exact-head CI.
 
 ## Contents
 
@@ -16,6 +16,7 @@
 7. [Fallback and MCP roadmap](#7-fallback-and-mcp-roadmap) — adapt to connector limitations.
 8. [Security, resource and provenance policy](#8-security-resource-and-provenance-policy) — preserve trust and avoid waste.
 9. [Codex operating handoff](#9-codex-operating-handoff) — next actions and stopping conditions.
+10. [Verified consolidation and credential handover](#10-verified-consolidation-and-credential-handover-2026-11-07) — passing runs, canonical driver and optional keys.
 
 ## 1. Goal and non-goals
 
@@ -35,23 +36,27 @@
 ## 3. Execution architecture
 
 ```text
-Github master / feature branch (pinned upstream physics)
-       |
-       +--> GitHub Actions (Rust + wasm-pack, pnpm/webpack)
-                   |              |
-             browser bundle    Playwright smoke + frames + browser video
-                   |
-           versioned artifact -----------> local-chat artifact handoff (FIRST GATE)
-                   |                          |
-            optional Pages                if materializable: local HTTP/Chromium
-                                              |
-                                              +--> direct ChatGPT observation/actions
-                   |
-             no handoff? --> bounded Actions command-run fallback
-                                 (future; validate authenticated issue events)
+GitHub repository (Sandspiel + agent-control adapter)
+    |
+    +--> CI Rust/WASM + Webpack -> source-hashed dist cache
+    |                                      |
+    |                              real Playwright/Chromium
+    |
+ChatGPT -> connected GitHub -> agent/sessions JSON push
+                              |  allowlisted command runner
+                              v
+                     source-matched dist cache
+                              |
+                     actual Sandspiel WASM
+                              |
+                  screenshots / native cells / video
+                              |
+                      GitHub Actions artifacts
+                              |
+                     ChatGPT review and iteration
 ```
 
-A GitHub Pages tab is not the same live world as a headless ChatGPT Chromium tab. Reopening requires an explicit export/replay; do not promise continuous shared state. The GitHub connector's binary artifact-reference materialization into this container has **not yet been proven**.
+**Verified:** the compiled bundle and browser evidence archives transfer through the connected GitHub integration. **Blocked by environment policy:** direct local Chromium navigation to localhost; do not bypass it. Use the tested GitHub-hosted runner. The source-hashed compiled `dist` cache hit was confirmed in run 42376483034; cross-run native state is not persisted. A Pages tab is a static, independent world, not the live world in Actions.
 
 **Initial implementation:** optional `/agent.html` harness without production adverts and without auto-generated boot terrain; the original human-facing app remains usable on `/`.
 
@@ -97,24 +102,24 @@ Every experiment should publish source commit, command/event JSON, observed revi
 
 - GitHub Actions run `42374201807`: upstream native physics compiled to WebAssembly, Webpack emitted both browser entrypoints, Node unit tests passed, and Chromium initialized actual WebGL.
 - Actual screenshot artifacts show a Wood stroke, a Wall chamber and Water before stepping, and a changed world after 120 acknowledged native+fluid ticks. Snapshot display differs from initial state, as expected for a simulation.
-- First browser test incorrectly compared the restored *post-tick* scene to a *pre-tick* Wood measurement. The corrected test compares against a matching pre-export snapshot and requires byte-identical cell serialization after import; this remains to be requalified.
-- Artifact ID `13574329014` transferred successfully through the connected GitHub action into `/mnt/data` in ChatGPT. This proves artifact transport for this evidence ZIP, **not yet the compiled Web app ZIP**.
+- First browser test incorrectly compared restored *post-tick* Wood to a *pre-tick* measurement. The corrected test compares to the matching post-tick export and requires byte-identical cell serialization; this passed in run [42374743617](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42374743617).
+- The first evidence ZIP (artifact `13574329014`) transferred through the GitHub connector. Subsequently, both the compiled Web bundle ZIP and the successful browser-evidence ZIP transferred; file transfer is proven but local-browser navigation remains blocked.
 - Browser recording file remained zero bytes in the failed run because the script aborted before closing its Playwright context; a `finally` cleanup was added so failures also produce media and command history.
 
 ### Chat environment browser policy finding
 
-This session's Playwright/Chromium cannot open a local HTTP origin (`net::ERR_BLOCKED_BY_ADMINISTRATOR`), despite containing browser binaries and the successful GitHub Actions bundle. Do not attempt to evade platform policy or claim local play. **Use the dedicated GitHub-hosted session runner instead**, which executes the *real compiled original game* in Actions Chromium, reads only bounded `sessions/active.json`, and exports actual screenshots, cell inspections and video for transfer back into ChatGPT. A successful short smoke is required before treating this bridge as operational.
+This session's Playwright/Chromium cannot open a local HTTP origin (`net::ERR_BLOCKED_BY_ADMINISTRATOR`), despite containing browser binaries and the successful GitHub Actions bundle. Do not attempt to evade platform policy or claim local play. **Use the dedicated GitHub-hosted session runner instead**, which executes the *real compiled original game* in Actions Chromium, reads only bounded `sessions/active.json`, and exports actual screenshots, cell inspections and video for transfer back into ChatGPT. A successful short smoke and a 240-step authored woodland run have both been obtained; this bridge is operational for bounded batch sessions.
 
 ### Chat-triggered session evidence (2026-11-07)
 
 - **Source:** session branch `agent/sessions` commit `c7fdbbf9d8203f17e2c7e46771bc3a95f8108070`, same physics and app code as the implementation branch; only the session JSON differs.
 - **Execution:** GitHub Actions [run 42375727238](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42375727238); all 20 commands accepted, `ticks=240`, `page_errors=[]`; `cells_sha256=73e4814751b18c09e52bfaf8123834dd774c685cfd0e8e254ac28709b89a95c9`.
 - **Observed:** a Sand floor, two Wood trunks with branches, four Plant canopy patches, Seeds and Water. After 120 ticks, a native 100×100 inspection counted `Plant=1932`, `Wood=720`, `Empty=7348`; 120 further ticks showed additional hanging growth and a small flower. Actual screenshots and WebM uploaded as [artifact 13575348807](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42375727238/artifacts/13575348807); video also converted in ChatGPT to a 30.44-second MP4.
-- **Limitations:** this is programmatic drawing with structure and observation, not a mouse-equivalent test or a full garden/apparatus/fire experiment. Playwright video duration is **not** simulation time. Cell bytes alone do not preserve RNG, wind, burn or GPU fluid state; runs are independent unless command history is replayed. Browser bundle caching is introduced but has not yet demonstrated a cache hit.
+- **Limitations:** this is programmatic drawing with structure and observation, not a mouse-equivalent test or a full garden/apparatus/fire experiment. Playwright video duration is **not** simulation time. Cell bytes alone do not preserve RNG, wind, burn or GPU fluid state; runs are independent unless command history is replayed. Source-hashed browser bundle caching was subsequently shown to hit in [42376483034](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42376483034), skipping the expensive build steps.
 
 ## 7. Fallback and MCP roadmap
 
-The compiled artifact transferred successfully but local HTTP navigation was blocked by host policy. The tested fallback design uses authenticated GitHub connector writes to `sessions/active.json` on a dedicated `agent/sessions` branch. An allowlisted JSON document (at most 90 commands, 600 native ticks and 20 screenshots) triggers `.github/workflows/session-run.yml`, which builds upstream physics, executes a real Chromium session and returns typed action evidence and MP4/WebM recordings. It never evaluates input JavaScript, executes command-supplied shell, or visits user-supplied URLs. On each edit, update the single session JSON and use the returned artifact to decide the next command batch. Verify event triggering with an actual push. Avoid running one job per pixel.
+The compiled artifact transferred successfully but local HTTP navigation was blocked by host policy. The tested fallback design uses authenticated GitHub connector writes to `sessions/active.json` on a dedicated `agent/sessions` branch. An allowlisted JSON document (at most 90 commands, 600 native ticks and 20 screenshots) triggers `.github/workflows/session-run.yml`, which builds upstream physics, executes a real Chromium session and returns typed action evidence and MP4/WebM recordings. It never evaluates input JavaScript, executes command-supplied shell, or visits user-supplied URLs. On each edit, update the single session JSON and use the returned artifact to decide the next command batch. Authenticated GitHub edits triggering the dedicated branch workflow have been verified by actual successful runs. Avoid running one job per pixel.
 
 Later, an authenticated session service could present the same schema over an MCP server or ChatGPT plugin, **only after verifying write-tool access on this account**. Do not spend effort on a remote daemon before the Actions/browser capture path works. Greenshot-multibinds is optional for Windows desktop capture; Linux Playwright recording is the initial baseline.
 
@@ -128,7 +133,7 @@ Later, an authenticated session service could present the same schema over an MC
 
 ## 9. Codex operating handoff
 
-**Finish the vertical slice rather than invent new investigations.** First obtain a passing Actions build and real browser smoke video. Then test artifact materialization into ChatGPT and drive one actual observation/action pair locally. If impossible, implement the bounded Actions command fallback, with source-matched evidence. Maintain exact original simulation material behavior. Do not broaden into a standalone client architecture, new physics, speculative AI platform or unrelated features.
+**Next: independent review, then guarded integration.** The Actions build, Playwright smoke, artifact handoff, structured woodland and cached batch execution are proven. Refresh PR #1 and `agent/sessions` heads; review the browser adapter and the remote command/CI boundaries, repair only substantiated defects, then rerun the exact-head suite. Do not merge without explicit owner instruction. After that, attempt the full Luna challenge in both mouse-equivalent and structured authoring modes with recorded evidence and a fixed allowance ledger. Maintain unchanged native physics; do not broaden into an unrelated agent platform.
 
 **Progress record template:** `accepted source SHA / build run / bundle artifact / browser status / action+cell evidence / recording artifact / transfer result / blockers / next bounded action`. Update this RAG when evidence materially changes the decision.
 
