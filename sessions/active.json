@@ -1,27 +1,1051 @@
 {
   "format": "sandspiel-lab-session/v1",
-  "name": "bounded woodland and water experiment",
+  "name": "The Hollow Germination Shrine — source-informed Ashroot study v1",
   "persistCells": true,
   "commands": [
-    {"op":"reset", "capture":true, "label":"blank baseline"},
-    {"op":"rect", "material":"Sand", "x":0, "y":280, "width":300, "height":20, "capture":true, "label":"sandy ground"},
-    {"op":"line", "material":"Wood", "diameter":5, "from":{"x":80,"y":278}, "to":{"x":80,"y":145}, "label":"left trunk"},
-    {"op":"line", "material":"Wood", "diameter":5, "from":{"x":160,"y":278}, "to":{"x":160,"y":120}, "label":"main trunk"},
-    {"op":"line", "material":"Wood", "diameter":3, "from":{"x":80,"y":165}, "to":{"x":49,"y":149}},
-    {"op":"line", "material":"Wood", "diameter":3, "from":{"x":80,"y":170}, "to":{"x":114,"y":144}},
-    {"op":"line", "material":"Wood", "diameter":3, "from":{"x":160,"y":150}, "to":{"x":123,"y":129}},
-    {"op":"line", "material":"Wood", "diameter":3, "from":{"x":160,"y":149}, "to":{"x":195,"y":123}},
-    {"op":"paint", "material":"Plant", "x":49,"y":149,"diameter":29},
-    {"op":"paint", "material":"Plant", "x":114,"y":144,"diameter":33},
-    {"op":"paint", "material":"Plant", "x":123,"y":129,"diameter":33},
-    {"op":"paint", "material":"Plant", "x":195,"y":123,"diameter":33, "capture":true, "label":"initial canopy"},
-    {"op":"paint", "material":"Seed", "x":34,"y":273,"diameter":3},
-    {"op":"paint", "material":"Seed", "x":127,"y":275,"diameter":3},
-    {"op":"paint", "material":"Seed", "x":235,"y":274,"diameter":3},
-    {"op":"paint", "material":"Water", "x":40,"y":266,"diameter":13},
-    {"op":"paint", "material":"Water", "x":126,"y":264,"diameter":13},
-    {"op":"step", "ticks":120, "capture":true, "label":"growth test"},
-    {"op":"inspect", "x":50,"y":110,"width":100,"height":100, "label":"canopy census"},
-    {"op":"step", "ticks":120, "capture":true, "label":"second growth interval"}
+    {
+      "op": "reset",
+      "capture": true,
+      "label": "empty start"
+    },
+    {
+      "op": "rect",
+      "material": "Wall",
+      "x": 0,
+      "y": 0,
+      "width": 84,
+      "height": 12,
+      "fill": true
+    },
+    {
+      "op": "rect",
+      "material": "Wall",
+      "x": 0,
+      "y": 12,
+      "width": 54,
+      "height": 20,
+      "fill": true
+    },
+    {
+      "op": "rect",
+      "material": "Wall",
+      "x": 0,
+      "y": 32,
+      "width": 29,
+      "height": 26,
+      "fill": true
+    },
+    {
+      "op": "rect",
+      "material": "Wall",
+      "x": 221,
+      "y": 0,
+      "width": 79,
+      "height": 14,
+      "fill": true
+    },
+    {
+      "op": "rect",
+      "material": "Wall",
+      "x": 246,
+      "y": 14,
+      "width": 54,
+      "height": 19,
+      "fill": true
+    },
+    {
+      "op": "rect",
+      "material": "Wall",
+      "x": 271,
+      "y": 33,
+      "width": 29,
+      "height": 31,
+      "fill": true
+    },
+    {
+      "op": "rect",
+      "material": "Wall",
+      "x": 0,
+      "y": 290,
+      "width": 300,
+      "height": 10,
+      "fill": true
+    },
+    {
+      "op": "rect",
+      "material": "Wall",
+      "x": 0,
+      "y": 272,
+      "width": 81,
+      "height": 18,
+      "fill": true
+    },
+    {
+      "op": "rect",
+      "material": "Wall",
+      "x": 194,
+      "y": 281,
+      "width": 106,
+      "height": 9,
+      "fill": true
+    },
+    {
+      "op": "rect",
+      "material": "Wall",
+      "x": 0,
+      "y": 246,
+      "width": 22,
+      "height": 26,
+      "fill": true
+    },
+    {
+      "op": "rect",
+      "material": "Wall",
+      "x": 275,
+      "y": 252,
+      "width": 25,
+      "height": 29,
+      "fill": true
+    },
+    {
+      "op": "rect",
+      "material": "Wall",
+      "x": 7,
+      "y": 173,
+      "width": 71,
+      "height": 6,
+      "fill": true
+    },
+    {
+      "op": "rect",
+      "material": "Wall",
+      "x": 0,
+      "y": 209,
+      "width": 90,
+      "height": 7,
+      "fill": true
+    },
+    {
+      "op": "rect",
+      "material": "Wall",
+      "x": 22,
+      "y": 250,
+      "width": 60,
+      "height": 6,
+      "fill": true
+    },
+    {
+      "op": "rect",
+      "material": "Wall",
+      "x": 230,
+      "y": 176,
+      "width": 66,
+      "height": 6,
+      "fill": true
+    },
+    {
+      "op": "rect",
+      "material": "Wall",
+      "x": 206,
+      "y": 214,
+      "width": 55,
+      "height": 6,
+      "fill": true
+    },
+    {
+      "op": "rect",
+      "material": "Wall",
+      "x": 249,
+      "y": 251,
+      "width": 51,
+      "height": 6,
+      "fill": true
+    },
+    {
+      "op": "rect",
+      "material": "Wall",
+      "x": 26,
+      "y": 197,
+      "width": 24,
+      "height": 3,
+      "fill": true
+    },
+    {
+      "op": "rect",
+      "material": "Wall",
+      "x": 55,
+      "y": 199,
+      "width": 17,
+      "height": 3,
+      "fill": true
+    },
+    {
+      "op": "rect",
+      "material": "Wall",
+      "x": 229,
+      "y": 203,
+      "width": 22,
+      "height": 3,
+      "fill": true
+    },
+    {
+      "op": "rect",
+      "material": "Wall",
+      "x": 258,
+      "y": 207,
+      "width": 30,
+      "height": 3,
+      "fill": true
+    },
+    {
+      "op": "rect",
+      "material": "Wall",
+      "x": 224,
+      "y": 182,
+      "width": 7,
+      "height": 22,
+      "fill": true
+    },
+    {
+      "op": "rect",
+      "material": "Wall",
+      "x": 284,
+      "y": 182,
+      "width": 6,
+      "height": 24,
+      "fill": true
+    },
+    {
+      "op": "stroke",
+      "material": "Stone",
+      "diameter": 6,
+      "points": [
+        {
+          "x": 37,
+          "y": 46
+        },
+        {
+          "x": 53,
+          "y": 60
+        },
+        {
+          "x": 69,
+          "y": 74
+        },
+        {
+          "x": 84,
+          "y": 77
+        },
+        {
+          "x": 98,
+          "y": 91
+        }
+      ]
+    },
+    {
+      "op": "stroke",
+      "material": "Stone",
+      "diameter": 6,
+      "points": [
+        {
+          "x": 267,
+          "y": 50
+        },
+        {
+          "x": 244,
+          "y": 63
+        },
+        {
+          "x": 222,
+          "y": 79
+        },
+        {
+          "x": 206,
+          "y": 91
+        }
+      ]
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 8,
+      "points": [
+        {
+          "x": 30,
+          "y": 39
+        },
+        {
+          "x": 56,
+          "y": 60
+        },
+        {
+          "x": 82,
+          "y": 78
+        },
+        {
+          "x": 104,
+          "y": 88
+        },
+        {
+          "x": 121,
+          "y": 97
+        }
+      ]
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 7,
+      "points": [
+        {
+          "x": 263,
+          "y": 46
+        },
+        {
+          "x": 242,
+          "y": 65
+        },
+        {
+          "x": 218,
+          "y": 78
+        },
+        {
+          "x": 197,
+          "y": 96
+        }
+      ]
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 6,
+      "points": [
+        {
+          "x": 60,
+          "y": 67
+        },
+        {
+          "x": 70,
+          "y": 102
+        },
+        {
+          "x": 63,
+          "y": 134
+        },
+        {
+          "x": 50,
+          "y": 160
+        },
+        {
+          "x": 39,
+          "y": 172
+        }
+      ]
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 5,
+      "points": [
+        {
+          "x": 228,
+          "y": 75
+        },
+        {
+          "x": 221,
+          "y": 112
+        },
+        {
+          "x": 235,
+          "y": 148
+        },
+        {
+          "x": 248,
+          "y": 172
+        }
+      ]
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 79,
+          "y": 79
+        },
+        {
+          "x": 92,
+          "y": 113
+        },
+        {
+          "x": 96,
+          "y": 144
+        },
+        {
+          "x": 85,
+          "y": 171
+        }
+      ]
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 215,
+          "y": 81
+        },
+        {
+          "x": 201,
+          "y": 112
+        },
+        {
+          "x": 201,
+          "y": 143
+        },
+        {
+          "x": 214,
+          "y": 167
+        }
+      ]
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 5,
+      "points": [
+        {
+          "x": 121,
+          "y": 107
+        },
+        {
+          "x": 126,
+          "y": 91
+        },
+        {
+          "x": 139,
+          "y": 78
+        },
+        {
+          "x": 153,
+          "y": 73
+        },
+        {
+          "x": 171,
+          "y": 79
+        },
+        {
+          "x": 183,
+          "y": 91
+        }
+      ]
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 5,
+      "points": [
+        {
+          "x": 190,
+          "y": 102
+        },
+        {
+          "x": 192,
+          "y": 121
+        },
+        {
+          "x": 184,
+          "y": 137
+        },
+        {
+          "x": 174,
+          "y": 148
+        }
+      ]
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 5,
+      "points": [
+        {
+          "x": 160,
+          "y": 158
+        },
+        {
+          "x": 141,
+          "y": 155
+        },
+        {
+          "x": 128,
+          "y": 147
+        },
+        {
+          "x": 117,
+          "y": 133
+        }
+      ]
+    },
+    {
+      "op": "stroke",
+      "material": "Stone",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 136,
+          "y": 112
+        },
+        {
+          "x": 137,
+          "y": 101
+        },
+        {
+          "x": 147,
+          "y": 93
+        },
+        {
+          "x": 160,
+          "y": 94
+        },
+        {
+          "x": 174,
+          "y": 108
+        }
+      ]
+    },
+    {
+      "op": "stroke",
+      "material": "Stone",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 174,
+          "y": 119
+        },
+        {
+          "x": 167,
+          "y": 135
+        },
+        {
+          "x": 151,
+          "y": 141
+        },
+        {
+          "x": 138,
+          "y": 130
+        }
+      ]
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 6,
+      "points": [
+        {
+          "x": 150,
+          "y": 108
+        },
+        {
+          "x": 157,
+          "y": 112
+        },
+        {
+          "x": 163,
+          "y": 122
+        },
+        {
+          "x": 156,
+          "y": 137
+        },
+        {
+          "x": 150,
+          "y": 128
+        }
+      ]
+    },
+    {
+      "op": "line",
+      "material": "Wall",
+      "from": {
+        "x": 16,
+        "y": 178
+      },
+      "to": {
+        "x": 16,
+        "y": 208
+      },
+      "diameter": 3
+    },
+    {
+      "op": "line",
+      "material": "Wall",
+      "from": {
+        "x": 67,
+        "y": 178
+      },
+      "to": {
+        "x": 67,
+        "y": 208
+      },
+      "diameter": 3
+    },
+    {
+      "op": "line",
+      "material": "Wall",
+      "from": {
+        "x": 216,
+        "y": 217
+      },
+      "to": {
+        "x": 216,
+        "y": 247
+      },
+      "diameter": 3
+    },
+    {
+      "op": "line",
+      "material": "Ice",
+      "from": {
+        "x": 150,
+        "y": 101
+      },
+      "to": {
+        "x": 160,
+        "y": 98
+      },
+      "diameter": 3
+    },
+    {
+      "op": "line",
+      "material": "Ice",
+      "from": {
+        "x": 136,
+        "y": 91
+      },
+      "to": {
+        "x": 143,
+        "y": 85
+      },
+      "diameter": 2
+    },
+    {
+      "op": "line",
+      "material": "Ice",
+      "from": {
+        "x": 179,
+        "y": 140
+      },
+      "to": {
+        "x": 185,
+        "y": 133
+      },
+      "diameter": 2
+    },
+    {
+      "op": "line",
+      "material": "Wall",
+      "from": {
+        "x": 82,
+        "y": 176
+      },
+      "to": {
+        "x": 107,
+        "y": 167
+      },
+      "diameter": 3
+    },
+    {
+      "op": "line",
+      "material": "Wall",
+      "from": {
+        "x": 115,
+        "y": 165
+      },
+      "to": {
+        "x": 134,
+        "y": 161
+      },
+      "diameter": 3
+    },
+    {
+      "op": "line",
+      "material": "Wall",
+      "from": {
+        "x": 175,
+        "y": 164
+      },
+      "to": {
+        "x": 194,
+        "y": 168
+      },
+      "diameter": 3
+    },
+    {
+      "op": "line",
+      "material": "Wall",
+      "from": {
+        "x": 205,
+        "y": 176
+      },
+      "to": {
+        "x": 228,
+        "y": 178
+      },
+      "diameter": 3
+    },
+    {
+      "op": "line",
+      "material": "Stone",
+      "from": {
+        "x": 38,
+        "y": 191
+      },
+      "to": {
+        "x": 38,
+        "y": 196
+      },
+      "diameter": 2
+    },
+    {
+      "op": "line",
+      "material": "Stone",
+      "from": {
+        "x": 45,
+        "y": 191
+      },
+      "to": {
+        "x": 45,
+        "y": 197
+      },
+      "diameter": 2
+    },
+    {
+      "op": "line",
+      "material": "Stone",
+      "from": {
+        "x": 235,
+        "y": 195
+      },
+      "to": {
+        "x": 235,
+        "y": 202
+      },
+      "diameter": 2
+    },
+    {
+      "op": "line",
+      "material": "Stone",
+      "from": {
+        "x": 244,
+        "y": 196
+      },
+      "to": {
+        "x": 244,
+        "y": 203
+      },
+      "diameter": 2
+    },
+    {
+      "op": "line",
+      "material": "Wall",
+      "from": {
+        "x": 87,
+        "y": 251
+      },
+      "to": {
+        "x": 112,
+        "y": 242
+      },
+      "diameter": 3
+    },
+    {
+      "op": "line",
+      "material": "Wall",
+      "from": {
+        "x": 135,
+        "y": 237
+      },
+      "to": {
+        "x": 153,
+        "y": 244
+      },
+      "diameter": 3
+    },
+    {
+      "op": "line",
+      "material": "Wall",
+      "from": {
+        "x": 170,
+        "y": 244
+      },
+      "to": {
+        "x": 189,
+        "y": 237
+      },
+      "diameter": 3
+    },
+    {
+      "op": "line",
+      "material": "Wall",
+      "from": {
+        "x": 201,
+        "y": 243
+      },
+      "to": {
+        "x": 201,
+        "y": 278
+      },
+      "diameter": 5
+    },
+    {
+      "op": "line",
+      "material": "Wall",
+      "from": {
+        "x": 201,
+        "y": 278
+      },
+      "to": {
+        "x": 270,
+        "y": 278
+      },
+      "diameter": 5
+    },
+    {
+      "op": "line",
+      "material": "Wall",
+      "from": {
+        "x": 270,
+        "y": 278
+      },
+      "to": {
+        "x": 270,
+        "y": 244
+      },
+      "diameter": 5
+    },
+    {
+      "op": "line",
+      "material": "Wall",
+      "from": {
+        "x": 202,
+        "y": 244
+      },
+      "to": {
+        "x": 215,
+        "y": 244
+      },
+      "diameter": 3
+    },
+    {
+      "op": "line",
+      "material": "Wall",
+      "from": {
+        "x": 257,
+        "y": 244
+      },
+      "to": {
+        "x": 269,
+        "y": 244
+      },
+      "diameter": 3
+    },
+    {
+      "op": "paint",
+      "material": "Ice",
+      "x": 155,
+      "y": 116,
+      "diameter": 5
+    },
+    {
+      "op": "paint",
+      "material": "Ice",
+      "x": 148,
+      "y": 139,
+      "diameter": 3
+    },
+    {
+      "op": "paint",
+      "material": "Ice",
+      "x": 42,
+      "y": 186,
+      "diameter": 3
+    },
+    {
+      "op": "paint",
+      "material": "Ice",
+      "x": 245,
+      "y": 188,
+      "diameter": 3
+    },
+    {
+      "op": "paint",
+      "material": "Water",
+      "x": 233,
+      "y": 227,
+      "diameter": 17
+    },
+    {
+      "op": "paint",
+      "material": "Water",
+      "x": 251,
+      "y": 231,
+      "diameter": 15
+    },
+    {
+      "op": "paint",
+      "material": "Water",
+      "x": 260,
+      "y": 224,
+      "diameter": 11
+    },
+    {
+      "op": "paint",
+      "material": "Seed",
+      "x": 50,
+      "y": 166,
+      "diameter": 5
+    },
+    {
+      "op": "paint",
+      "material": "Seed",
+      "x": 80,
+      "y": 208,
+      "diameter": 5
+    },
+    {
+      "op": "paint",
+      "material": "Seed",
+      "x": 238,
+      "y": 168,
+      "diameter": 5
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 49,
+      "y": 161,
+      "diameter": 17
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 77,
+      "y": 185,
+      "diameter": 11
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 235,
+      "y": 166,
+      "diameter": 14
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 229,
+      "y": 201,
+      "diameter": 11
+    },
+    {
+      "op": "paint",
+      "material": "Fungus",
+      "x": 100,
+      "y": 110,
+      "diameter": 11
+    },
+    {
+      "op": "paint",
+      "material": "Fungus",
+      "x": 210,
+      "y": 116,
+      "diameter": 9
+    },
+    {
+      "op": "paint",
+      "material": "Fungus",
+      "x": 64,
+      "y": 239,
+      "diameter": 11
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 145,
+      "y": 136,
+      "diameter": 8
+    },
+    {
+      "op": "paint",
+      "material": "Dust",
+      "x": 89,
+      "y": 236,
+      "diameter": 7
+    },
+    {
+      "op": "inspect",
+      "x": 105,
+      "y": 70,
+      "width": 95,
+      "height": 100,
+      "capture": true,
+      "label": "authored seed-crown inspection"
+    },
+    {
+      "op": "step",
+      "ticks": 45,
+      "capture": true,
+      "label": "first growth and settling"
+    },
+    {
+      "op": "step",
+      "ticks": 75,
+      "capture": true,
+      "label": "growth after 120 steps"
+    },
+    {
+      "op": "inspect",
+      "x": 195,
+      "y": 165,
+      "width": 95,
+      "height": 125,
+      "label": "eastern cistern census"
+    },
+    {
+      "op": "step",
+      "ticks": 120,
+      "capture": true,
+      "label": "evolution 240 steps"
+    },
+    {
+      "op": "step",
+      "ticks": 120,
+      "capture": true,
+      "label": "evolution 360 steps"
+    },
+    {
+      "op": "step",
+      "ticks": 120,
+      "capture": true,
+      "label": "late evolution 480 steps"
+    },
+    {
+      "op": "inspect",
+      "x": 105,
+      "y": 70,
+      "width": 95,
+      "height": 100,
+      "label": "late central crown census"
+    },
+    {
+      "op": "inspect",
+      "x": 195,
+      "y": 165,
+      "width": 95,
+      "height": 125,
+      "label": "late cistern census"
+    }
   ]
 }
