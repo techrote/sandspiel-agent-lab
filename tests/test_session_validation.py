@@ -72,6 +72,31 @@ class SessionValidationTests(unittest.TestCase):
             self.assertEqual(report["ticks"], 0)
             self.assertEqual(json.loads((output / "session.json").read_text(encoding="utf-8")), [])
 
+    def test_bounded_native_resumes_share_the_600_tick_budget(self):
+        self.validate([{"op":"resume","ticks":240},{"op":"pause"},
+                       {"op":"resume","ticks":240},{"op":"pause"},{"op":"step","ticks":120}])
+        self.refuse([{"op":"resume","ticks":240} for _ in range(3)],"budget exceeded")
+        self.refuse([{"op":"resume"}],"ticks must")
+        self.refuse([{"op":"resume","ticks":True}],"ticks must")
+
+    def test_progressive_options_and_presentation_budget(self):
+        mode={"mode":"paced","fps":12,"stampsPerFrame":12}
+        self.validate([{"op":"rect","material":"Sand","x":1,"y":1,"width":30,"height":20}],
+                      recording=mode)
+        self.refuse([{"op":"paint","material":"Wood","x":2,"y":2}],
+                    "recording fps",recording={**mode,"fps":True})
+        self.refuse([{"op":"paint","material":"Wood","x":2,"y":2}],
+                    "unknown recording mode",recording={**mode,"mode":"other"})
+        self.refuse([{"op":"paint","material":"Wood","x":2,"y":2}],
+                    "stampsPerFrame",recording={**mode,"stampsPerFrame":0})
+        self.refuse([{"op":"rect","material":"Sand","x":0,"y":0,"width":200,"height":30}
+                     for _ in range(5)],"presentation frame budget",
+                    recording={**mode,"stampsPerFrame":1})
+
+    def test_boundary_capture_budget(self):
+        self.refuse([{"op":"resume","ticks":1} for _ in range(19)],
+                    "capture budget exceeded")
+
 
 if __name__ == "__main__":
     unittest.main()

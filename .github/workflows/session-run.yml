@@ -1,10 +1,15 @@
 name: Agent Lab - bounded JSON authoring session
 on:
   push:
-    branches: [agent/sessions]
+    branches: [agent/sessions, feat/agent-lab-round2-capture, 'agent/experiments/round2-*']
     paths:
       - sessions/active.json
       - scripts/run_session.py
+      - scripts/recording_integrity.py
+      - js/agentLab.js
+      - js/agentCapture.js
+      - js/index.js
+      - sessions/round2-acceptance.json
       - .github/workflows/session-run.yml
   workflow_dispatch:
 permissions:
@@ -50,10 +55,24 @@ jobs:
       - run: |
           python3 -m pip install 'playwright==1.56.0'
           python3 -m playwright install --with-deps chromium
+      - name: Confirm real-video verification tools
+        run: command -v ffprobe && command -v ffmpeg
+      - name: Test native adapter with progressive painting
+        run: node --test tests/agentLab.test.mjs
       - name: Unit test bounded session preflight and refusal evidence
         run: python3 -m unittest discover -s tests -p "test_session_*.py" -v
+      - name: Select a fixed bounded scenario (no untrusted file path input)
+        id: scenario
+        env:
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          if [[ "$REF_NAME" == "feat/agent-lab-round2-capture" ]]; then
+            echo "path=sessions/round2-acceptance.json" >> "$GITHUB_OUTPUT"
+          else
+            echo "path=sessions/active.json" >> "$GITHUB_OUTPUT"
+          fi
       - name: Execute only the JSON allowlist against real Sandspiel
-        run: python3 scripts/run_session.py --commands sessions/active.json --dist dist --out evidence/session
+        run: python3 scripts/run_session.py --commands "${{ steps.scenario.outputs.path }}" --dist dist --out evidence/session
       - name: Upload observations and genuine video
         if: always()
         uses: actions/upload-artifact@v4
