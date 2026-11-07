@@ -1,0 +1,106 @@
+{
+  "name": "garden-smoke",
+  "description": "Minimal direct-world editing and growth experiment on the actual native Sandspiel engine",
+  "commands": [
+    {
+      "op": "rect",
+      "material": "Sand",
+      "x": 4,
+      "y": 270,
+      "width": 145,
+      "height": 28,
+      "fill": true
+    },
+    {
+      "op": "rect",
+      "material": "Sand",
+      "x": 149,
+      "y": 270,
+      "width": 145,
+      "height": 28,
+      "fill": true
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "from": {
+        "x": 66,
+        "y": 268
+      },
+      "to": {
+        "x": 64,
+        "y": 160
+      },
+      "diameter": 5
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "from": {
+        "x": 65,
+        "y": 188
+      },
+      "to": {
+        "x": 35,
+        "y": 156
+      },
+      "diameter": 3
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "from": {
+        "x": 65,
+        "y": 188
+      },
+      "to": {
+        "x": 94,
+        "y": 152
+      },
+      "diameter": 3
+    },
+    {
+      "op": "paint",
+      "material": "Seed",
+      "x": 130,
+      "y": 260,
+      "diameter": 12
+    },
+    {
+      "op": "paint",
+      "material": "Water",
+      "x": 135,
+      "y": 251,
+      "diameter": 9
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 56,
+      "y": 158,
+      "diameter": 24
+    },
+    {
+      "op": "capture",
+      "label": "authored"
+    },
+    {
+      "op": "step",
+      "ticks": 120
+    },
+    {
+      "op": "capture",
+      "label": "evolved"
+    },
+    {
+      "op": "inspect",
+      "x": 25,
+      "y": 140,
+      "width": 100,
+      "height": 100
+    },
+    {
+      "op": "exportCells"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+name: Sandspiel Lab - bounded remote gameplay
+on:
+  push:
+    branches: ['feat/agent-lab-actions-driver', 'session/**']
+    paths: ['sessions/**', 'scripts/agent_play.py', '.github/workflows/lab-play.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: sandspiel-remote-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  play:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download known-good compiled native Web bundle
+        uses: actions/download-artifact@v4
+        with:
+          name: sandspiel-agent-lab-web-fb0b372764f2520c723338aafeae41a3bd8b9a53
+          run-id: 42374743617
+          github-token: ${{ github.token }}
+          path: dist
+      - name: Verify browser runtime is present
+        run: |
+          test -s dist/agent.html
+          test -s dist/index.html
+          find dist -name '*.wasm' -size +0c | grep .
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Playwright and native browser dependencies
+        run: |
+          python -m pip install 'playwright==1.56.0'
+          python -m playwright install --with-deps chromium
+      - name: Run bounded Sandspiel scene and capture video
+        run: |
+          python -m http.server 8765 --bind 127.0.0.1 --directory dist > /tmp/agent-play-http.log 2>&1 &
+          python scripts/agent_play.py --scenario sessions/garden-smoke.json --url http://127.0.0.1:8765/agent.html --out evidence/remote-session
+      - name: Preserve server log
+        if: always()
+        run: |
+          mkdir -p evidence/remote-session
+          cp /tmp/agent-play-http.log evidence/remote-session/http.log 2>/dev/null || true
+      - name: Upload genuine run evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sandspiel-agent-scene-${{ github.run_id }}
+          path: evidence/
+          if-no-files-found: warn
+          retention-days: 14
