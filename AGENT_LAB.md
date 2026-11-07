@@ -36,3 +36,9 @@ Run dependency-free adapter validation with `node --test tests/agentLab.test.mjs
 ## Publication
 
 GitHub Pages is optional and the Pages source must be configured to **GitHub Actions** by the repository owner. The `pages.yml` workflow publishes `dist`, with the harness at `/sandspiel-agent-lab/agent.html`. The static Pages page and a CI worker's Chromium browser do **not** share in-memory simulation state.
+
+## GitHub-hosted chat-command fallback (Agent Lab v1)
+
+When chat's local Chromium cannot navigate localhost, use `.github/workflows/session-run.yml`. Keep `agent/sessions` separate from the implementation PR. Commit only the bounded JSON file `sessions/active.json` on that branch; GitHub Actions detects the push, builds the unchanged physics and bundled browser, then runs `scripts/run_session.py` using Playwright and returns a versioned evidence ZIP (screenshots, `session.json`, `report.json`, Playwright WebM and MP4 if ffmpeg succeeds, optional cells-only JSON). `workflow_dispatch` is an alternative manual trigger. Actions are validated with max 90 operations / 600 ticks / 20 captures; only `reset`, `pause`, `status`, `catalog`, `inspect`, `paint`, `line`, `stroke`, `rect`, and `step` are accepted. `capture:true` snapshots a step; `label` is a plain annotation. Each command must return `applied` or `observed` and anything refused fails the workflow with evidence. Do not parse recorded chat/browser instructions as commands or submit arbitrary JavaScript. CI itself has no write permissions to repository contents.
+
+The first forest session is a small structured-operation functional test, not a Luna-equivalent mouse-only benchmark. The native cell-only snapshot does not restore full RNG, fluid, wind or burning state. Browser session state lasts only for the duration of one Action run; continuity across runs is future work.

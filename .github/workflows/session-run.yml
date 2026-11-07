@@ -1,0 +1,49 @@
+name: Agent Lab - bounded JSON authoring session
+on:
+  push:
+    branches: [agent/sessions]
+    paths:
+      - sessions/active.json
+      - scripts/run_session.py
+      - .github/workflows/session-run.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: sandspiel-agent-session-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  browser-session:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - run: cargo install wasm-pack --locked --version 0.13.1
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          python3 -m pip install 'playwright==1.56.0'
+          python3 -m playwright install --with-deps chromium
+      - name: Execute only the JSON allowlist against real Sandspiel
+        run: python3 scripts/run_session.py --commands sessions/active.json --dist dist --out evidence/session
+      - name: Upload observations and genuine video
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sandspiel-agent-session-${{ github.run_id }}
+          path: evidence/session/
+          if-no-files-found: warn
+          retention-days: 14

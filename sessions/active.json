@@ -1,0 +1,27 @@
+{
+  "format": "sandspiel-lab-session/v1",
+  "name": "bounded woodland and water experiment",
+  "persistCells": true,
+  "commands": [
+    {"op":"reset", "capture":true, "label":"blank baseline"},
+    {"op":"rect", "material":"Sand", "x":0, "y":280, "width":300, "height":20, "capture":true, "label":"sandy ground"},
+    {"op":"line", "material":"Wood", "diameter":5, "from":{"x":80,"y":278}, "to":{"x":80,"y":145}, "label":"left trunk"},
+    {"op":"line", "material":"Wood", "diameter":5, "from":{"x":160,"y":278}, "to":{"x":160,"y":120}, "label":"main trunk"},
+    {"op":"line", "material":"Wood", "diameter":3, "from":{"x":80,"y":165}, "to":{"x":49,"y":149}},
+    {"op":"line", "material":"Wood", "diameter":3, "from":{"x":80,"y":170}, "to":{"x":114,"y":144}},
+    {"op":"line", "material":"Wood", "diameter":3, "from":{"x":160,"y":150}, "to":{"x":123,"y":129}},
+    {"op":"line", "material":"Wood", "diameter":3, "from":{"x":160,"y":149}, "to":{"x":195,"y":123}},
+    {"op":"paint", "material":"Plant", "x":49,"y":149,"diameter":29},
+    {"op":"paint", "material":"Plant", "x":114,"y":144,"diameter":33},
+    {"op":"paint", "material":"Plant", "x":123,"y":129,"diameter":33},
+    {"op":"paint", "material":"Plant", "x":195,"y":123,"diameter":33, "capture":true, "label":"initial canopy"},
+    {"op":"paint", "material":"Seed", "x":34,"y":273,"diameter":3},
+    {"op":"paint", "material":"Seed", "x":127,"y":275,"diameter":3},
+    {"op":"paint", "material":"Seed", "x":235,"y":274,"diameter":3},
+    {"op":"paint", "material":"Water", "x":40,"y":266,"diameter":13},
+    {"op":"paint", "material":"Water", "x":126,"y":264,"diameter":13},
+    {"op":"step", "ticks":120, "capture":true, "label":"growth test"},
+    {"op":"inspect", "x":50,"y":110,"width":100,"height":100, "label":"canopy census"},
+    {"op":"step", "ticks":120, "capture":true, "label":"second growth interval"}
+  ]
+}
