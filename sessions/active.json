@@ -1,6 +1,6 @@
 {
   "format": "sandspiel-lab-session/v1",
-  "name": "The Hollow Germination Shrine — revised after inspected native receipts: carved crypts, effective growth, lantern, constrained drip",
+  "name": "The Hollow Germination Shrine — finished observed and refined experiment, source-matched biological and cistern inspections",
   "persistCells": true,
   "commands": [
     {
@@ -1536,27 +1536,23 @@
       "diameter": 7,
       "points": [
         {
-          "x": 3,
-          "y": 234
+          "x": 86,
+          "y": 230
         },
         {
-          "x": 17,
-          "y": 232
-        },
-        {
-          "x": 29,
+          "x": 101,
           "y": 233
         },
         {
-          "x": 42,
-          "y": 239
+          "x": 118,
+          "y": 236
         },
         {
-          "x": 55,
-          "y": 233
+          "x": 131,
+          "y": 238
         }
       ],
-      "label": "Revision: exposed loose limestone on western shelf"
+      "label": "Final refinement: observable talus on the sanctuary floor"
     },
     {
       "op": "stroke",
@@ -1726,10 +1722,10 @@
     {
       "op": "paint",
       "material": "Seed",
-      "x": 31,
-      "y": 82,
+      "x": 54,
+      "y": 87,
       "diameter": 3,
-      "label": "Revision: viable seed in first cultivation bed"
+      "label": "Final refinement: viable seed above the first agricultural shelf"
     },
     {
       "op": "paint",
@@ -1907,10 +1903,10 @@
     },
     {
       "op": "inspect",
-      "x": 108,
-      "y": 78,
+      "x": 105,
+      "y": 70,
       "width": 90,
-      "height": 97,
+      "height": 105,
       "label": "Relic census tick 48"
     },
     {
@@ -1921,10 +1917,10 @@
     },
     {
       "op": "inspect",
-      "x": 221,
-      "y": 188,
-      "width": 74,
-      "height": 60,
+      "x": 223,
+      "y": 184,
+      "width": 70,
+      "height": 62,
       "label": "Cistern census tick 144"
     },
     {
@@ -1935,10 +1931,10 @@
     },
     {
       "op": "inspect",
-      "x": 4,
-      "y": 78,
+      "x": 0,
+      "y": 80,
       "width": 95,
-      "height": 98,
+      "height": 102,
       "label": "Terraces census tick 264"
     },
     {
@@ -1949,10 +1945,10 @@
     },
     {
       "op": "inspect",
-      "x": 109,
-      "y": 75,
-      "width": 95,
-      "height": 100,
+      "x": 105,
+      "y": 70,
+      "width": 90,
+      "height": 105,
       "label": "Relic census tick 384"
     }
   ]
