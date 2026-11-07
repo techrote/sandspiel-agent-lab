@@ -65,7 +65,7 @@ class Index extends React.Component {
 
     this.state = {
       submissionMenuOpen: false,
-      paused: false,
+      paused: Boolean(window.paused),
       submitting: false,
       size: 2,
       dataURL: {},
@@ -321,6 +321,7 @@ class Index extends React.Component {
     universe.push_undo();
 
     this.pause();
+    window.agentLab?.notifyManualEdit();
   }
 
   load() {
@@ -397,6 +398,7 @@ class Index extends React.Component {
                   universe.flush_undos();
                   universe.push_undo();
                   this.pause();
+                  window.agentLab?.notifyManualEdit();
                 };
               })
               .catch((error) => console.error("Error:", error));

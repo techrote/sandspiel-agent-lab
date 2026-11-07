@@ -20,11 +20,13 @@ module.exports = (env, argv) => {
     new CopyWebpackPlugin({
       patterns: [
         "js/styles.css",
+        "js/agent.css",
         "manifest.json",
         { from: "assets/*" },
       ],
     }),
     new HtmlWebpackPlugin({ template: "index.html" }),
+    new HtmlWebpackPlugin({ template: "agent.html", filename: "agent.html" }),
   ];
 
   // Only add service worker in production to avoid watch mode warnings
@@ -57,7 +59,7 @@ module.exports = (env, argv) => {
     output: {
       path: dist,
       filename: "[name].[contenthash].js",
-      publicPath: "/",
+      publicPath: "auto",
     },
     devServer: {
       static: dist,

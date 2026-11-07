@@ -1,4 +1,5 @@
 let resize = () => {
+  if (window.location.pathname.endsWith("/agent.html")) return;
   const canvas = document.getElementById("sand-canvas");
   const canvas2 = document.getElementById("fluid-canvas");
   const ui = document.getElementById("ui");

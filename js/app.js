@@ -58,6 +58,8 @@ function AppRouter() {
   );
 }
 
-ReactDOM.render(<AppRouter />, document.getElementById("ui"));
+if (!window.location.pathname.endsWith("/agent.html")) {
+  ReactDOM.render(<AppRouter />, document.getElementById("ui"));
+}
 
 export { sizeMap };

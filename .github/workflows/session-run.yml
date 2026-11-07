@@ -1,0 +1,64 @@
+name: Agent Lab - bounded JSON authoring session
+on:
+  push:
+    branches: [agent/sessions]
+    paths:
+      - sessions/active.json
+      - scripts/run_session.py
+      - .github/workflows/session-run.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: sandspiel-agent-session-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  browser-session:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      # Cache the *compiled* app by source identity. JSON session updates do not invalidate it.
+      - name: Restore source-matched browser bundle
+        id: browser-cache
+        uses: actions/cache@v4
+        with:
+          path: dist
+          key: sandspiel-agent-dist-v2-${{ runner.os }}-${{ hashFiles('crate/src/**/*.rs', 'crate/Cargo.toml', 'crate/Cargo.lock', 'crate/.cargo/config.toml', '.babelrc', 'js/**/*', 'webpack.config.js', 'package.json', 'pnpm-lock.yaml', 'index.html', 'agent.html', 'assets/**/*', 'manifest.json') }}
+      - uses: pnpm/action-setup@v4
+        if: steps.browser-cache.outputs.cache-hit != 'true'
+        with:
+          version: 9.15.9
+      - uses: actions/setup-node@v4
+        if: steps.browser-cache.outputs.cache-hit != 'true'
+        with:
+          node-version: '22'
+          cache: pnpm
+      - uses: dtolnay/rust-toolchain@stable
+        if: steps.browser-cache.outputs.cache-hit != 'true'
+        with:
+          targets: wasm32-unknown-unknown
+      - run: cargo install wasm-pack --locked --version 0.13.1
+        if: steps.browser-cache.outputs.cache-hit != 'true'
+      - run: pnpm install --frozen-lockfile
+        if: steps.browser-cache.outputs.cache-hit != 'true'
+      - run: pnpm run build
+        if: steps.browser-cache.outputs.cache-hit != 'true'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          python3 -m pip install 'playwright==1.56.0'
+          python3 -m playwright install --with-deps chromium
+      - name: Unit test bounded session preflight and refusal evidence
+        run: python3 -m unittest discover -s tests -p "test_session_*.py" -v
+      - name: Execute only the JSON allowlist against real Sandspiel
+        run: python3 scripts/run_session.py --commands sessions/active.json --dist dist --out evidence/session
+      - name: Upload observations and genuine video
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sandspiel-agent-session-${{ github.run_id }}
+          path: evidence/session/
+          if-no-files-found: warn
+          retention-days: 14
