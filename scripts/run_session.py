@@ -335,10 +335,30 @@ def main():
             (out / "video-metadata.json").write_text(json.dumps(metadata, indent=2), encoding="utf-8")
             (out / "recording-integrity.json").write_text(json.dumps(integrity, indent=2), encoding="utf-8")
             if not failure and shutil.which("ffmpeg"):
+                # MediaRecorder WebM commonly advertises r_frame_rate=1000/1
+                # despite only producing ~8 real frames/second. Without VFR,
+                # ffmpeg may silently generate >60,000 duplicated MP4 frames.
                 subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i",
-                                str(out / "recording.webm"), "-c:v", "libx264",
-                                "-pix_fmt", "yuv420p", str(out / "recording.mp4")],
-                               timeout=60, check=False)
+                                str(out / "recording.webm"), "-fps_mode", "vfr",
+                                "-c:v", "libx264", "-pix_fmt", "yuv420p",
+                                str(out / "recording.mp4")],
+                               timeout=60, check=True)
+                mp4_probe = subprocess.run([
+                    "ffprobe", "-v", "error", "-count_frames", "-select_streams", "v:0",
+                    "-show_entries", "stream=nb_read_frames", "-of", "json",
+                    str(out / "recording.mp4")],
+                    text=True, capture_output=True, timeout=60, check=True)
+                mp4_streams = json.loads(mp4_probe.stdout).get("streams", [])
+                require(len(mp4_streams) == 1 and
+                        abs(int(mp4_streams[0]["nb_read_frames"]) -
+                            metadata["decoded_frame_count"]) <= 2,
+                        "MP4 frame count differs from captured WebM; refuse duplicated-frame conversion")
+                report["mp4_conversion"] = {
+                    "method": "VFR H.264 transcode of actual canvas WebM",
+                    "decoded_frame_count": int(mp4_streams[0]["nb_read_frames"]),
+                    "source_frames": metadata["decoded_frame_count"],
+                    "no_upsampled_frames": True,
+                }
         except Exception as error:
             report["integrity_error"] = repr(error)
             if failure is None: failure = error
