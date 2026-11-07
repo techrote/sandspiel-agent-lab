@@ -1,6 +1,6 @@
 {
   "format": "sandspiel-lab-session/v1",
-  "name": "The Hollow Germination Shrine — source-informed Ashroot study v1",
+  "name": "The Hollow Germination Shrine — informed interpretation v2 (undercroft and stratification)",
   "persistCells": true,
   "commands": [
     {
@@ -159,42 +159,6 @@
       "y": 251,
       "width": 51,
       "height": 6,
-      "fill": true
-    },
-    {
-      "op": "rect",
-      "material": "Wall",
-      "x": 26,
-      "y": 197,
-      "width": 24,
-      "height": 3,
-      "fill": true
-    },
-    {
-      "op": "rect",
-      "material": "Wall",
-      "x": 55,
-      "y": 199,
-      "width": 17,
-      "height": 3,
-      "fill": true
-    },
-    {
-      "op": "rect",
-      "material": "Wall",
-      "x": 229,
-      "y": 203,
-      "width": 22,
-      "height": 3,
-      "fill": true
-    },
-    {
-      "op": "rect",
-      "material": "Wall",
-      "x": 258,
-      "y": 207,
-      "width": 30,
-      "height": 3,
       "fill": true
     },
     {
@@ -697,58 +661,6 @@
     },
     {
       "op": "line",
-      "material": "Stone",
-      "from": {
-        "x": 38,
-        "y": 191
-      },
-      "to": {
-        "x": 38,
-        "y": 196
-      },
-      "diameter": 2
-    },
-    {
-      "op": "line",
-      "material": "Stone",
-      "from": {
-        "x": 45,
-        "y": 191
-      },
-      "to": {
-        "x": 45,
-        "y": 197
-      },
-      "diameter": 2
-    },
-    {
-      "op": "line",
-      "material": "Stone",
-      "from": {
-        "x": 235,
-        "y": 195
-      },
-      "to": {
-        "x": 235,
-        "y": 202
-      },
-      "diameter": 2
-    },
-    {
-      "op": "line",
-      "material": "Stone",
-      "from": {
-        "x": 244,
-        "y": 196
-      },
-      "to": {
-        "x": 244,
-        "y": 203
-      },
-      "diameter": 2
-    },
-    {
-      "op": "line",
       "material": "Wall",
       "from": {
         "x": 87,
@@ -867,20 +779,6 @@
     },
     {
       "op": "paint",
-      "material": "Ice",
-      "x": 42,
-      "y": 186,
-      "diameter": 3
-    },
-    {
-      "op": "paint",
-      "material": "Ice",
-      "x": 245,
-      "y": 188,
-      "diameter": 3
-    },
-    {
-      "op": "paint",
       "material": "Water",
       "x": 233,
       "y": 227,
@@ -982,6 +880,254 @@
       "material": "Dust",
       "x": 89,
       "y": 236,
+      "diameter": 7
+    },
+    {
+      "op": "stroke",
+      "material": "Stone",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 8,
+          "y": 67
+        },
+        {
+          "x": 19,
+          "y": 60
+        },
+        {
+          "x": 27,
+          "y": 49
+        },
+        {
+          "x": 43,
+          "y": 43
+        },
+        {
+          "x": 54,
+          "y": 34
+        },
+        {
+          "x": 70,
+          "y": 27
+        },
+        {
+          "x": 85,
+          "y": 20
+        }
+      ]
+    },
+    {
+      "op": "stroke",
+      "material": "Stone",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 215,
+          "y": 22
+        },
+        {
+          "x": 231,
+          "y": 25
+        },
+        {
+          "x": 247,
+          "y": 37
+        },
+        {
+          "x": 264,
+          "y": 48
+        },
+        {
+          "x": 285,
+          "y": 65
+        }
+      ]
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 95,
+          "y": 278
+        },
+        {
+          "x": 95,
+          "y": 254
+        },
+        {
+          "x": 103,
+          "y": 249
+        },
+        {
+          "x": 123,
+          "y": 249
+        },
+        {
+          "x": 132,
+          "y": 259
+        },
+        {
+          "x": 132,
+          "y": 278
+        }
+      ]
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 154,
+          "y": 277
+        },
+        {
+          "x": 158,
+          "y": 262
+        },
+        {
+          "x": 158,
+          "y": 247
+        },
+        {
+          "x": 172,
+          "y": 243
+        },
+        {
+          "x": 187,
+          "y": 251
+        },
+        {
+          "x": 187,
+          "y": 278
+        }
+      ]
+    },
+    {
+      "op": "stroke",
+      "material": "Stone",
+      "diameter": 2,
+      "points": [
+        {
+          "x": 104,
+          "y": 269
+        },
+        {
+          "x": 108,
+          "y": 265
+        },
+        {
+          "x": 108,
+          "y": 259
+        },
+        {
+          "x": 118,
+          "y": 259
+        },
+        {
+          "x": 122,
+          "y": 268
+        }
+      ]
+    },
+    {
+      "op": "stroke",
+      "material": "Stone",
+      "diameter": 2,
+      "points": [
+        {
+          "x": 165,
+          "y": 269
+        },
+        {
+          "x": 165,
+          "y": 252
+        },
+        {
+          "x": 172,
+          "y": 251
+        },
+        {
+          "x": 178,
+          "y": 263
+        },
+        {
+          "x": 184,
+          "y": 260
+        }
+      ]
+    },
+    {
+      "op": "stroke",
+      "material": "Ice",
+      "diameter": 2,
+      "points": [
+        {
+          "x": 129,
+          "y": 99
+        },
+        {
+          "x": 134,
+          "y": 92
+        },
+        {
+          "x": 137,
+          "y": 85
+        },
+        {
+          "x": 143,
+          "y": 80
+        }
+      ]
+    },
+    {
+      "op": "stroke",
+      "material": "Ice",
+      "diameter": 2,
+      "points": [
+        {
+          "x": 176,
+          "y": 134
+        },
+        {
+          "x": 182,
+          "y": 138
+        },
+        {
+          "x": 187,
+          "y": 132
+        }
+      ]
+    },
+    {
+      "op": "paint",
+      "material": "Sand",
+      "x": 49,
+      "y": 195,
+      "diameter": 11
+    },
+    {
+      "op": "paint",
+      "material": "Sand",
+      "x": 238,
+      "y": 198,
+      "diameter": 9
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 112,
+      "y": 251,
+      "diameter": 8
+    },
+    {
+      "op": "paint",
+      "material": "Fungus",
+      "x": 174,
+      "y": 258,
       "diameter": 7
     },
     {
