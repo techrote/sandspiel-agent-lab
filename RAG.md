@@ -3,7 +3,7 @@
 **Repository:** `techrote/sandspiel-agent-lab`  
 **Upstream:** `MaxBittker/sandspiel` at `9936e06b07a583aedfba9589c0cead2917f405fb` (MIT)  
 **Project objective:** let an agent inside ordinary ChatGPT interact with the *actual* Sandspiel client, observe real rendering and native cell data, and record reproducible sessions. **Do not require Work mode, rewrite physics, or pretend an offline surrogate is a gameplay result.**  
-**Status (2026-11-07):** implementation underway; no confirmed successful hosted WebAssembly build or live comparative playthrough yet. Update this section only after directly verifying evidence.
+**Status (2026-11-07):** hosted Rust/WASM + Webpack build and Node command tests passed. A real Ubuntu 24.04 Chromium/Playwright session rendered Wood/Wall/Water, advanced 120 native+fluid ticks, captured screenshots and exported cells. First browser smoke run [#42374201807](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42374201807) failed on a *test assertion comparing pre-step Wood to post-step restored Wood*, not an identified rendering/build failure; corrective test pending. Its GitHub evidence ZIP (artifact 13574329014) was successfully downloaded into the ChatGPT container, proving the **binary artifact transfer gate for small ZIPs**. The finished Web bundle and full smoke qualification remain pending. No independent Luna comparison has been run.
 
 ## Contents
 
@@ -92,6 +92,14 @@ Every experiment should publish source commit, command/event JSON, observed revi
 | H. Comparison | Independently reproduce two-phase Luna benchmark, action budget fixed | Report failure or partial result; do not change budget silently |
 
 **Available initial tests:** dependency-free Node tests of command validation and fake native adapter; Python Playwright real-browser smoke test in Actions.
+
+### Observed first-run evidence (2026-11-07)
+
+- GitHub Actions run `42374201807`: upstream native physics compiled to WebAssembly, Webpack emitted both browser entrypoints, Node unit tests passed, and Chromium initialized actual WebGL.
+- Actual screenshot artifacts show a Wood stroke, a Wall chamber and Water before stepping, and a changed world after 120 acknowledged native+fluid ticks. Snapshot display differs from initial state, as expected for a simulation.
+- First browser test incorrectly compared the restored *post-tick* scene to a *pre-tick* Wood measurement. The corrected test compares against a matching pre-export snapshot and requires byte-identical cell serialization after import; this remains to be requalified.
+- Artifact ID `13574329014` transferred successfully through the connected GitHub action into `/mnt/data` in ChatGPT. This proves artifact transport for this evidence ZIP, **not yet the compiled Web app ZIP**.
+- Browser recording file remained zero bytes in the failed run because the script aborted before closing its Playwright context; a `finally` cleanup was added so failures also produce media and command history.
 
 ## 7. Fallback and MCP roadmap
 

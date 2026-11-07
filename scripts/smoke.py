@@ -40,16 +40,16 @@ def main():
         context = browser.new_context(viewport={"width": 820, "height": 720}, device_scale_factor=1, record_video_dir=str(out / "video"), record_video_size={"width": 820, "height": 720})
         page = context.new_page()
         page.on("pageerror", lambda error: console_errors.append(str(error)))
-        page.goto(args.url, wait_until="domcontentloaded", timeout=60000)
-        page.wait_for_function("window.agentLab && window.agentLab.status().ready", timeout=60000)
-        page.wait_for_timeout(500)
-
-        def invoke(command, expect="applied"):
-            result = page.evaluate("command => window.agentLab.run(command)", command)
-            history.append({"command": command if command.get("op") != "importCells" else {"op": "importCells", "format": command.get("format")}, "result": {k: v for k, v in result.items() if k != "cellsBase64"}})
-            return demand(result, expect)
-
         try:
+            page.goto(args.url, wait_until="domcontentloaded", timeout=60000)
+            page.wait_for_function("window.agentLab && window.agentLab.status().ready", timeout=60000)
+            page.wait_for_timeout(500)
+
+            def invoke(command, expect="applied"):
+                result = page.evaluate("command => window.agentLab.run(command)", command)
+                history.append({"command": command if command.get("op") != "importCells" else {"op": "importCells", "format": command.get("format")}, "result": {k: v for k, v in result.items() if k != "cellsBase64"}})
+                return demand(result, expect)
+
             catalog = invoke({"op": "catalog"}, "observed")
             assert {"Wood", "Water", "Wall"}.issubset({m["name"] for m in catalog["materials"]})
             assert page.evaluate("Boolean(document.getElementById('sand-canvas').getContext('webgl'))"), "WebGL context missing"
@@ -73,9 +73,7 @@ def main():
             assert water_after["region"]["counts"].get("Wall", 0) > 0
             page.screenshot(path=str(out / "03-after-120.png"))
 
-            # The simulation may move or transform the original Wood. Verify
-            # against the actual immediately pre-reset state, not the pre-step state.
-            before_reset_region = invoke({"op": "inspect", "x": 24, "y": 226, "width": 10, "height": 50}, "observed")
+            before_export_wood = invoke({"op": "inspect", "x": 24, "y": 226, "width": 10, "height": 50}, "observed")
             exported = invoke({"op": "exportCells"}, "observed")
             checkpoint = {"format": exported["format"], "width": exported["width"], "height": exported["height"], "cellsBase64": exported["cellsBase64"], "fidelity": exported["fidelity"]}
             (out / "checkpoint-cells-only.json").write_text(json.dumps(checkpoint), encoding="utf-8")
@@ -84,25 +82,34 @@ def main():
             assert not empty["region"]["counts"].get("Wood", 0)
             invoke({"op": "importCells", **checkpoint})
             restored = invoke({"op": "inspect", "x": 24, "y": 226, "width": 10, "height": 50}, "observed")
-            assert restored["region"]["counts"] == before_reset_region["region"]["counts"], "region material counts did not survive restore"
-            exported_again = invoke({"op": "exportCells"}, "observed")
-            assert exported_again["cellsBase64"] == exported["cellsBase64"], "full native cell array differs after import"
+            assert restored["region"]["counts"] == before_export_wood["region"]["counts"], "Restored census differs from pre-export state"
+            reexported = invoke({"op": "exportCells"}, "observed")
+            assert reexported["cellsBase64"] == exported["cellsBase64"], "Cell byte roundtrip mismatch"
             page.screenshot(path=str(out / "04-restored.png"))
 
             stale = invoke({"op": "paint", "material": "Wood", "x": 10, "y": 10, "expectedRevision": 0}, "refused")
             assert "stale" in stale["reason"]
             bad = invoke({"op": "paint", "material": "NotAMaterial", "x": 10, "y": 10}, "refused")
             assert "unknown material" in bad["reason"]
-            report = {"ok": True, "source_sha": os.environ.get("GITHUB_SHA"), "steps": 120, "initial_wood": original["region"]["counts"]["Wood"], "wood_after_120_in_original_region": before_reset_region["region"]["counts"].get("Wood", 0), "restored_wood_in_original_region": restored["region"]["counts"].get("Wood", 0), "cells_restored_byte_exact": True, "water_before": water_before["region"]["counts"].get("Water", 0), "water_after": water_after["region"]["counts"].get("Water", 0), "final_status": page.evaluate("window.agentLab.status()"), "page_errors": console_errors}
-            (out / "session.json").write_text(json.dumps(history, indent=2), encoding="utf-8")
+            report = {"ok": True, "source_sha": os.environ.get("GITHUB_SHA"), "steps": 120, "initial_wood": original["region"]["counts"]["Wood"], "pre_export_wood": before_export_wood["region"]["counts"].get("Wood", 0), "restored_wood": restored["region"]["counts"].get("Wood", 0), "water_before": water_before["region"]["counts"].get("Water", 0), "water_after": water_after["region"]["counts"].get("Water", 0), "final_status": page.evaluate("window.agentLab.status()"), "page_errors": console_errors}
             (out / "report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
+        except Exception as error:
+            (out / "failure.txt").write_text(repr(error), encoding="utf-8")
+            try:
+                page.screenshot(path=str(out / "failure.png"))
+            except Exception:
+                pass
+            raise
         finally:
             (out / "session.json").write_text(json.dumps(history, indent=2), encoding="utf-8")
-        context.close()
-        video_path = Path(page.video.path())
-        if video_path.exists() and shutil.which("ffmpeg"):
-            subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(video_path), "-c:v", "libx264", "-pix_fmt", "yuv420p", str(out / "session.mp4")], check=False)
-        browser.close()
+            context.close()
+            try:
+                video_path = Path(page.video.path())
+                if video_path.exists() and shutil.which("ffmpeg"):
+                    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(video_path), "-c:v", "libx264", "-pix_fmt", "yuv420p", str(out / "session.mp4")], check=False)
+            except Exception as video_error:
+                (out / "video-error.txt").write_text(repr(video_error), encoding="utf-8")
+            browser.close()
 
     # Verify screenshot pixels changed rather than assuming screenshots reflect gameplay.
     with Image.open(out / "00-blank.png") as before, Image.open(out / "03-after-120.png") as after:
