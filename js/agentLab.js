@@ -20,6 +20,11 @@ function plain(value, name) {
   }
   return value;
 }
+function booleanOption(value, name, fallback = false) {
+  if (value === undefined) return fallback;
+  if (typeof value !== "boolean") throw new Error(`${name} must be a boolean`);
+  return value;
+}
 function point(value, width, height) {
   plain(value, "point");
   return {
@@ -116,7 +121,8 @@ export function createAgentLab({ universe, memory, species, fluid, render, mode 
     const w = integer(command.width, "width", 1, width - x);
     const h = integer(command.height, "height", 1, height - y);
     if (w * h > MAX_INSPECT_CELLS) throw new Error("inspection area too large");
-    if (command.includeCells && w * h > MAX_CELL_PAYLOAD) throw new Error("cell payload area too large");
+    const includeCells = booleanOption(command.includeCells, "includeCells");
+    if (includeCells && w * h > MAX_CELL_PAYLOAD) throw new Error("cell payload area too large");
     const data = cells();
     const counts = {};
     const detailed = [];
@@ -127,14 +133,19 @@ export function createAgentLab({ universe, memory, species, fluid, render, mode 
         const id = data[i];
         const name = labels.get(id) || `unknown:${id}`;
         counts[name] = (counts[name] || 0) + 1;
-        if (command.includeCells) detailed.push({ x: xx, y: yy, material: name, id, ra: data[i+1], rb: data[i+2], clock: data[i+3] });
+        if (includeCells) detailed.push({ x: xx, y: yy, material: name, id, ra: data[i+1], rb: data[i+2], clock: data[i+3] });
       }
     }
-    return { x, y, width: w, height: h, counts, ...(command.includeCells ? { cells: detailed } : {}) };
+    return { x, y, width: w, height: h, counts, ...(includeCells ? { cells: detailed } : {}) };
   };
 
   const run = (input) => {
     const beforeRevision = revision;
+    let operationStarted = false;
+    let sceneMutationStarted = false;
+    let editSnapshot = null;
+    let nativeTicksCompleted = 0;
+    commands++;
     try {
       const command = plain(input, "command");
       if (typeof command.op !== "string") throw new Error("op must be a string");
@@ -145,9 +156,11 @@ export function createAgentLab({ universe, memory, species, fluid, render, mode 
         case "status": return { status: "observed", ...status() };
         case "catalog": return { status: "observed", materials: names.map(([name, id]) => ({ name, id })), ...status() };
         case "inspect": return { status: "observed", region: inspect(command), ...status() };
-        case "pause": setPause(true); output = { paused: true }; break;
-        case "resume": setPause(false); output = { paused: false }; break;
+        case "pause": operationStarted = true; setPause(true); output = { paused: true }; break;
+        case "resume": operationStarted = true; setPause(false); output = { paused: false }; break;
         case "reset": {
+          operationStarted = true;
+          sceneMutationStarted = true;
           stopBoot(); setPause(true);
           fluid.reset(); fluid.update(); fluid.reset(); fluid.update();
           universe.reset();
@@ -159,10 +172,12 @@ export function createAgentLab({ universe, memory, species, fluid, render, mode 
         case "step": {
           if (!window.paused) throw new Error("pause before stepping; concurrent render-loop ticks would invalidate the result");
           const count = integer(command.ticks, "ticks", 1, MAX_STEP);
+          operationStarted = true;
+          sceneMutationStarted = true;
           for (let i = 0; i < count; i++) {
-            universe.tick(); fluid.update(); ticks++; revision++;
+            universe.tick(); ticks++; revision++; nativeTicksCompleted++;
+            fluid.update();
           }
-          render();
           output = { stepsApplied: count };
           break;
         }
@@ -171,23 +186,33 @@ export function createAgentLab({ universe, memory, species, fluid, render, mode 
         case "stroke":
         case "rect": {
           if (!window.paused) throw new Error("pause before bounded edits");
-          stopBoot();
           const id = material(command.material);
           const diameter = integer(command.diameter ?? 1, "diameter", 1, MAX_BRUSH);
           const previous = cells().slice();
+          editSnapshot = previous;
           const tracker = { stamps: 0 };
           if (command.op === "paint") {
             const p = point(command, width, height);
+            operationStarted = sceneMutationStarted = true;
+            stopBoot();
             stamp(p.x, p.y, diameter, id);
             tracker.stamps++;
           } else if (command.op === "line") {
-            paintLine(point(command.from, width, height), point(command.to, width, height), diameter, id, tracker);
+            const from = point(command.from, width, height);
+            const to = point(command.to, width, height);
+            const stamps = Math.ceil(Math.hypot(to.x - from.x, to.y - from.y) / Math.max(1, diameter / 3)) + 1;
+            if (stamps > MAX_STAMPS) throw new Error("stroke stamp limit exceeded");
+            operationStarted = sceneMutationStarted = true;
+            stopBoot();
+            paintLine(from, to, diameter, id, tracker);
           } else if (command.op === "stroke") {
             if (!Array.isArray(command.points) || command.points.length < 2 || command.points.length > 100) throw new Error("stroke needs 2-100 points");
             const points = command.points.map(p => point(p, width, height));
             // Validate total work *before* doing any painting (atomic refusal).
             const expected = points.slice(1).reduce((n, p, i) => n + Math.ceil(Math.hypot(p.x - points[i].x, p.y - points[i].y) / Math.max(1, diameter / 3)) + 1, 0);
             if (expected > MAX_STAMPS) throw new Error("stroke stamp limit exceeded");
+            operationStarted = sceneMutationStarted = true;
+            stopBoot();
             for (let i = 1; i < points.length; i++) paintLine(points[i - 1], points[i], diameter, id, tracker);
           } else {
             const x = integer(command.x, "x", 0, width - 1);
@@ -195,7 +220,9 @@ export function createAgentLab({ universe, memory, species, fluid, render, mode 
             const w = integer(command.width, "width", 1, width - x);
             const h = integer(command.height, "height", 1, height - y);
             if (w * h > MAX_RECT_CELLS) throw new Error("rectangle too large");
-            const filled = command.fill !== false;
+            const filled = booleanOption(command.fill, "fill", true);
+            operationStarted = sceneMutationStarted = true;
+            stopBoot();
             // Pixel-exact rectangles: diameter=1 regardless of brush choice.
             for (let xx = x; xx < x + w; xx++) {
               for (let yy = y; yy < y + h; yy++) {
@@ -228,6 +255,8 @@ export function createAgentLab({ universe, memory, species, fluid, render, mode 
           for (let i = 0; i < bytes.length; i += 4) {
             if (!labels.has(bytes[i])) throw new Error(`invalid material ID at cell ${i/4}`);
           }
+          operationStarted = true;
+          sceneMutationStarted = true;
           fluid.reset(); fluid.update(); fluid.reset(); fluid.update();
           universe.reset();
           cells().set(bytes);
@@ -239,11 +268,24 @@ export function createAgentLab({ universe, memory, species, fluid, render, mode 
         default: throw new Error(`unsupported operation: ${command.op}`);
       }
       if (mutated) revision++;
-      commands++;
       render();
       return { status: "applied", beforeRevision, afterRevision: revision, ...output, ...status() };
     } catch (error) {
-      return { status: "refused", reason: error instanceof Error ? error.message : String(error), beforeRevision, ...status() };
+      const reason = error instanceof Error ? error.message : String(error);
+      if (operationStarted) {
+        let changedCells;
+        if (editSnapshot) {
+          try { changedCells = changedCount(editSnapshot); } catch (_) { /* WASM memory may be unavailable after a runtime failure. */ }
+        }
+        if (sceneMutationStarted && revision === beforeRevision && (changedCells === undefined || changedCells > 0)) revision++;
+        return {
+          status: "failed", reason, beforeRevision, partialApplicationPossible: true,
+          ...(changedCells === undefined ? {} : { changedCells }),
+          ...(nativeTicksCompleted ? { nativeTicksCompleted } : {}),
+          ...status(),
+        };
+      }
+      return { status: "refused", reason, beforeRevision, ...status() };
     }
   };
 

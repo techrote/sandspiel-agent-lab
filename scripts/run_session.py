@@ -16,7 +16,6 @@ import socket
 import subprocess
 import time
 
-from playwright.sync_api import sync_playwright
 
 MAX_COMMANDS = 90
 MAX_TICKS = 600
@@ -55,13 +54,24 @@ def parse_commands(path):
     for i, command in enumerate(commands):
         require(isinstance(command, dict), f"command {i} must be an object")
         op = command.get("op")
-        require(op in ALLOWED_FIELDS, f"command {i}: unsupported operation {op!r}")
+        require(isinstance(op, str) and op in ALLOWED_FIELDS, f"command {i}: unsupported operation {op!r}")
         require(set(command) <= COMMON_FIELDS | ALLOWED_FIELDS[op], f"command {i}: unknown fields")
         require(isinstance(command.get("capture", False), bool), f"command {i}: capture must be boolean")
+        if "label" in command:
+            require(isinstance(command["label"], str) and len(command["label"]) <= 100, f"command {i}: label must be a string of at most 100 characters")
+        if "expectedRevision" in command:
+            rev = command["expectedRevision"]
+            require(type(rev) is int and 0 <= rev <= 2**53 - 1, f"command {i}: expectedRevision must be a nonnegative safe integer")
+        if op == "rect" and "fill" in command:
+            require(isinstance(command["fill"], bool), f"command {i}: fill must be boolean")
+        if op == "inspect" and "includeCells" in command:
+            require(isinstance(command["includeCells"], bool), f"command {i}: includeCells must be boolean")
         if command.get("capture"): captures += 1
         if op == "step":
-            require(isinstance(command.get("ticks"), int) and not isinstance(command.get("ticks"), bool), "steps must be integer")
-            ticks += command["ticks"]
+            count = command.get("ticks")
+            require(type(count) is int and 1 <= count <= 240, f"command {i}: ticks must be an integer in [1, 240]")
+            ticks += count
+            require(ticks <= MAX_TICKS, "session simulation budget exceeded")
     require(ticks <= MAX_TICKS, "session simulation budget exceeded")
     require(captures <= MAX_CAPTURES, "session capture budget exceeded")
     return data
@@ -83,12 +93,22 @@ def main():
     a.add_argument("--dist", default="dist")
     a.add_argument("--out", default="evidence/session")
     args = a.parse_args()
-    data = parse_commands(args.commands)
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     entries = []
     errors = []
-    report = {"status": "unconfirmed", "name": str(data.get("name", "session"))[:120], "source_commit": os.environ.get("GITHUB_SHA"), "commands_expected": len(data["commands"]), "commands_applied": 0, "ticks": 0}
+    report = {"status": "unconfirmed", "name": "unvalidated session", "source_commit": os.environ.get("GITHUB_SHA"), "commands_expected": 0, "commands_applied": 0, "ticks": 0}
+    try:
+        data = parse_commands(args.commands)
+    except (OSError, ValueError) as error:
+        report.update({"status": "refused", "stage": "preflight", "error": str(error), "page_errors": []})
+        (out / "session.json").write_text("[]\n", encoding="utf-8")
+        (out / "report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
+        print(json.dumps(report, indent=2))
+        raise SystemExit(2)
+    report["name"] = str(data.get("name", "session"))[:120]
+    report["commands_expected"] = len(data["commands"])
+    from playwright.sync_api import sync_playwright
     server = subprocess.Popen(["python3", "-m", "http.server", "8765", "--bind", "127.0.0.1", "--directory", str(args.dist)], stdout=(out / "server.log").open("wb"), stderr=subprocess.STDOUT)
     try:
         wait_server(8765)
@@ -126,6 +146,8 @@ def main():
             except Exception as error:
                 report["status"] = "failed"
                 report["error"] = repr(error)
+                try: report["final_status"] = page.evaluate("window.agentLab.status()")
+                except Exception: pass
                 try: page.screenshot(path=str(out / "failure.png"))
                 except Exception: pass
                 raise
@@ -141,6 +163,14 @@ def main():
                 except Exception as e:
                     (out / "video-error.txt").write_text(repr(e), encoding="utf-8")
                 browser.close()
+    except Exception as error:
+        if report["status"] == "unconfirmed":
+            report.update({"status": "failed", "stage": "browser", "error": repr(error)})
+        if not (out / "session.json").exists():
+            (out / "session.json").write_text(json.dumps(entries, indent=2), encoding="utf-8")
+        if not (out / "report.json").exists():
+            (out / "report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
+        raise
     finally:
         server.terminate()
         try: server.wait(timeout=5)
