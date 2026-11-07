@@ -4,7 +4,7 @@
 
 The project uses **the existing Rust/WebAssembly simulation and WebGL renderer**. Its purpose is to make the actual game inspectable and controllable from ordinary ChatGPT conversations, without requiring ChatGPT Work mode or constructing a substitute physics engine.
 
-> **Project state — 7 November 2026:** The implementation is in [draft PR #1](https://github.com/techrote/sandspiel-agent-lab/pull/1), not yet merged to `master`. The source-matched build and browser smoke tests pass. GitHub-hosted Chromium has completed and recorded bounded agent-driven authoring sessions. The full independent reproduction of Luna's forest/apparatus/ignition challenge is **not yet done**.
+> **Project state — 7 November 2026:** [Agent Lab v1 (PR #1)](https://github.com/techrote/sandspiel-agent-lab/pull/1) and [the curated Luna primary-evidence archive (PR #3)](https://github.com/techrote/sandspiel-agent-lab/pull/3) are **merged into `master`**. Source-matched Rust/WASM and real-browser CI passed on the implementation PR; post-merge `master` CI is tracked separately. GitHub-hosted Chromium has completed recorded agent-authored woodland sessions. The full independent Luna-equivalent forest/apparatus/ignition challenge remains **unattempted**.
 
 ## What works
 
@@ -34,10 +34,10 @@ This is **batch-based control**, not persistent live browser sharing. A new work
 
 ## Reproduce an agent session
 
-The current test implementation lives on [`feat/agent-lab-v1`](https://github.com/techrote/sandspiel-agent-lab/tree/feat/agent-lab-v1). The execution branch is [`agent/sessions`](https://github.com/techrote/sandspiel-agent-lab/tree/agent/sessions).
+The accepted implementation lives on [`master`](https://github.com/techrote/sandspiel-agent-lab/tree/master). The [dedicated `agent/sessions` branch](https://github.com/techrote/sandspiel-agent-lab/tree/agent/sessions) contains separately versioned JSON authoring scenarios and is not a permanent shared live browser session.
 
-1. Inspect the schema and limits in [`AGENT_LAB.md`](https://github.com/techrote/sandspiel-agent-lab/blob/feat/agent-lab-v1/AGENT_LAB.md) and the checked-in example at [`sessions/active.json`](https://github.com/techrote/sandspiel-agent-lab/blob/agent/sessions/sessions/active.json).
-2. Update the **JSON** scenario on `agent/sessions` (not executable code), keeping within its allowlist. A push affecting `sessions/active.json` triggers [`session-run.yml`](https://github.com/techrote/sandspiel-agent-lab/blob/feat/agent-lab-v1/.github/workflows/session-run.yml).
+1. Inspect the schema and limits in [`AGENT_LAB.md`](https://github.com/techrote/sandspiel-agent-lab/blob/master/AGENT_LAB.md) and the checked-in example at [`sessions/active.json`](https://github.com/techrote/sandspiel-agent-lab/blob/agent/sessions/sessions/active.json).
+2. Update the **JSON** scenario on `agent/sessions` (not executable code), keeping within its allowlist. A push affecting `sessions/active.json` triggers [`session-run.yml`](https://github.com/techrote/sandspiel-agent-lab/blob/master/.github/workflows/session-run.yml).
 3. Inspect the GitHub Actions run and its downloadable screenshots, command receipts, WebM/MP4 and optional cells-only snapshot. Make the next revision based on observed results—not on an unverified success claim.
 4. For the original local game, build as below and visit `/agent.html`. The normal Sandspiel UI remains at `/index.html`.
 
@@ -55,7 +55,7 @@ python3 -m http.server 8765 --bind 127.0.0.1 --directory dist
 # open http://127.0.0.1:8765/agent.html
 ```
 
-The compiled site can optionally be published using [`pages.yml`](https://github.com/techrote/sandspiel-agent-lab/blob/feat/agent-lab-v1/.github/workflows/pages.yml), after configuring GitHub Pages to deploy from Actions. GitHub Pages hosting alone does **not** create a shared live agent session.
+The compiled site can optionally be published using [`pages.yml`](https://github.com/techrote/sandspiel-agent-lab/blob/master/.github/workflows/pages.yml), after configuring GitHub Pages to deploy from Actions. GitHub Pages hosting alone does **not** create a shared live agent session.
 
 ## Evidence, not demonstrations by assertion
 
@@ -66,7 +66,7 @@ The compiled site can optionally be published using [`pages.yml`](https://github
 | [Woodland session 42375727238](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42375727238) | 20 accepted commands, 240 native steps, observed growth, actual screenshot/video and material census |
 | [Repaired cache cold/warm 42383661354](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42383661354) | Attempt 1 built and saved corrected v2 cache; attempt 2 restored it and skipped Rust, Node and Webpack while completing the actual browser session |
 
-The first agent test uses **structured geometric commands**, which are more accurate than ordinary mouse drawing. It must **not** be described as an independent, like-for-like completion of Luna's recorded challenge. Independent review led to narrow fixes for tick-budget enforcement, typed JSON options, truthful runtime failure receipts and cache invalidation; PR #1 still requires final guarded merge admission.
+The first agent test uses **structured geometric commands**, which are more accurate than ordinary mouse drawing. It must **not** be described as an independent, like-for-like completion of Luna's recorded challenge. Independent review led to narrow fixes for tick-budget enforcement, typed JSON options, truthful runtime failure receipts and cache invalidation; these were qualified before PR #1 merged.
 
 ## Important limitations
 
@@ -74,18 +74,18 @@ The first agent test uses **structured geometric commands**, which are more accu
 - **No persistent in-browser session across Actions jobs.** Interactive observation is batched; persistent remote state and a live shared service would require additional integration.
 - **This chat container's Chromium cannot navigate local HTTP origins** because of an administrator policy. The verified execution path is GitHub-hosted Chromium; do not bypass the local browser policy.
 - **No new physics.** Material behavior and recipes remain Sandspiel's upstream rules.
-- **API keys:** None are required for the current GitHub-backed gameplay bridge. Third-party provider credentials, if later required, must stay out of chat, Git, browser bundles, screenshots and workflow artifacts. See [credential handover](https://github.com/techrote/sandspiel-agent-lab/blob/feat/agent-lab-v1/docs/CREDENTIAL_HANDOVER.md).
+- **API keys:** None are required for the current GitHub-backed gameplay bridge. Third-party provider credentials, if later required, must stay out of chat, Git, browser bundles, screenshots and workflow artifacts. See [credential handover](https://github.com/techrote/sandspiel-agent-lab/blob/master/docs/CREDENTIAL_HANDOVER.md).
 
 ## Project documents
 
 - [Original Luna session: lossless primary frames, provenance, and constraint ledger](research/luna-authoring-session/EVIDENCE_INDEX.md)
 - [Experiment context and relevance to the existing CyberSand client](docs/EXPERIMENT_CONTEXT.md)
 
-- [Engineering plan, evidence ledger and handoff — `RAG.md`](https://github.com/techrote/sandspiel-agent-lab/blob/feat/agent-lab-v1/RAG.md)
-- [Browser agent-control API — `AGENT_LAB.md`](https://github.com/techrote/sandspiel-agent-lab/blob/feat/agent-lab-v1/AGENT_LAB.md)
-- [Implementation findings and evidence — `docs/IMPLEMENTATION_FINDINGS.md`](https://github.com/techrote/sandspiel-agent-lab/blob/feat/agent-lab-v1/docs/IMPLEMENTATION_FINDINGS.md)
-- [Optional credential handover — `docs/CREDENTIAL_HANDOVER.md`](https://github.com/techrote/sandspiel-agent-lab/blob/feat/agent-lab-v1/docs/CREDENTIAL_HANDOVER.md)
-- [Independent reviewer brief — `docs/REVIEWER_BRIEF.md`](https://github.com/techrote/sandspiel-agent-lab/blob/feat/agent-lab-v1/docs/REVIEWER_BRIEF.md)
+- [Engineering plan, evidence ledger and handoff — `RAG.md`](https://github.com/techrote/sandspiel-agent-lab/blob/master/RAG.md)
+- [Browser agent-control API — `AGENT_LAB.md`](https://github.com/techrote/sandspiel-agent-lab/blob/master/AGENT_LAB.md)
+- [Implementation findings and evidence — `docs/IMPLEMENTATION_FINDINGS.md`](https://github.com/techrote/sandspiel-agent-lab/blob/master/docs/IMPLEMENTATION_FINDINGS.md)
+- [Optional credential handover — `docs/CREDENTIAL_HANDOVER.md`](https://github.com/techrote/sandspiel-agent-lab/blob/master/docs/CREDENTIAL_HANDOVER.md)
+- [Independent reviewer brief — `docs/REVIEWER_BRIEF.md`](https://github.com/techrote/sandspiel-agent-lab/blob/master/docs/REVIEWER_BRIEF.md)
 
 ## Upstream, attribution and licence
 
