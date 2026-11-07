@@ -1,6 +1,6 @@
 {
   "format": "sandspiel-lab-session/v1",
-  "name": "cached startup qualification cold run",
+  "name": "cached startup qualification WARM run — one native paint and five steps",
   "persistCells": false,
   "commands": [
     {
@@ -15,7 +15,7 @@
       "y": 190,
       "diameter": 15,
       "capture": true,
-      "label": "one native wood stroke"
+      "label": "verify cached browser runs same native wood operation"
     },
     {
       "op": "step",
