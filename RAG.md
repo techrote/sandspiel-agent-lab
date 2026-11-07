@@ -138,3 +138,14 @@ Later, an authenticated session service could present the same schema over an MC
 - Target fork: https://github.com/techrote/sandspiel-agent-lab
 - Existing GitHub workflows: https://github.com/techrote/sandspiel-agent-lab/actions
 - User-recording evidence: original 33-minute Sandspiel session analysed separately; findings require no physics changes.
+
+## 10. Verified consolidation and credential handover (2026-11-07)
+
+The more detailed source- and run-linked record is [`docs/IMPLEMENTATION_FINDINGS.md`](docs/IMPLEMENTATION_FINDINGS.md). The new project-specific [`README.md`](README.md) replaces the original upstream project introduction, while retaining upstream attribution and MIT licensing.
+
+- The source-matched browser implementation is still in **draft PR #1**, not yet merged; the `agent/sessions` branch executes approved, bounded JSON in real GitHub-hosted Chromium. The alternate PR #2 was closed **without merge** as redundant.
+- Key evidence: feature-head [42376224346](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42376224346) succeeded; independent woodland [42375727238](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42375727238) succeeded after 20 operations and 240 native steps; source-hashed bundle cache cold [42376259313](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42376259313) then warm [42376483034](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42376483034) both succeeded, with the warm hit actually skipping build toolchain and webpack.
+- The **current gameplay bridge requires no external API key**. If a future model or remote-control provider needs one, use the owner-controlled, short-lived, credit-limited **server-side** handover described in [`docs/CREDENTIAL_HANDOVER.md`](docs/CREDENTIAL_HANDOVER.md). Do not ask for a raw key in chat, do not wire secrets into baseline game CI and do not expose a secret in the static page.
+- Independent review scope and exact-head verification requests are in [`docs/REVIEWER_BRIEF.md`](docs/REVIEWER_BRIEF.md). Source-matched smoke passing is necessary but not sufficient for merging or for claiming Luna-equivalent success.
+
+**Next objective:** independent review and guarded PR #1 integration, then a controlled mouse-equivalent versus structured authoring comparison for the full forest/apparatus challenge.
