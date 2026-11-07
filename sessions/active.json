@@ -1,6 +1,6 @@
 {
   "format": "sandspiel-lab-session/v1",
-  "name": "The Hollow Germination Shrine — native scene construction and 384-tick observation",
+  "name": "The Hollow Germination Shrine — revised after inspected native receipts: carved crypts, effective growth, lantern, constrained drip",
   "persistCells": true,
   "commands": [
     {
@@ -157,6 +157,51 @@
       ],
       "label": "Lower geologic layers",
       "capture": true
+    },
+    {
+      "op": "stroke",
+      "material": "Empty",
+      "diameter": 13,
+      "points": [
+        {
+          "x": 125,
+          "y": 270
+        },
+        {
+          "x": 140,
+          "y": 260
+        },
+        {
+          "x": 156,
+          "y": 259
+        },
+        {
+          "x": 174,
+          "y": 266
+        }
+      ],
+      "label": "Revision: eroded central crypt aperture",
+      "capture": true
+    },
+    {
+      "op": "stroke",
+      "material": "Empty",
+      "diameter": 11,
+      "points": [
+        {
+          "x": 195,
+          "y": 277
+        },
+        {
+          "x": 205,
+          "y": 268
+        },
+        {
+          "x": 220,
+          "y": 271
+        }
+      ],
+      "label": "Revision: second ruined foundation vault"
     },
     {
       "op": "stroke",
@@ -469,26 +514,6 @@
       "diameter": 4,
       "points": [
         {
-          "x": 36,
-          "y": 101
-        },
-        {
-          "x": 36,
-          "y": 122
-        },
-        {
-          "x": 44,
-          "y": 130
-        }
-      ],
-      "label": "Upper retaining pier"
-    },
-    {
-      "op": "stroke",
-      "material": "Wall",
-      "diameter": 4,
-      "points": [
-        {
           "x": 66,
           "y": 132
         },
@@ -694,6 +719,54 @@
     {
       "op": "stroke",
       "material": "Wood",
+      "diameter": 2,
+      "points": [
+        {
+          "x": 238,
+          "y": 79
+        },
+        {
+          "x": 233,
+          "y": 83
+        },
+        {
+          "x": 231,
+          "y": 91
+        },
+        {
+          "x": 236,
+          "y": 98
+        },
+        {
+          "x": 243,
+          "y": 98
+        },
+        {
+          "x": 245,
+          "y": 92
+        },
+        {
+          "x": 241,
+          "y": 83
+        },
+        {
+          "x": 238,
+          "y": 79
+        }
+      ],
+      "label": "Revision: hollow hanging observatory lantern"
+    },
+    {
+      "op": "paint",
+      "material": "Ice",
+      "x": 238,
+      "y": 90,
+      "diameter": 4,
+      "label": "Revision: pale lantern core"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
       "diameter": 3,
       "points": [
         {
@@ -710,26 +783,6 @@
         }
       ],
       "label": "Forgotten observation bench"
-    },
-    {
-      "op": "stroke",
-      "material": "Wood",
-      "diameter": 2,
-      "points": [
-        {
-          "x": 257,
-          "y": 88
-        },
-        {
-          "x": 265,
-          "y": 88
-        },
-        {
-          "x": 269,
-          "y": 96
-        }
-      ],
-      "label": "Suspended planter tray"
     },
     {
       "op": "stroke",
@@ -787,20 +840,6 @@
         }
       ],
       "label": "Cracked cistern rim"
-    },
-    {
-      "op": "line",
-      "material": "Wood",
-      "diameter": 2,
-      "from": {
-        "x": 265,
-        "y": 180
-      },
-      "to": {
-        "x": 266,
-        "y": 205
-      },
-      "label": "Irrigation drip pipe"
     },
     {
       "op": "line",
@@ -1445,26 +1484,6 @@
     },
     {
       "op": "stroke",
-      "material": "Wood",
-      "diameter": 3,
-      "points": [
-        {
-          "x": 137,
-          "y": 281
-        },
-        {
-          "x": 137,
-          "y": 276
-        },
-        {
-          "x": 144,
-          "y": 274
-        }
-      ],
-      "label": "Forgotten subfloor timber"
-    },
-    {
-      "op": "stroke",
       "material": "Wall",
       "diameter": 4,
       "points": [
@@ -1510,6 +1529,34 @@
         }
       ],
       "label": "Western rubble"
+    },
+    {
+      "op": "stroke",
+      "material": "Stone",
+      "diameter": 7,
+      "points": [
+        {
+          "x": 3,
+          "y": 234
+        },
+        {
+          "x": 17,
+          "y": 232
+        },
+        {
+          "x": 29,
+          "y": 233
+        },
+        {
+          "x": 42,
+          "y": 239
+        },
+        {
+          "x": 55,
+          "y": 233
+        }
+      ],
+      "label": "Revision: exposed loose limestone on western shelf"
     },
     {
       "op": "stroke",
@@ -1619,30 +1666,6 @@
     {
       "op": "stroke",
       "material": "Plant",
-      "diameter": 4,
-      "points": [
-        {
-          "x": 19,
-          "y": 94
-        },
-        {
-          "x": 23,
-          "y": 89
-        },
-        {
-          "x": 30,
-          "y": 89
-        },
-        {
-          "x": 35,
-          "y": 92
-        }
-      ],
-      "label": "Green upper terrace"
-    },
-    {
-      "op": "stroke",
-      "material": "Plant",
       "diameter": 3,
       "points": [
         {
@@ -1679,18 +1702,42 @@
     {
       "op": "paint",
       "material": "Plant",
-      "x": 102,
-      "y": 68,
-      "diameter": 6,
-      "label": "Western root growth"
+      "x": 115,
+      "y": 70,
+      "diameter": 9,
+      "label": "Revision: green crown along western suspended root"
     },
     {
       "op": "paint",
       "material": "Plant",
-      "x": 207,
-      "y": 77,
-      "diameter": 7,
-      "label": "Eastern root growth"
+      "x": 198,
+      "y": 83,
+      "diameter": 8,
+      "label": "Revision: living eastern root joint"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 43,
+      "y": 86,
+      "diameter": 8,
+      "label": "Revision: stronger upper-terrace moss"
+    },
+    {
+      "op": "paint",
+      "material": "Seed",
+      "x": 31,
+      "y": 82,
+      "diameter": 3,
+      "label": "Revision: viable seed in first cultivation bed"
+    },
+    {
+      "op": "paint",
+      "material": "Seed",
+      "x": 68,
+      "y": 114,
+      "diameter": 3,
+      "label": "Revision: viable seed in second cultivation bed"
     },
     {
       "op": "paint",
@@ -1699,6 +1746,14 @@
       "y": 111,
       "diameter": 5,
       "label": "Life within the heart"
+    },
+    {
+      "op": "paint",
+      "material": "Fungus",
+      "x": 128,
+      "y": 115,
+      "diameter": 6,
+      "label": "Revision: pale growth at the halo fracture"
     },
     {
       "op": "stroke",
@@ -1723,27 +1778,19 @@
     },
     {
       "op": "paint",
-      "material": "Plant",
-      "x": 281,
-      "y": 186,
-      "diameter": 8,
-      "label": "Niche moss"
-    },
-    {
-      "op": "paint",
-      "material": "Fungus",
-      "x": 45,
-      "y": 145,
-      "diameter": 10,
-      "label": "Pale western fungus"
-    },
-    {
-      "op": "paint",
       "material": "Fungus",
       "x": 108,
       "y": 207,
       "diameter": 10,
       "label": "Fungus at broken bridge"
+    },
+    {
+      "op": "paint",
+      "material": "Fungus",
+      "x": 78,
+      "y": 142,
+      "diameter": 9,
+      "label": "Revision: white fungus on second terrace"
     },
     {
       "op": "paint",
@@ -1760,14 +1807,6 @@
       "y": 228,
       "diameter": 10,
       "label": "Fungus beneath shrine"
-    },
-    {
-      "op": "paint",
-      "material": "Fungus",
-      "x": 166,
-      "y": 280,
-      "diameter": 8,
-      "label": "Crypt fungus"
     },
     {
       "op": "stroke",
@@ -1808,6 +1847,15 @@
         }
       ],
       "label": "Exposed mineral seed vein"
+    },
+    {
+      "op": "paint",
+      "material": "Water",
+      "x": 259,
+      "y": 185,
+      "diameter": 7,
+      "label": "Revision: one descending irrigation drip",
+      "capture": true
     },
     {
       "op": "paint",
