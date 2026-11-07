@@ -18,19 +18,32 @@ jobs:
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
+      # Cache the *compiled* app by source identity. JSON session updates do not invalidate it.
+      - name: Restore source-matched browser bundle
+        id: browser-cache
+        uses: actions/cache@v4
+        with:
+          path: dist
+          key: sandspiel-agent-dist-${{ runner.os }}-${{ hashFiles('crate/src/**/*.rs', 'crate/Cargo.toml', 'crate/.cargo/config.toml', 'js/**/*', 'webpack.config.js', 'package.json', 'pnpm-lock.yaml', 'index.html', 'agent.html', 'assets/**/*', 'manifest.json') }}
       - uses: pnpm/action-setup@v4
+        if: steps.browser-cache.outputs.cache-hit != 'true'
         with:
           version: 9.15.9
       - uses: actions/setup-node@v4
+        if: steps.browser-cache.outputs.cache-hit != 'true'
         with:
           node-version: '22'
           cache: pnpm
       - uses: dtolnay/rust-toolchain@stable
+        if: steps.browser-cache.outputs.cache-hit != 'true'
         with:
           targets: wasm32-unknown-unknown
       - run: cargo install wasm-pack --locked --version 0.13.1
+        if: steps.browser-cache.outputs.cache-hit != 'true'
       - run: pnpm install --frozen-lockfile
+        if: steps.browser-cache.outputs.cache-hit != 'true'
       - run: pnpm run build
+        if: steps.browser-cache.outputs.cache-hit != 'true'
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
