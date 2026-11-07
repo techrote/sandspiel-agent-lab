@@ -1008,9 +1008,9 @@
     {
       "op": "inspect",
       "x": 195,
-      "y": 165,
+      "y": 190,
       "width": 95,
-      "height": 125,
+      "height": 100,
       "label": "eastern cistern census"
     },
     {
@@ -1042,9 +1042,9 @@
     {
       "op": "inspect",
       "x": 195,
-      "y": 165,
+      "y": 190,
       "width": 95,
-      "height": 125,
+      "height": 100,
       "label": "late cistern census"
     }
   ]
