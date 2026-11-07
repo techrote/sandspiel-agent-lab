@@ -1,7 +1,7 @@
 name: Agent Lab - bounded JSON authoring session
 on:
   push:
-    branches: [agent/sessions]
+    branches: [agent/sessions, 'agent/experiments/**']
     paths:
       - sessions/active.json
       - scripts/run_session.py
