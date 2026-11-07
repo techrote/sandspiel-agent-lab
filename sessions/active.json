@@ -1,27 +1,1911 @@
 {
   "format": "sandspiel-lab-session/v1",
-  "name": "bounded woodland and water experiment",
+  "name": "The Hollow Germination Shrine — native scene construction and 384-tick observation",
   "persistCells": true,
   "commands": [
-    {"op":"reset", "capture":true, "label":"blank baseline"},
-    {"op":"rect", "material":"Sand", "x":0, "y":280, "width":300, "height":20, "capture":true, "label":"sandy ground"},
-    {"op":"line", "material":"Wood", "diameter":5, "from":{"x":80,"y":278}, "to":{"x":80,"y":145}, "label":"left trunk"},
-    {"op":"line", "material":"Wood", "diameter":5, "from":{"x":160,"y":278}, "to":{"x":160,"y":120}, "label":"main trunk"},
-    {"op":"line", "material":"Wood", "diameter":3, "from":{"x":80,"y":165}, "to":{"x":49,"y":149}},
-    {"op":"line", "material":"Wood", "diameter":3, "from":{"x":80,"y":170}, "to":{"x":114,"y":144}},
-    {"op":"line", "material":"Wood", "diameter":3, "from":{"x":160,"y":150}, "to":{"x":123,"y":129}},
-    {"op":"line", "material":"Wood", "diameter":3, "from":{"x":160,"y":149}, "to":{"x":195,"y":123}},
-    {"op":"paint", "material":"Plant", "x":49,"y":149,"diameter":29},
-    {"op":"paint", "material":"Plant", "x":114,"y":144,"diameter":33},
-    {"op":"paint", "material":"Plant", "x":123,"y":129,"diameter":33},
-    {"op":"paint", "material":"Plant", "x":195,"y":123,"diameter":33, "capture":true, "label":"initial canopy"},
-    {"op":"paint", "material":"Seed", "x":34,"y":273,"diameter":3},
-    {"op":"paint", "material":"Seed", "x":127,"y":275,"diameter":3},
-    {"op":"paint", "material":"Seed", "x":235,"y":274,"diameter":3},
-    {"op":"paint", "material":"Water", "x":40,"y":266,"diameter":13},
-    {"op":"paint", "material":"Water", "x":126,"y":264,"diameter":13},
-    {"op":"step", "ticks":120, "capture":true, "label":"growth test"},
-    {"op":"inspect", "x":50,"y":110,"width":100,"height":100, "label":"canopy census"},
-    {"op":"step", "ticks":120, "capture":true, "label":"second growth interval"}
+    {
+      "op": "reset",
+      "label": "Blank native starting world",
+      "capture": true
+    },
+    {
+      "op": "rect",
+      "material": "Wall",
+      "x": 0,
+      "y": 289,
+      "width": 300,
+      "height": 11,
+      "label": "Bedrock"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 21,
+      "points": [
+        {
+          "x": 0,
+          "y": 249
+        },
+        {
+          "x": 15,
+          "y": 242
+        },
+        {
+          "x": 33,
+          "y": 249
+        },
+        {
+          "x": 49,
+          "y": 237
+        },
+        {
+          "x": 65,
+          "y": 246
+        },
+        {
+          "x": 86,
+          "y": 243
+        },
+        {
+          "x": 104,
+          "y": 254
+        },
+        {
+          "x": 122,
+          "y": 246
+        },
+        {
+          "x": 138,
+          "y": 263
+        },
+        {
+          "x": 154,
+          "y": 257
+        },
+        {
+          "x": 173,
+          "y": 269
+        },
+        {
+          "x": 191,
+          "y": 255
+        },
+        {
+          "x": 210,
+          "y": 261
+        },
+        {
+          "x": 229,
+          "y": 247
+        },
+        {
+          "x": 246,
+          "y": 253
+        },
+        {
+          "x": 265,
+          "y": 244
+        },
+        {
+          "x": 286,
+          "y": 248
+        },
+        {
+          "x": 299,
+          "y": 239
+        }
+      ],
+      "label": "Irregular geological foundation"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 14,
+      "points": [
+        {
+          "x": 0,
+          "y": 272
+        },
+        {
+          "x": 34,
+          "y": 272
+        },
+        {
+          "x": 49,
+          "y": 266
+        },
+        {
+          "x": 79,
+          "y": 273
+        },
+        {
+          "x": 101,
+          "y": 267
+        },
+        {
+          "x": 126,
+          "y": 276
+        },
+        {
+          "x": 148,
+          "y": 273
+        },
+        {
+          "x": 171,
+          "y": 282
+        },
+        {
+          "x": 196,
+          "y": 272
+        },
+        {
+          "x": 219,
+          "y": 278
+        },
+        {
+          "x": 247,
+          "y": 265
+        },
+        {
+          "x": 276,
+          "y": 275
+        },
+        {
+          "x": 299,
+          "y": 267
+        }
+      ],
+      "label": "Lower geologic layers",
+      "capture": true
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 22,
+      "points": [
+        {
+          "x": 0,
+          "y": 13
+        },
+        {
+          "x": 19,
+          "y": 17
+        },
+        {
+          "x": 43,
+          "y": 15
+        },
+        {
+          "x": 66,
+          "y": 8
+        },
+        {
+          "x": 82,
+          "y": 18
+        },
+        {
+          "x": 96,
+          "y": 30
+        },
+        {
+          "x": 106,
+          "y": 48
+        },
+        {
+          "x": 107,
+          "y": 55
+        }
+      ],
+      "label": "Broken western roof"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 18,
+      "points": [
+        {
+          "x": 213,
+          "y": 42
+        },
+        {
+          "x": 225,
+          "y": 27
+        },
+        {
+          "x": 239,
+          "y": 15
+        },
+        {
+          "x": 258,
+          "y": 12
+        },
+        {
+          "x": 274,
+          "y": 17
+        },
+        {
+          "x": 299,
+          "y": 7
+        }
+      ],
+      "label": "Broken eastern roof"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 19,
+      "points": [
+        {
+          "x": 0,
+          "y": 45
+        },
+        {
+          "x": 17,
+          "y": 40
+        },
+        {
+          "x": 27,
+          "y": 52
+        },
+        {
+          "x": 30,
+          "y": 70
+        },
+        {
+          "x": 27,
+          "y": 89
+        },
+        {
+          "x": 35,
+          "y": 104
+        },
+        {
+          "x": 32,
+          "y": 122
+        },
+        {
+          "x": 41,
+          "y": 142
+        },
+        {
+          "x": 44,
+          "y": 157
+        },
+        {
+          "x": 58,
+          "y": 170
+        },
+        {
+          "x": 61,
+          "y": 187
+        },
+        {
+          "x": 53,
+          "y": 207
+        },
+        {
+          "x": 35,
+          "y": 224
+        },
+        {
+          "x": 0,
+          "y": 242
+        }
+      ],
+      "label": "Western cliff masonry"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 23,
+      "points": [
+        {
+          "x": 299,
+          "y": 16
+        },
+        {
+          "x": 278,
+          "y": 24
+        },
+        {
+          "x": 267,
+          "y": 42
+        },
+        {
+          "x": 273,
+          "y": 63
+        },
+        {
+          "x": 266,
+          "y": 76
+        },
+        {
+          "x": 273,
+          "y": 95
+        },
+        {
+          "x": 264,
+          "y": 116
+        },
+        {
+          "x": 273,
+          "y": 137
+        },
+        {
+          "x": 267,
+          "y": 155
+        },
+        {
+          "x": 276,
+          "y": 177
+        },
+        {
+          "x": 268,
+          "y": 198
+        },
+        {
+          "x": 282,
+          "y": 217
+        },
+        {
+          "x": 299,
+          "y": 233
+        }
+      ],
+      "label": "Eastern cliff masonry"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 8,
+      "points": [
+        {
+          "x": 8,
+          "y": 99
+        },
+        {
+          "x": 30,
+          "y": 99
+        },
+        {
+          "x": 40,
+          "y": 93
+        },
+        {
+          "x": 57,
+          "y": 101
+        },
+        {
+          "x": 79,
+          "y": 101
+        }
+      ],
+      "label": "Upper agriculture terrace"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 7,
+      "points": [
+        {
+          "x": 16,
+          "y": 131
+        },
+        {
+          "x": 37,
+          "y": 132
+        },
+        {
+          "x": 47,
+          "y": 128
+        },
+        {
+          "x": 73,
+          "y": 132
+        },
+        {
+          "x": 95,
+          "y": 128
+        }
+      ],
+      "label": "Second agriculture terrace"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 7,
+      "points": [
+        {
+          "x": 33,
+          "y": 162
+        },
+        {
+          "x": 53,
+          "y": 165
+        },
+        {
+          "x": 67,
+          "y": 159
+        },
+        {
+          "x": 91,
+          "y": 165
+        },
+        {
+          "x": 108,
+          "y": 163
+        }
+      ],
+      "label": "Third agriculture terrace"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 8,
+      "points": [
+        {
+          "x": 54,
+          "y": 194
+        },
+        {
+          "x": 77,
+          "y": 191
+        },
+        {
+          "x": 93,
+          "y": 201
+        },
+        {
+          "x": 113,
+          "y": 198
+        }
+      ],
+      "label": "Fourth descending terrace",
+      "capture": true
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 4,
+      "points": [
+        {
+          "x": 36,
+          "y": 101
+        },
+        {
+          "x": 36,
+          "y": 122
+        },
+        {
+          "x": 44,
+          "y": 130
+        }
+      ],
+      "label": "Upper retaining pier"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 4,
+      "points": [
+        {
+          "x": 66,
+          "y": 132
+        },
+        {
+          "x": 68,
+          "y": 154
+        },
+        {
+          "x": 77,
+          "y": 163
+        }
+      ],
+      "label": "Middle retaining pier"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 84,
+          "y": 164
+        },
+        {
+          "x": 93,
+          "y": 175
+        },
+        {
+          "x": 100,
+          "y": 182
+        },
+        {
+          "x": 109,
+          "y": 180
+        }
+      ],
+      "label": "Broken inspection walk"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 71,
+          "y": 183
+        },
+        {
+          "x": 87,
+          "y": 176
+        },
+        {
+          "x": 98,
+          "y": 178
+        },
+        {
+          "x": 110,
+          "y": 170
+        }
+      ],
+      "label": "Rotted crossing planks"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 5,
+      "points": [
+        {
+          "x": 246,
+          "y": 100
+        },
+        {
+          "x": 241,
+          "y": 104
+        },
+        {
+          "x": 241,
+          "y": 127
+        },
+        {
+          "x": 249,
+          "y": 132
+        },
+        {
+          "x": 267,
+          "y": 132
+        }
+      ],
+      "label": "Upper right observation alcove"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 5,
+      "points": [
+        {
+          "x": 246,
+          "y": 153
+        },
+        {
+          "x": 237,
+          "y": 158
+        },
+        {
+          "x": 236,
+          "y": 178
+        },
+        {
+          "x": 243,
+          "y": 182
+        },
+        {
+          "x": 263,
+          "y": 182
+        }
+      ],
+      "label": "Lower right observation alcove"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 241,
+          "y": 106
+        },
+        {
+          "x": 260,
+          "y": 107
+        },
+        {
+          "x": 260,
+          "y": 127
+        }
+      ],
+      "label": "Upper niche lintel"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 237,
+          "y": 160
+        },
+        {
+          "x": 259,
+          "y": 160
+        },
+        {
+          "x": 258,
+          "y": 178
+        }
+      ],
+      "label": "Broken lower lintel"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 2,
+      "points": [
+        {
+          "x": 252,
+          "y": 66
+        },
+        {
+          "x": 252,
+          "y": 88
+        },
+        {
+          "x": 246,
+          "y": 95
+        },
+        {
+          "x": 246,
+          "y": 101
+        }
+      ],
+      "label": "Hanging inspection cable"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 2,
+      "points": [
+        {
+          "x": 283,
+          "y": 57
+        },
+        {
+          "x": 285,
+          "y": 79
+        },
+        {
+          "x": 279,
+          "y": 91
+        }
+      ],
+      "label": "Opposing hanging cable"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 235,
+          "y": 146
+        },
+        {
+          "x": 244,
+          "y": 148
+        },
+        {
+          "x": 255,
+          "y": 145
+        }
+      ],
+      "label": "Forgotten observation bench"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 2,
+      "points": [
+        {
+          "x": 257,
+          "y": 88
+        },
+        {
+          "x": 265,
+          "y": 88
+        },
+        {
+          "x": 269,
+          "y": 96
+        }
+      ],
+      "label": "Suspended planter tray"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 8,
+      "points": [
+        {
+          "x": 232,
+          "y": 193
+        },
+        {
+          "x": 228,
+          "y": 209
+        },
+        {
+          "x": 230,
+          "y": 228
+        },
+        {
+          "x": 244,
+          "y": 232
+        },
+        {
+          "x": 271,
+          "y": 232
+        },
+        {
+          "x": 284,
+          "y": 225
+        },
+        {
+          "x": 287,
+          "y": 202
+        }
+      ],
+      "label": "Cistern structure before filling",
+      "capture": true
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 228,
+          "y": 197
+        },
+        {
+          "x": 237,
+          "y": 194
+        },
+        {
+          "x": 242,
+          "y": 197
+        }
+      ],
+      "label": "Cracked cistern rim"
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "diameter": 2,
+      "from": {
+        "x": 265,
+        "y": 180
+      },
+      "to": {
+        "x": 266,
+        "y": 205
+      },
+      "label": "Irrigation drip pipe"
+    },
+    {
+      "op": "line",
+      "material": "Wall",
+      "diameter": 3,
+      "from": {
+        "x": 210,
+        "y": 225
+      },
+      "to": {
+        "x": 229,
+        "y": 225
+      },
+      "label": "Service walkway"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 10,
+      "points": [
+        {
+          "x": 81,
+          "y": 18
+        },
+        {
+          "x": 91,
+          "y": 35
+        },
+        {
+          "x": 94,
+          "y": 52
+        },
+        {
+          "x": 104,
+          "y": 64
+        },
+        {
+          "x": 109,
+          "y": 81
+        },
+        {
+          "x": 119,
+          "y": 97
+        }
+      ],
+      "label": "Primary western root"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 6,
+      "points": [
+        {
+          "x": 89,
+          "y": 33
+        },
+        {
+          "x": 78,
+          "y": 53
+        },
+        {
+          "x": 70,
+          "y": 71
+        },
+        {
+          "x": 66,
+          "y": 91
+        }
+      ],
+      "label": "Western root fan"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 4,
+      "points": [
+        {
+          "x": 104,
+          "y": 67
+        },
+        {
+          "x": 90,
+          "y": 76
+        },
+        {
+          "x": 84,
+          "y": 93
+        },
+        {
+          "x": 88,
+          "y": 108
+        }
+      ],
+      "label": "Western hanging branch"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 4,
+      "points": [
+        {
+          "x": 109,
+          "y": 81
+        },
+        {
+          "x": 106,
+          "y": 105
+        },
+        {
+          "x": 115,
+          "y": 120
+        },
+        {
+          "x": 124,
+          "y": 126
+        }
+      ],
+      "label": "Western root to relic"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 9,
+      "points": [
+        {
+          "x": 236,
+          "y": 18
+        },
+        {
+          "x": 226,
+          "y": 34
+        },
+        {
+          "x": 221,
+          "y": 57
+        },
+        {
+          "x": 210,
+          "y": 73
+        },
+        {
+          "x": 203,
+          "y": 94
+        },
+        {
+          "x": 192,
+          "y": 105
+        }
+      ],
+      "label": "Eastern root asymmetry",
+      "capture": true
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 5,
+      "points": [
+        {
+          "x": 225,
+          "y": 43
+        },
+        {
+          "x": 237,
+          "y": 55
+        },
+        {
+          "x": 240,
+          "y": 73
+        },
+        {
+          "x": 231,
+          "y": 88
+        }
+      ],
+      "label": "Eastern root tendril"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 210,
+          "y": 73
+        },
+        {
+          "x": 223,
+          "y": 90
+        },
+        {
+          "x": 216,
+          "y": 111
+        },
+        {
+          "x": 205,
+          "y": 121
+        }
+      ],
+      "label": "Eastern fork"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 204,
+          "y": 94
+        },
+        {
+          "x": 204,
+          "y": 116
+        },
+        {
+          "x": 200,
+          "y": 139
+        },
+        {
+          "x": 189,
+          "y": 147
+        }
+      ],
+      "label": "Eastern counter-support"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 6,
+      "points": [
+        {
+          "x": 123,
+          "y": 106
+        },
+        {
+          "x": 125,
+          "y": 99
+        },
+        {
+          "x": 128,
+          "y": 93
+        },
+        {
+          "x": 132,
+          "y": 88
+        },
+        {
+          "x": 138,
+          "y": 84
+        },
+        {
+          "x": 144,
+          "y": 81
+        },
+        {
+          "x": 150,
+          "y": 79
+        },
+        {
+          "x": 156,
+          "y": 79
+        },
+        {
+          "x": 163,
+          "y": 79
+        },
+        {
+          "x": 169,
+          "y": 80
+        },
+        {
+          "x": 175,
+          "y": 83
+        },
+        {
+          "x": 181,
+          "y": 87
+        },
+        {
+          "x": 185,
+          "y": 92
+        },
+        {
+          "x": 188,
+          "y": 98
+        },
+        {
+          "x": 190,
+          "y": 105
+        },
+        {
+          "x": 193,
+          "y": 111
+        }
+      ],
+      "label": "Outer upper broken halo"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 5,
+      "points": [
+        {
+          "x": 194,
+          "y": 129
+        },
+        {
+          "x": 192,
+          "y": 135
+        },
+        {
+          "x": 189,
+          "y": 141
+        },
+        {
+          "x": 185,
+          "y": 147
+        },
+        {
+          "x": 180,
+          "y": 152
+        },
+        {
+          "x": 176,
+          "y": 156
+        },
+        {
+          "x": 171,
+          "y": 159
+        },
+        {
+          "x": 165,
+          "y": 162
+        },
+        {
+          "x": 159,
+          "y": 163
+        },
+        {
+          "x": 153,
+          "y": 162
+        },
+        {
+          "x": 147,
+          "y": 160
+        },
+        {
+          "x": 142,
+          "y": 157
+        },
+        {
+          "x": 136,
+          "y": 154
+        },
+        {
+          "x": 131,
+          "y": 150
+        },
+        {
+          "x": 127,
+          "y": 145
+        },
+        {
+          "x": 123,
+          "y": 139
+        }
+      ],
+      "label": "Outer lower broken halo"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 5,
+      "points": [
+        {
+          "x": 121,
+          "y": 134
+        },
+        {
+          "x": 120,
+          "y": 128
+        },
+        {
+          "x": 120,
+          "y": 123
+        },
+        {
+          "x": 121,
+          "y": 117
+        }
+      ],
+      "label": "Dislocated halo shard",
+      "capture": true
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 131,
+          "y": 99
+        },
+        {
+          "x": 135,
+          "y": 94
+        },
+        {
+          "x": 141,
+          "y": 90
+        },
+        {
+          "x": 146,
+          "y": 88
+        },
+        {
+          "x": 152,
+          "y": 87
+        },
+        {
+          "x": 158,
+          "y": 87
+        },
+        {
+          "x": 164,
+          "y": 87
+        },
+        {
+          "x": 170,
+          "y": 90
+        }
+      ],
+      "label": "Inner seed cradle"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 180,
+          "y": 137
+        },
+        {
+          "x": 176,
+          "y": 142
+        },
+        {
+          "x": 172,
+          "y": 146
+        },
+        {
+          "x": 168,
+          "y": 150
+        },
+        {
+          "x": 163,
+          "y": 153
+        },
+        {
+          "x": 158,
+          "y": 154
+        },
+        {
+          "x": 152,
+          "y": 154
+        },
+        {
+          "x": 147,
+          "y": 152
+        },
+        {
+          "x": 142,
+          "y": 149
+        },
+        {
+          "x": 137,
+          "y": 146
+        },
+        {
+          "x": 133,
+          "y": 142
+        }
+      ],
+      "label": "Inner seed crescent"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 4,
+      "points": [
+        {
+          "x": 154,
+          "y": 93
+        },
+        {
+          "x": 151,
+          "y": 105
+        },
+        {
+          "x": 155,
+          "y": 121
+        },
+        {
+          "x": 153,
+          "y": 139
+        },
+        {
+          "x": 158,
+          "y": 148
+        }
+      ],
+      "label": "Kernel spindle"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 2,
+      "points": [
+        {
+          "x": 149,
+          "y": 112
+        },
+        {
+          "x": 143,
+          "y": 120
+        },
+        {
+          "x": 147,
+          "y": 130
+        },
+        {
+          "x": 152,
+          "y": 133
+        }
+      ],
+      "label": "Kernel crack"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 2,
+      "points": [
+        {
+          "x": 160,
+          "y": 112
+        },
+        {
+          "x": 167,
+          "y": 120
+        },
+        {
+          "x": 162,
+          "y": 132
+        }
+      ],
+      "label": "Kernel opposing vein"
+    },
+    {
+      "op": "paint",
+      "material": "Ice",
+      "x": 153,
+      "y": 103,
+      "diameter": 6,
+      "label": "Pale seed heart"
+    },
+    {
+      "op": "paint",
+      "material": "Ice",
+      "x": 159,
+      "y": 145,
+      "diameter": 5,
+      "label": "Second mineral glint"
+    },
+    {
+      "op": "paint",
+      "material": "Ice",
+      "x": 177,
+      "y": 89,
+      "diameter": 5,
+      "label": "Upper mineral inclusion"
+    },
+    {
+      "op": "paint",
+      "material": "Ice",
+      "x": 124,
+      "y": 123,
+      "diameter": 4,
+      "label": "Western mineral inlay",
+      "capture": true
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 5,
+      "points": [
+        {
+          "x": 8,
+          "y": 262
+        },
+        {
+          "x": 25,
+          "y": 261
+        },
+        {
+          "x": 33,
+          "y": 254
+        },
+        {
+          "x": 45,
+          "y": 259
+        }
+      ],
+      "label": "Lower masonry course"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 5,
+      "points": [
+        {
+          "x": 126,
+          "y": 286
+        },
+        {
+          "x": 127,
+          "y": 270
+        },
+        {
+          "x": 143,
+          "y": 268
+        },
+        {
+          "x": 159,
+          "y": 274
+        },
+        {
+          "x": 160,
+          "y": 286
+        }
+      ],
+      "label": "Buried vaulted room"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 137,
+          "y": 281
+        },
+        {
+          "x": 137,
+          "y": 276
+        },
+        {
+          "x": 144,
+          "y": 274
+        }
+      ],
+      "label": "Forgotten subfloor timber"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 4,
+      "points": [
+        {
+          "x": 190,
+          "y": 282
+        },
+        {
+          "x": 198,
+          "y": 274
+        },
+        {
+          "x": 218,
+          "y": 271
+        },
+        {
+          "x": 225,
+          "y": 279
+        }
+      ],
+      "label": "Second buried chamber"
+    },
+    {
+      "op": "stroke",
+      "material": "Stone",
+      "diameter": 6,
+      "points": [
+        {
+          "x": 5,
+          "y": 229
+        },
+        {
+          "x": 24,
+          "y": 227
+        },
+        {
+          "x": 31,
+          "y": 237
+        },
+        {
+          "x": 42,
+          "y": 231
+        }
+      ],
+      "label": "Western rubble"
+    },
+    {
+      "op": "stroke",
+      "material": "Stone",
+      "diameter": 5,
+      "points": [
+        {
+          "x": 278,
+          "y": 233
+        },
+        {
+          "x": 284,
+          "y": 230
+        },
+        {
+          "x": 293,
+          "y": 237
+        }
+      ],
+      "label": "Eastern rubble",
+      "capture": true
+    },
+    {
+      "op": "stroke",
+      "material": "Sand",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 17,
+          "y": 95
+        },
+        {
+          "x": 34,
+          "y": 94
+        },
+        {
+          "x": 48,
+          "y": 96
+        },
+        {
+          "x": 57,
+          "y": 95
+        }
+      ],
+      "label": "Upper earth bed"
+    },
+    {
+      "op": "stroke",
+      "material": "Sand",
+      "diameter": 4,
+      "points": [
+        {
+          "x": 26,
+          "y": 127
+        },
+        {
+          "x": 43,
+          "y": 125
+        },
+        {
+          "x": 61,
+          "y": 126
+        }
+      ],
+      "label": "Middle earth bed"
+    },
+    {
+      "op": "stroke",
+      "material": "Sand",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 51,
+          "y": 158
+        },
+        {
+          "x": 70,
+          "y": 156
+        },
+        {
+          "x": 87,
+          "y": 160
+        }
+      ],
+      "label": "Lower earth bed"
+    },
+    {
+      "op": "stroke",
+      "material": "Stone",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 87,
+          "y": 190
+        },
+        {
+          "x": 98,
+          "y": 193
+        },
+        {
+          "x": 104,
+          "y": 190
+        }
+      ],
+      "label": "Collapsed walkway debris"
+    },
+    {
+      "op": "stroke",
+      "material": "Plant",
+      "diameter": 4,
+      "points": [
+        {
+          "x": 19,
+          "y": 94
+        },
+        {
+          "x": 23,
+          "y": 89
+        },
+        {
+          "x": 30,
+          "y": 89
+        },
+        {
+          "x": 35,
+          "y": 92
+        }
+      ],
+      "label": "Green upper terrace"
+    },
+    {
+      "op": "stroke",
+      "material": "Plant",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 62,
+          "y": 125
+        },
+        {
+          "x": 67,
+          "y": 120
+        },
+        {
+          "x": 72,
+          "y": 124
+        }
+      ],
+      "label": "Green second terrace"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 90,
+      "y": 156,
+      "diameter": 9,
+      "label": "Living third bed"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 70,
+      "y": 174,
+      "diameter": 8,
+      "label": "Green damaged pier"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 102,
+      "y": 68,
+      "diameter": 6,
+      "label": "Western root growth"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 207,
+      "y": 77,
+      "diameter": 7,
+      "label": "Eastern root growth"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 177,
+      "y": 111,
+      "diameter": 5,
+      "label": "Life within the heart"
+    },
+    {
+      "op": "stroke",
+      "material": "Plant",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 239,
+          "y": 193
+        },
+        {
+          "x": 246,
+          "y": 191
+        },
+        {
+          "x": 253,
+          "y": 188
+        }
+      ],
+      "label": "Cistern rim moss",
+      "capture": true
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 281,
+      "y": 186,
+      "diameter": 8,
+      "label": "Niche moss"
+    },
+    {
+      "op": "paint",
+      "material": "Fungus",
+      "x": 45,
+      "y": 145,
+      "diameter": 10,
+      "label": "Pale western fungus"
+    },
+    {
+      "op": "paint",
+      "material": "Fungus",
+      "x": 108,
+      "y": 207,
+      "diameter": 10,
+      "label": "Fungus at broken bridge"
+    },
+    {
+      "op": "paint",
+      "material": "Fungus",
+      "x": 248,
+      "y": 136,
+      "diameter": 7,
+      "label": "Niche fungus"
+    },
+    {
+      "op": "paint",
+      "material": "Fungus",
+      "x": 202,
+      "y": 228,
+      "diameter": 10,
+      "label": "Fungus beneath shrine"
+    },
+    {
+      "op": "paint",
+      "material": "Fungus",
+      "x": 166,
+      "y": 280,
+      "diameter": 8,
+      "label": "Crypt fungus"
+    },
+    {
+      "op": "stroke",
+      "material": "Ice",
+      "diameter": 2,
+      "points": [
+        {
+          "x": 244,
+          "y": 101
+        },
+        {
+          "x": 249,
+          "y": 99
+        },
+        {
+          "x": 252,
+          "y": 101
+        }
+      ],
+      "label": "Mineral inscription at niche"
+    },
+    {
+      "op": "stroke",
+      "material": "Ice",
+      "diameter": 2,
+      "points": [
+        {
+          "x": 120,
+          "y": 89
+        },
+        {
+          "x": 123,
+          "y": 91
+        },
+        {
+          "x": 128,
+          "y": 92
+        }
+      ],
+      "label": "Exposed mineral seed vein"
+    },
+    {
+      "op": "paint",
+      "material": "Water",
+      "x": 256,
+      "y": 220,
+      "diameter": 17,
+      "label": "First bounded cistern charge",
+      "capture": true
+    },
+    {
+      "op": "paint",
+      "material": "Water",
+      "x": 271,
+      "y": 218,
+      "diameter": 13,
+      "label": "Complete original authored state",
+      "capture": true
+    },
+    {
+      "op": "inspect",
+      "x": 105,
+      "y": 70,
+      "width": 90,
+      "height": 105,
+      "label": "Initial central heart census"
+    },
+    {
+      "op": "inspect",
+      "x": 223,
+      "y": 184,
+      "width": 70,
+      "height": 62,
+      "label": "Initial cistern census"
+    },
+    {
+      "op": "inspect",
+      "x": 0,
+      "y": 80,
+      "width": 95,
+      "height": 102,
+      "label": "Initial agricultural terrace census"
+    },
+    {
+      "op": "step",
+      "ticks": 48,
+      "label": "Early native evolution tick 48",
+      "capture": true
+    },
+    {
+      "op": "inspect",
+      "x": 108,
+      "y": 78,
+      "width": 90,
+      "height": 97,
+      "label": "Relic census tick 48"
+    },
+    {
+      "op": "step",
+      "ticks": 96,
+      "label": "Native evolution tick 144",
+      "capture": true
+    },
+    {
+      "op": "inspect",
+      "x": 221,
+      "y": 188,
+      "width": 74,
+      "height": 60,
+      "label": "Cistern census tick 144"
+    },
+    {
+      "op": "step",
+      "ticks": 120,
+      "label": "Native evolution tick 264",
+      "capture": true
+    },
+    {
+      "op": "inspect",
+      "x": 4,
+      "y": 78,
+      "width": 95,
+      "height": 98,
+      "label": "Terraces census tick 264"
+    },
+    {
+      "op": "step",
+      "ticks": 120,
+      "label": "Mature native evolution tick 384",
+      "capture": true
+    },
+    {
+      "op": "inspect",
+      "x": 109,
+      "y": 75,
+      "width": 95,
+      "height": 100,
+      "label": "Relic census tick 384"
+    }
   ]
 }
