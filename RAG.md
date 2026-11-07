@@ -3,7 +3,7 @@
 **Repository:** `techrote/sandspiel-agent-lab`  
 **Upstream:** `MaxBittker/sandspiel` at `9936e06b07a583aedfba9589c0cead2917f405fb` (MIT)  
 **Project objective:** let an agent inside ordinary ChatGPT interact with the *actual* Sandspiel client, observe real rendering and native cell data, and record reproducible sessions. **Do not require Work mode, rewrite physics, or pretend an offline surrogate is a gameplay result.**  
-**Status (2026-11-07):** actual Rust/WASM + Webpack browser bundle built and unit-tested; CI browser smoke succeeded at [run 42374743617](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42374743617). It painted Wood, Wall and Water, stepped native simulation 120 ticks, collected screenshots/recording, and verified exact cells-only round-trip. Both browser evidence ZIP and the compiled Web bundle ZIP were downloaded into ChatGPT's container through the existing GitHub connector. Local Chromium on this chat container blocked local HTTP navigation with `ERR_BLOCKED_BY_ADMINISTRATOR`. Remote GitHub Actions JSON-command session runner is now implemented; its first end-to-end authoring session still needs CI qualification. This is NOT yet an independent Luna-equivalent playtest.
+**Status (2026-11-07):** Operational v1 proof-of-concept: Rust/WASM + Webpack source-matched CI **passed** [run 42375713505](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42375713505); real Chromium smoke (Wood/Wall/Water, 120 steps, exact cells-only roundtrip) passed [run 42374743617](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42374743617). The chat-triggered, allowlisted GitHub Actions session ran 20 drawing/inspection/step commands with 240 native ticks, no browser errors, and saved screenshots/video/cell snapshot in [run 42375727238](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42375727238). Its artifact ZIP transferred successfully back into the ChatGPT container. Local container Chromium cannot navigate localhost (`ERR_BLOCKED_BY_ADMINISTRATOR`); this remote browser bridge is the supported execution path. Added dist cache for later command-batch latency reduction, pending cache-hit validation. This is a small structured-tool test, NOT Luna's full challenge, and Actions runs do not yet preserve native session state across separate invocations.
 
 ## Contents
 
@@ -104,6 +104,13 @@ Every experiment should publish source commit, command/event JSON, observed revi
 ### Chat environment browser policy finding
 
 This session's Playwright/Chromium cannot open a local HTTP origin (`net::ERR_BLOCKED_BY_ADMINISTRATOR`), despite containing browser binaries and the successful GitHub Actions bundle. Do not attempt to evade platform policy or claim local play. **Use the dedicated GitHub-hosted session runner instead**, which executes the *real compiled original game* in Actions Chromium, reads only bounded `sessions/active.json`, and exports actual screenshots, cell inspections and video for transfer back into ChatGPT. A successful short smoke is required before treating this bridge as operational.
+
+### Chat-triggered session evidence (2026-11-07)
+
+- **Source:** session branch `agent/sessions` commit `c7fdbbf9d8203f17e2c7e46771bc3a95f8108070`, same physics and app code as the implementation branch; only the session JSON differs.
+- **Execution:** GitHub Actions [run 42375727238](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42375727238); all 20 commands accepted, `ticks=240`, `page_errors=[]`; `cells_sha256=73e4814751b18c09e52bfaf8123834dd774c685cfd0e8e254ac28709b89a95c9`.
+- **Observed:** a Sand floor, two Wood trunks with branches, four Plant canopy patches, Seeds and Water. After 120 ticks, a native 100×100 inspection counted `Plant=1932`, `Wood=720`, `Empty=7348`; 120 further ticks showed additional hanging growth and a small flower. Actual screenshots and WebM uploaded as [artifact 13575348807](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42375727238/artifacts/13575348807); video also converted in ChatGPT to a 30.44-second MP4.
+- **Limitations:** this is programmatic drawing with structure and observation, not a mouse-equivalent test or a full garden/apparatus/fire experiment. Playwright video duration is **not** simulation time. Cell bytes alone do not preserve RNG, wind, burn or GPU fluid state; runs are independent unless command history is replayed. Browser bundle caching is introduced but has not yet demonstrated a cache hit.
 
 ## 7. Fallback and MCP roadmap
 
