@@ -66,6 +66,8 @@ export function createAgentLab({ universe, memory, species, fluid, render, mode 
   let revision = 0;
   let ticks = 0;
   let commands = 0;
+  let liveTicksRemaining = 0;
+  let pacing = false;
 
   const status = () => ({
     ready: true,
@@ -74,6 +76,7 @@ export function createAgentLab({ universe, memory, species, fluid, render, mode 
     paused: Boolean(window.paused),
     revision,
     ticksObserved: ticks,
+    liveTicksRemaining,
     commands,
     width,
     height,
@@ -93,6 +96,7 @@ export function createAgentLab({ universe, memory, species, fluid, render, mode 
     return id;
   };
   const setPause = (paused) => {
+    if (paused) liveTicksRemaining = 0;
     window.paused = paused;
     if (window.UI) {
       const method = paused ? "pause" : "play";
@@ -149,6 +153,7 @@ export function createAgentLab({ universe, memory, species, fluid, render, mode 
     try {
       const command = plain(input, "command");
       if (typeof command.op !== "string") throw new Error("op must be a string");
+      if (pacing && command.op !== 'status') throw new Error('paced edit already executing');
       checkRevision(command);
       let output = {};
       let mutated = false;
@@ -157,7 +162,15 @@ export function createAgentLab({ universe, memory, species, fluid, render, mode 
         case "catalog": return { status: "observed", materials: names.map(([name, id]) => ({ name, id })), ...status() };
         case "inspect": return { status: "observed", region: inspect(command), ...status() };
         case "pause": operationStarted = true; setPause(true); output = { paused: true }; break;
-        case "resume": operationStarted = true; setPause(false); output = { paused: false }; break;
+        case "resume": {
+          // Interactive no-tick resume remains available; session JSON requires ticks.
+          const allowance = command.ticks === undefined ? 0 : integer(command.ticks, "ticks", 1, MAX_STEP);
+          operationStarted = true;
+          liveTicksRemaining = allowance;
+          setPause(false);
+          output = { paused: false, liveTicksBudget: allowance };
+          break;
+        }
         case "reset": {
           operationStarted = true;
           sceneMutationStarted = true;
@@ -289,11 +302,111 @@ export function createAgentLab({ universe, memory, species, fluid, render, mode 
     }
   };
 
+  // Produce the exact original native stamp sequence. Validation completes before
+  // any native painting, and the fast 'run' path above is unchanged.
+  const planPacedStamps = (command) => {
+    if (!["paint", "line", "stroke", "rect"].includes(command.op)) throw new Error("paced operation must paint");
+    if (!window.paused) throw new Error("pause before bounded edits");
+    const id = material(command.material);
+    const diameter = integer(command.diameter ?? 1, "diameter", 1, MAX_BRUSH);
+    const stamps = [];
+    const segment = (a, b) => {
+      const steps = Math.ceil(Math.hypot(b.x - a.x, b.y - a.y) / Math.max(1, diameter / 3));
+      if (stamps.length + steps + 1 > MAX_STAMPS) throw new Error("stroke stamp limit exceeded");
+      for (let j = 0; j <= steps; j++) {
+        const t = steps ? j / steps : 0;
+        stamps.push([Math.round(a.x + (b.x - a.x) * t), Math.round(a.y + (b.y - a.y) * t), diameter]);
+      }
+    };
+    if (command.op === "paint") {
+      const p = point(command, width, height);
+      stamps.push([p.x, p.y, diameter]);
+    } else if (command.op === "line") {
+      segment(point(command.from, width, height), point(command.to, width, height));
+    } else if (command.op === "stroke") {
+      if (!Array.isArray(command.points) || command.points.length < 2 || command.points.length > 100) throw new Error("stroke needs 2-100 points");
+      const points = command.points.map(p => point(p, width, height));
+      for (let i = 1; i < points.length; i++) segment(points[i - 1], points[i]);
+    } else {
+      const x = integer(command.x, "x", 0, width - 1);
+      const y = integer(command.y, "y", 0, height - 1);
+      const w = integer(command.width, "width", 1, width - x);
+      const h = integer(command.height, "height", 1, height - y);
+      if (w * h > MAX_RECT_CELLS) throw new Error("rectangle too large");
+      const filled = booleanOption(command.fill, "fill", true);
+      for (let xx = x; xx < x + w; xx++) {
+        for (let yy = y; yy < y + h; yy++) {
+          if (filled || xx === x || xx === x + w - 1 || yy === y || yy === y + h - 1) stamps.push([xx, yy, 1]);
+        }
+      }
+    }
+    return {id, stamps};
+  };
+
+  const runPaced = async (input, options = {}) => {
+    const beforeRevision = revision;
+    let started = false;
+    let previous;
+    commands++;
+    try {
+      if (pacing) throw new Error("paced edit already executing");
+      const command = plain(input, "command");
+      const opts = plain(options, "pacing options");
+      const fps = integer(opts.fps ?? 12, "fps", 4, 20);
+      const stampsPerFrame = integer(opts.stampsPerFrame ?? 12, "stampsPerFrame", 1, 80);
+      checkRevision(command);
+      const {id, stamps} = planPacedStamps(command);
+      previous = cells().slice();
+      pacing = true;
+      started = true;
+      stopBoot();
+      const interval = Math.ceil(1000 / fps);
+      for (let i = 0; i < stamps.length; i += stampsPerFrame) {
+        for (const [x, y, diameter] of stamps.slice(i, i + stampsPerFrame)) {
+          stamp(x, y, diameter, id);
+        }
+        render();
+        // Yield actual presentation time to Chromium's compositor/MediaRecorder.
+        // This is a fixed, validated visual interval, not user-provided JavaScript.
+        await new Promise(resolve => setTimeout(resolve, interval));
+      }
+      const changedCells = changedCount(previous);
+      if (changedCells) revision++;
+      render();
+      await new Promise(resolve => setTimeout(resolve, interval));
+      return {
+        status: "applied", beforeRevision, afterRevision: revision,
+        material: labels.get(id), stamps: stamps.length, changedCells,
+        paced: true, presentationFrames: Math.ceil(stamps.length / stampsPerFrame),
+        note: "Same native stamp coordinates/order as the fast path; painting is presented progressively",
+        ...status(),
+      };
+    } catch (error) {
+      const reason = error instanceof Error ? error.message : String(error);
+      if (started) {
+        let changedCells;
+        try { changedCells = changedCount(previous); } catch (_) {}
+        if (changedCells === undefined || changedCells > 0) revision++;
+        return {
+          status: "failed", reason, beforeRevision, partialApplicationPossible: true,
+          ...(changedCells === undefined ? {} : {changedCells}), ...status(),
+        };
+      }
+      return { status: "refused", reason, beforeRevision, ...status() };
+    } finally {
+      pacing = false;
+    }
+  };
+
   return Object.freeze({
     status,
     run,
+    runPaced,
     // Hooks for upstream human brush/loop operations. They are not a security boundary.
     notifyManualEdit() { revision++; },
-    notifyTick() { ticks++; revision++; },
+    notifyTick() {
+      ticks++; revision++;
+      if (liveTicksRemaining > 0 && --liveTicksRemaining === 0) setPause(true);
+    },
   });
 }
