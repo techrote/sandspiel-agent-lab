@@ -1,6 +1,6 @@
 # Optional API credential handover — Sandspiel Agent Lab
 
-**Status:** policy and integration design only. **No third-party key was supplied or installed**, and the verified Sandspiel gameplay bridge needs no such key. The connected GitHub integration and the GitHub Actions job's automatically issued `GITHUB_TOKEN` already provide repository access where authorised. Do not invent a provider or silently add one.
+**Status:** policy and integration design only. **No private third-party provider key was supplied or installed**, and the verified Sandspiel gameplay bridge needs no such key. The inherited upstream browser application does contain a public Firebase client API key in `js/api.js`; it is client-side Firebase configuration, not a private provider secret or a credential to use for a new service. The connected GitHub integration and the GitHub Actions job's automatically issued `GITHUB_TOKEN` already provide repository access where authorised. Do not invent a provider or silently add one.
 
 The owner may use a provider offering free, usage-limited credits and 24-hour-expiring API keys. That reduces exposure, but expiry is **not** a substitute for least privilege or bounded spending. Nothing here requires the key to be pasted into ChatGPT.
 

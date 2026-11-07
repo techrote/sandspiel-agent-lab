@@ -24,7 +24,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: dist
-          key: sandspiel-agent-dist-${{ runner.os }}-${{ hashFiles('crate/src/**/*.rs', 'crate/Cargo.toml', 'crate/.cargo/config.toml', 'js/**/*', 'webpack.config.js', 'package.json', 'pnpm-lock.yaml', 'index.html', 'agent.html', 'assets/**/*', 'manifest.json') }}
+          key: sandspiel-agent-dist-v2-${{ runner.os }}-${{ hashFiles('crate/src/**/*.rs', 'crate/Cargo.toml', 'crate/Cargo.lock', 'crate/.cargo/config.toml', '.babelrc', 'js/**/*', 'webpack.config.js', 'package.json', 'pnpm-lock.yaml', 'index.html', 'agent.html', 'assets/**/*', 'manifest.json') }}
       - uses: pnpm/action-setup@v4
         if: steps.browser-cache.outputs.cache-hit != 'true'
         with:
@@ -50,6 +50,8 @@ jobs:
       - run: |
           python3 -m pip install 'playwright==1.56.0'
           python3 -m playwright install --with-deps chromium
+      - name: Unit test bounded session preflight and refusal evidence
+        run: python3 -m unittest discover -s tests -p "test_session_*.py" -v
       - name: Execute only the JSON allowlist against real Sandspiel
         run: python3 scripts/run_session.py --commands sessions/active.json --dist dist --out evidence/session
       - name: Upload observations and genuine video
