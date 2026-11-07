@@ -1007,10 +1007,10 @@
     },
     {
       "op": "inspect",
-      "x": 91,
-      "y": 89,
-      "width": 118,
-      "height": 118,
+      "x": 101,
+      "y": 104,
+      "width": 98,
+      "height": 100,
       "includeCells": false,
       "label": "evolution I: orbit and heart census"
     },
@@ -1097,18 +1097,18 @@
     {
       "op": "inspect",
       "x": 0,
-      "y": 94,
-      "width": 100,
-      "height": 185,
+      "y": 112,
+      "width": 85,
+      "height": 115,
       "includeCells": false,
       "label": "evolution II: left ruined tower census"
     },
     {
       "op": "inspect",
-      "x": 200,
-      "y": 94,
-      "width": 100,
-      "height": 185,
+      "x": 215,
+      "y": 112,
+      "width": 85,
+      "height": 115,
       "includeCells": false,
       "label": "evolution II: right ruined tower census"
     },
