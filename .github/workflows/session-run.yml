@@ -83,3 +83,15 @@ jobs:
           path: evidence/session/
           if-no-files-found: warn
           retention-days: 14
+      - name: Upload compiled real browser sandbox for independent visual iteration
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sandspiel-artist-browser-${{ github.run_id }}
+          path: |
+            dist/
+            scripts/run_session.py
+            scripts/recording_integrity.py
+            sessions/active.json
+          if-no-files-found: warn
+          retention-days: 7

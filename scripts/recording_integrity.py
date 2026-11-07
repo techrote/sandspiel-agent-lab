@@ -24,9 +24,19 @@ def inspect_recording(path, ledger, mode="paced"):
     if len(streams) != 1:
         raise ValueError("expected one actual canvas video stream")
     stream = streams[0]
-    duration = float(probe["format"]["duration"])
-    frames = int(stream["nb_read_frames"])
-    fps = frames / duration if duration > 0 else 0.0
+    # WebM written by Chromium MediaRecorder can omit format.duration entirely.
+    # Decoded source timestamps, not nominal r_frame_rate, determine observed FPS.
+    timestamps = call_json(["ffprobe", "-v", "error", "-select_streams", "v:0",
+                            "-show_frames", "-show_entries", "frame=best_effort_timestamp_time",
+                            "-of", "json", str(path)])
+    times = [float(frame["best_effort_timestamp_time"]) for frame in timestamps["frames"]
+             if "best_effort_timestamp_time" in frame]
+    frames = int(stream.get("nb_read_frames") or len(times))
+    span = times[-1] - times[0] if len(times) >= 2 else 0.0
+    if span <= 0 or frames < 2:
+        raise ValueError("insufficient valid decoded video timestamps")
+    duration = span
+    fps = (frames - 1) / duration
     metadata = {
         "source": "actual Sandspiel sand-canvas via MediaRecorder.captureStream",
         "codec": stream.get("codec_name"),
@@ -40,11 +50,6 @@ def inspect_recording(path, ledger, mode="paced"):
     }
     if fps < 4:
         raise ValueError(f"actual decoded frame rate below 4 FPS: {fps:.2f}")
-    timestamps = call_json(["ffprobe", "-v", "error", "-select_streams", "v:0",
-                            "-show_frames", "-show_entries", "frame=best_effort_timestamp_time",
-                            "-of", "json", str(path)])
-    times = [float(frame["best_effort_timestamp_time"]) for frame in timestamps["frames"]
-             if "best_effort_timestamp_time" in frame]
     decoded = subprocess.run(
         ["ffmpeg", "-v", "error", "-i", str(path), "-map", "0:v:0",
          "-vf", "scale=160:160,format=gray", "-vsync", "0",

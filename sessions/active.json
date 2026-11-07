@@ -1,6 +1,6 @@
 {
   "format": "sandspiel-lab-session/v1",
-  "name": "THE MOTH-LIGHT OBSERVATORY — a ruined eclipse garden (round2-open v1)",
+  "name": "THE MOTH-LIGHT OBSERVATORY — v2 observed repair: seed terraces, inner vines, and falling water",
   "persistCells": true,
   "recording": {
     "mode": "paced",
@@ -782,20 +782,84 @@
       "label": "central seed-heart cage"
     },
     {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 2,
+      "points": [
+        {
+          "x": 111,
+          "y": 114
+        },
+        {
+          "x": 119,
+          "y": 126
+        },
+        {
+          "x": 122,
+          "y": 141
+        },
+        {
+          "x": 126,
+          "y": 154
+        }
+      ],
+      "label": "v2: inner western pendant vine"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 2,
+      "points": [
+        {
+          "x": 190,
+          "y": 113
+        },
+        {
+          "x": 181,
+          "y": 126
+        },
+        {
+          "x": 178,
+          "y": 141
+        },
+        {
+          "x": 175,
+          "y": 153
+        }
+      ],
+      "label": "v2: inner eastern pendant vine"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "diameter": 12,
+      "x": 124,
+      "y": 152,
+      "label": "v2: leaf chandelier west"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "diameter": 12,
+      "x": 175,
+      "y": 150,
+      "label": "v2: leaf chandelier east"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "diameter": 17,
+      "x": 150,
+      "y": 128,
+      "label": "v2: crown emerging above original heart"
+    },
+    {
       "op": "paint",
       "material": "Plant",
       "diameter": 18,
       "x": 150,
       "y": 144,
       "label": "heart foliage"
-    },
-    {
-      "op": "paint",
-      "material": "Seed",
-      "diameter": 5,
-      "x": 150,
-      "y": 138,
-      "label": "seed in seed-heart"
     },
     {
       "op": "line",
@@ -904,8 +968,9 @@
       "op": "paint",
       "material": "Plant",
       "diameter": 14,
-      "x": 252,
-      "y": 143
+      "x": 235,
+      "y": 151,
+      "label": "right root foliage relocated from occupied stone"
     },
     {
       "op": "paint",
@@ -966,6 +1031,82 @@
       "label": "right stone flower perch"
     },
     {
+      "op": "line",
+      "material": "Sand",
+      "diameter": 5,
+      "from": {
+        "x": 69,
+        "y": 271
+      },
+      "to": {
+        "x": 94,
+        "y": 271
+      },
+      "label": "v2: left terrestrial seed bed"
+    },
+    {
+      "op": "line",
+      "material": "Sand",
+      "diameter": 5,
+      "from": {
+        "x": 213,
+        "y": 272
+      },
+      "to": {
+        "x": 239,
+        "y": 272
+      },
+      "label": "v2: right terrestrial seed bed"
+    },
+    {
+      "op": "paint",
+      "material": "Seed",
+      "diameter": 3,
+      "x": 76,
+      "y": 263,
+      "label": "v2: left seed on ground, not heart"
+    },
+    {
+      "op": "paint",
+      "material": "Seed",
+      "diameter": 3,
+      "x": 88,
+      "y": 263,
+      "label": "v2: second left seed"
+    },
+    {
+      "op": "paint",
+      "material": "Seed",
+      "diameter": 3,
+      "x": 222,
+      "y": 263,
+      "label": "v2: right seed on ground"
+    },
+    {
+      "op": "paint",
+      "material": "Seed",
+      "diameter": 3,
+      "x": 234,
+      "y": 263,
+      "label": "v2: second right seed"
+    },
+    {
+      "op": "paint",
+      "material": "Water",
+      "diameter": 6,
+      "x": 80,
+      "y": 261,
+      "label": "v2: moisten left seed bed"
+    },
+    {
+      "op": "paint",
+      "material": "Water",
+      "diameter": 6,
+      "x": 231,
+      "y": 261,
+      "label": "v2: moisten right seed bed"
+    },
+    {
       "op": "paint",
       "material": "Plant",
       "diameter": 12,
@@ -998,6 +1139,22 @@
       "x": 151,
       "y": 100,
       "label": "first rain caught by orbit"
+    },
+    {
+      "op": "paint",
+      "material": "Ice",
+      "diameter": 3,
+      "x": 133,
+      "y": 77,
+      "label": "v2: separated blue glint above arch"
+    },
+    {
+      "op": "paint",
+      "material": "Ice",
+      "diameter": 3,
+      "x": 170,
+      "y": 76,
+      "label": "v2: second upper glint"
     },
     {
       "op": "resume",
@@ -1087,6 +1244,20 @@
       "y": 101,
       "label": "adaptation I: renewed rain",
       "capture": true
+    },
+    {
+      "op": "line",
+      "material": "Water",
+      "diameter": 3,
+      "from": {
+        "x": 154,
+        "y": 215
+      },
+      "to": {
+        "x": 155,
+        "y": 254
+      },
+      "label": "observed adaptation I: water descent toward basin"
     },
     {
       "op": "resume",
@@ -1206,6 +1377,22 @@
       "capture": true
     },
     {
+      "op": "paint",
+      "material": "Fungus",
+      "diameter": 11,
+      "x": 99,
+      "y": 184,
+      "label": "observed adaptation II: pink west orbit reflection"
+    },
+    {
+      "op": "paint",
+      "material": "Fungus",
+      "diameter": 10,
+      "x": 204,
+      "y": 194,
+      "label": "observed adaptation II: mauve eastern counterpart"
+    },
+    {
       "op": "resume",
       "ticks": 130,
       "label": "evolution III: last flowering",
@@ -1252,6 +1439,22 @@
       "x": 129,
       "y": 222,
       "label": "final accents: lower moss"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "diameter": 10,
+      "x": 91,
+      "y": 242,
+      "label": "observed adaptation III: fern above left terrace"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "diameter": 9,
+      "x": 207,
+      "y": 239,
+      "label": "observed adaptation III: fern above right terrace"
     },
     {
       "op": "paint",
