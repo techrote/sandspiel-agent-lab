@@ -3,7 +3,7 @@
 **Repository:** `techrote/sandspiel-agent-lab`  
 **Upstream:** `MaxBittker/sandspiel` at `9936e06b07a583aedfba9589c0cead2917f405fb` (MIT)  
 **Project objective:** let an agent inside ordinary ChatGPT interact with the *actual* Sandspiel client, observe real rendering and native cell data, and record reproducible sessions. **Do not require Work mode, rewrite physics, or pretend an offline surrogate is a gameplay result.**  
-**Status (2026-11-07):** hosted Rust/WASM + Webpack build and Node command tests passed. A real Ubuntu 24.04 Chromium/Playwright session rendered Wood/Wall/Water, advanced 120 native+fluid ticks, captured screenshots and exported cells. First browser smoke run [#42374201807](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42374201807) failed on a *test assertion comparing pre-step Wood to post-step restored Wood*, not an identified rendering/build failure; corrective test pending. Its GitHub evidence ZIP (artifact 13574329014) was successfully downloaded into the ChatGPT container, proving the **binary artifact transfer gate for small ZIPs**. The finished Web bundle and full smoke qualification remain pending. No independent Luna comparison has been run.
+**Status (2026-11-07):** real Sandspiel/WASM CI build and browser smoke passed ([42374743617](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42374743617)); compiled bundle and real browser artifacts transferred into ChatGPT. Local Chromium is administratively URL-blocked (including localhost), so browser execution currently uses GitHub-hosted Chromium. A new bounded scenario runner succeeded ([42375551155](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42375551155)), with actual material painting, 120 native+fluid simulation steps, screenshots, region inspection, cells export and video. Full Luna comparative challenge remains unattempted; source-qualified integration and merge decisions remain pending.
 
 ## Contents
 
@@ -100,6 +100,14 @@ Every experiment should publish source commit, command/event JSON, observed revi
 - First browser test incorrectly compared the restored *post-tick* scene to a *pre-tick* Wood measurement. The corrected test compares against a matching pre-export snapshot and requires byte-identical cell serialization after import; this remains to be requalified.
 - Artifact ID `13574329014` transferred successfully through the connected GitHub action into `/mnt/data` in ChatGPT. This proves artifact transport for this evidence ZIP, **not yet the compiled Web app ZIP**.
 - Browser recording file remained zero bytes in the failed run because the script aborted before closing its Playwright context; a `finally` cleanup was added so failures also produce media and command history.
+
+### Verified remote execution (2026-11-07)
+
+- `feat/agent-lab-actions-driver` carries an Actions-hosted Playwright runner and `sessions/garden-smoke.json`, with instructions in `ACTIONS_DRIVER.md`.
+- Successful run [42375551155](https://github.com/techrote/sandspiel-agent-lab/actions/runs/42375551155) captured actual before/after browser frames, a nonzero WebM video, and JSON receipts for Sand/Wood/Seed/Water/Plant placement, 120 native+WebGL steps, inspection and export. The result was an infrastructure smoke, not Luna benchmark success.
+- Local browser invocation from this ChatGPT container failed with `net::ERR_BLOCKED_BY_ADMINISTRATOR`; installed Chromium has a managed URL blocklist. Do not modify or bypass that policy. The compiled WebAssembly bundle remains available locally for static inspection.
+- The run pins a known-good compiled bundle artifact with a 14-day retention, so archive or rebuild from a recorded source tree before it expires. PR test `GITHUB_SHA` may refer to a synthetic merge commit.
+- Next: implement a meaningful two-mode (mouse-equivalent versus structured) comparative authoring trial; do not accept invented material outcomes.
 
 ## 7. Fallback and MCP roadmap
 
