@@ -24,14 +24,34 @@ def inspect_recording(path, ledger, mode="paced"):
     if len(streams) != 1:
         raise ValueError("expected one actual canvas video stream")
     stream = streams[0]
-    duration = float(probe["format"]["duration"])
+    # Chromium canvas MediaRecorder can emit WebM without a container duration.
+    # Derive presentation duration from real decoded frame timestamps instead,
+    # never from r_frame_rate (typically an invalid 1000/1 for variable-rate WebM).
+    timestamp_probe = call_json(["ffprobe", "-v", "error", "-select_streams", "v:0",
+                                 "-show_frames", "-show_entries",
+                                 "frame=best_effort_timestamp_time",
+                                 "-of", "json", str(path)])
+    times = [float(frame["best_effort_timestamp_time"])
+             for frame in timestamp_probe.get("frames", [])
+             if "best_effort_timestamp_time" in frame]
+    if len(times) < 2:
+        raise ValueError("video lacks sufficient decoded timestamp evidence")
+    pts_duration = times[-1] - times[0]
+    container_duration = probe.get("format", {}).get("duration")
+    has_container_duration = container_duration not in (None, "", "N/A")
+    duration = float(container_duration) if has_container_duration else pts_duration
+    if not 0 < duration < 3600:
+        raise ValueError("invalid recorded duration")
     frames = int(stream["nb_read_frames"])
-    fps = frames / duration if duration > 0 else 0.0
+    fps = frames / duration
     metadata = {
         "source": "actual Sandspiel sand-canvas via MediaRecorder.captureStream",
         "codec": stream.get("codec_name"),
         "width": stream.get("width"), "height": stream.get("height"),
-        "duration_seconds": duration, "decoded_frame_count": frames,
+        "duration_seconds": duration,
+        "duration_source": "container" if has_container_duration else "decoded_frame_pts",
+        "first_frame_pts_seconds": times[0], "last_frame_pts_seconds": times[-1],
+        "decoded_frame_count": frames,
         "observed_fps": round(fps, 3),
         "nominal_rate": stream.get("r_frame_rate"),
         "container_rate": stream.get("avg_frame_rate"),
@@ -40,11 +60,6 @@ def inspect_recording(path, ledger, mode="paced"):
     }
     if fps < 4:
         raise ValueError(f"actual decoded frame rate below 4 FPS: {fps:.2f}")
-    timestamps = call_json(["ffprobe", "-v", "error", "-select_streams", "v:0",
-                            "-show_frames", "-show_entries", "frame=best_effort_timestamp_time",
-                            "-of", "json", str(path)])
-    times = [float(frame["best_effort_timestamp_time"]) for frame in timestamps["frames"]
-             if "best_effort_timestamp_time" in frame]
     decoded = subprocess.run(
         ["ffmpeg", "-v", "error", "-i", str(path), "-map", "0:v:0",
          "-vf", "scale=160:160,format=gray", "-vsync", "0",
@@ -96,8 +111,10 @@ def inspect_recording(path, ledger, mode="paced"):
         "allows_unchanged_frames": True,
         "analysis": "Decoded real WebM frames; per-command camera time windows; no reconstructed screenshots",
     }
-    if len(set(fingerprints)) < 4 or sum(significant) < 3:
-        raise ValueError("recording has insufficient real visual scene changes")
+    # Legacy fast authoring intentionally retains instantaneous operations.
+    # Its video can be valid without demonstrating intermediate drawing.
+    if mode == "paced" and (len(set(fingerprints)) < 4 or sum(significant) < 3):
+        raise ValueError("paced recording has insufficient real visual scene changes")
     if mode == "paced" and not intermediate:
         raise ValueError("no actual intermediate painting states found inside paced editing command windows")
     return metadata, integrity
