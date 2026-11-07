@@ -1,0 +1,680 @@
+{
+  "format": "sandspiel-agent-lab-luna-evidence/v1",
+  "source": {
+    "media": "user-provided screen recording output.mp4 in 2026-11-07 ChatGPT conversation",
+    "recording_sha256": "908302a9cb92e445d0005068443df33abda19a31c087cdd5bc3d2730a854603b",
+    "recording_bytes": 233296774,
+    "video_duration_seconds": 1981.312667,
+    "video_resolution": [
+      1400,
+      986
+    ],
+    "source_codec": "H.264 video in MP4; source pixels are already lossy",
+    "timestamp_basis": "elapsed seconds in the uploaded recording; extraction targeted these elapsed times; approximation ± 1 decoded frame"
+  },
+  "method": {
+    "tool": "ffmpeg per-frame -ss TARGET -i SOURCE -frames:v 1 -pix_fmt rgb24 -compression_level 9 OUTPUT.png",
+    "processing": "lossless PNG encoding of decoded original video frame; no cropping, resizing, denoising, sharpening, recolouring, palette conversion or annotations",
+    "limitation": "Lossless PNG preserves pixels as decoded from the H.264 recording; H.264 artefacts already present in source remain and must not be treated as simulation phenomena.",
+    "sampling": "purposive selection of sparse keyframes and short screenshot sequences; not a complete event log or exhaustive recording",
+    "index_images": "optional index/gallery previews must not be used as pixel-level evidence",
+    "archival_encoding": "Lossless WebP (exact=True): every output RGB pixel compared with corresponding lossless PNG decoded frame; RGB pixel array SHA256 recorded; no resampling or quantisation introduced",
+    "verification": "Each lossless WebP was decoded and compared for RGB pixel equality against its lossless PNG extraction from the input H264; all 31 comparisons passed.",
+    "source_timing_note": "Timestamps identify requested elapsed source positions (seconds). The exact decoded frame presentation timestamp is not separately guaranteed; ±one frame is an approximate targeting tolerance, not a measured bound."
+  },
+  "frames": [
+    {
+      "group": "initial",
+      "video_elapsed_s": 0,
+      "time": "00:00",
+      "label": "existing-scene-and-initial-user-brief",
+      "path": "frames/initial/t00m00s_existing-scene-and-initial-user-brief.png",
+      "sha256": "1a70e2fcd9d26267ea4a1b72004866d570098c8741631a21a8982192a53246c9",
+      "size_bytes": 269072,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/initial/t00m00s_existing-scene-and-initial-user-brief.webp",
+      "lossless_webp_bytes": 153158,
+      "lossless_webp_sha256": "21e23e12720d6e7db73da9a923d98bff103aa34fe496753197acc200a70a5608",
+      "lossless_webp_git_blob_sha1": "f0df162bed51e456658078ef5305f6c8ff5c1357",
+      "decoded_rgb_sha256": "40f71f0592516dea8ebe9e141aa7dc44598b8032c7c501158f1f37d65df5183e",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 204212
+    },
+    {
+      "group": "initial",
+      "video_elapsed_s": 100,
+      "time": "01:40",
+      "label": "flowers-after-seeding-and-watering",
+      "path": "frames/initial/t01m40s_flowers-after-seeding-and-watering.png",
+      "sha256": "7b0f42281a11af792eefcd05ebcc6558ae3e640735cd5ab97756aa18b0b67daf",
+      "size_bytes": 412788,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/initial/t01m40s_flowers-after-seeding-and-watering.webp",
+      "lossless_webp_bytes": 271660,
+      "lossless_webp_sha256": "a514bc5f9189560ab26c1be89006d2212deb4449d59042f718f85c07eefe6887",
+      "lossless_webp_git_blob_sha1": "4848852830c34445652a4d8dd44c6f9eae8a8cdc",
+      "decoded_rgb_sha256": "fc87fa083bcdeeb79b92d7b525d9d4c44a817231a89d3f7ca4d7b1522d87b508",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 362216
+    },
+    {
+      "group": "initial",
+      "video_elapsed_s": 240,
+      "time": "04:00",
+      "label": "user-requests-expanded-forest-and-isolation",
+      "path": "frames/initial/t04m00s_user-requests-expanded-forest-and-isolation.png",
+      "sha256": "e266b474626d45c2aefc3cfff2958ce991e4879e0b8a71977fbfa6a2bb392161",
+      "size_bytes": 371321,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/initial/t04m00s_user-requests-expanded-forest-and-isolation.webp",
+      "lossless_webp_bytes": 242640,
+      "lossless_webp_sha256": "c64ab9ca2e00f30f32fda5c7782dfad8794037fe5b89f890889f54c65ac647d2",
+      "lossless_webp_git_blob_sha1": "bc2aadc3b86f0024d2fd82f3217a48ca11ac8977",
+      "decoded_rgb_sha256": "3b35e253928b663f536d2d9b293b24c4f6d2411cae0e6aa9b8a66e7ace8e11df",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 323520
+    },
+    {
+      "group": "forest",
+      "video_elapsed_s": 340,
+      "time": "05:40",
+      "label": "wood-trunks-and-branches",
+      "path": "frames/forest/t05m40s_wood-trunks-and-branches.png",
+      "sha256": "77af27dc59bf28250f3c82396a5cdba7b421754cb365f0ee7996d3dc310b9a4c",
+      "size_bytes": 424648,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/forest/t05m40s_wood-trunks-and-branches.webp",
+      "lossless_webp_bytes": 269866,
+      "lossless_webp_sha256": "4398ca36be02456e3148717d978d066c160c431a3b7afd40e5d40f6a4d077d61",
+      "lossless_webp_git_blob_sha1": "dd04cc4e929a686356c564976c19cf3ff71d9cf4",
+      "decoded_rgb_sha256": "835254562c4f8e4038f3e2053c896855f036b633c5c9780d10f99ad10adf1c6d",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 359824
+    },
+    {
+      "group": "forest",
+      "video_elapsed_s": 380,
+      "time": "06:20",
+      "label": "first-major-canopies",
+      "path": "frames/forest/t06m20s_first-major-canopies.png",
+      "sha256": "685e13a01c97008a41b6274c168ac9b0df71e184d6cec5328e296dcaed2d8c90",
+      "size_bytes": 630342,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/forest/t06m20s_first-major-canopies.webp",
+      "lossless_webp_bytes": 352896,
+      "lossless_webp_sha256": "517301e9b7e577ebc9dff8262e19e12f39828c147446c7ba2532591bf962c00b",
+      "lossless_webp_git_blob_sha1": "2b39e35df9781ce14b534da0d3298751643475f8",
+      "decoded_rgb_sha256": "28f90e3cfa5b617cc2769c66188eb61ba8d189c4823bece1c7bc80bd848fe172",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 470528
+    },
+    {
+      "group": "forest",
+      "video_elapsed_s": 400,
+      "time": "06:40",
+      "label": "dense-expanded-canopy",
+      "path": "frames/forest/t06m40s_dense-expanded-canopy.png",
+      "sha256": "f707e3c66d3d8bc34a8c46b3e965b679c1671e88fe7d479bba627e78b40ad2ee",
+      "size_bytes": 688624,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/forest/t06m40s_dense-expanded-canopy.webp",
+      "lossless_webp_bytes": 376960,
+      "lossless_webp_sha256": "84041ddf5bc5992227fcea7a2cd3d1d8a59344e29496aa7cc90de251c2282b55",
+      "lossless_webp_git_blob_sha1": "cd0683fb1c16798f467699110e7e788293b92b6d",
+      "decoded_rgb_sha256": "ec626d8a1ebdda171fa029fde6832d7eff32556ba5f160c1f8704ce4e246645b",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 502616
+    },
+    {
+      "group": "forest",
+      "video_elapsed_s": 440,
+      "time": "07:20",
+      "label": "layered-forest-and-meadow",
+      "path": "frames/forest/t07m20s_layered-forest-and-meadow.png",
+      "sha256": "5a6b53e5577a9d3df10b129159a10f326c388bfd066f93a4e30478b03639abc5",
+      "size_bytes": 990012,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/forest/t07m20s_layered-forest-and-meadow.webp",
+      "lossless_webp_bytes": 498552,
+      "lossless_webp_sha256": "e365626d179c3e8ec6b4eb3384326f2340fdf7b61d3b09e2e2e8d50a464af4ba",
+      "lossless_webp_git_blob_sha1": "0ae16e72c07869f8ce218c842db52e9d0eb10e5f",
+      "decoded_rgb_sha256": "62aa5aa96ea2c3350a5e3f4a239f2ed69998454799cbeacce305d1a748fd4d13",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 664736
+    },
+    {
+      "group": "apparatus",
+      "video_elapsed_s": 520,
+      "time": "08:40",
+      "label": "chamber-wall-partitions",
+      "path": "frames/apparatus/t08m40s_chamber-wall-partitions.png",
+      "sha256": "6336e326afc66e093186efc552815742b071a3338fddc37788fc2c3610152cc8",
+      "size_bytes": 976974,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/apparatus/t08m40s_chamber-wall-partitions.webp",
+      "lossless_webp_bytes": 497382,
+      "lossless_webp_sha256": "4c60bbbe359e5bf44303bc70eb4b2c55832e33acb25e471f939adc6e3a6f752c",
+      "lossless_webp_git_blob_sha1": "2c1395f568ad2ac2abe9a983c2aaff56d3d59492",
+      "decoded_rgb_sha256": "cd0b107934e237dd5e7d70910f69ffcfd745cb00193c8fc9a9e3f2fdfb94c904",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 663176
+    },
+    {
+      "group": "apparatus",
+      "video_elapsed_s": 680,
+      "time": "11:20",
+      "label": "separate-material-compartments",
+      "path": "frames/apparatus/t11m20s_separate-material-compartments.png",
+      "sha256": "1c15719e61d03ac52c1209d7b8da209de8fcf7c8fb7a566dc7e97a8d7b217a8f",
+      "size_bytes": 1075711,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/apparatus/t11m20s_separate-material-compartments.webp",
+      "lossless_webp_bytes": 570132,
+      "lossless_webp_sha256": "85c9aaafcfdf5e79f0befd9f6471e3834a4d5ebbad65711d38d897cc84f7b30a",
+      "lossless_webp_git_blob_sha1": "280b37c990c8499339a38c75d65889eca783b83a",
+      "decoded_rgb_sha256": "506ad02f2192c5bb8f8bf4c7bbfb4dd38c0dc0a421ec90bea8278f844a3577d7",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 760176
+    },
+    {
+      "group": "apparatus",
+      "video_elapsed_s": 960,
+      "time": "16:00",
+      "label": "challenge-in-composer-before-submission",
+      "path": "frames/apparatus/t16m00s_challenge-in-composer-before-submission.png",
+      "sha256": "7d37a504bad2b5cfd1de6a0f02b7629fc2f7a8d3757a7901ff08ad62aa625fcd",
+      "size_bytes": 1092679,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/apparatus/t16m00s_challenge-in-composer-before-submission.webp",
+      "lossless_webp_bytes": 557284,
+      "lossless_webp_sha256": "d8c1b046f37a8afc73fe6d5ceaae00a9ddaa448722f7dd87d66cb179a7af8614",
+      "lossless_webp_git_blob_sha1": "0563d2fa83c04ad6898431376ef4e0ef6e23db87",
+      "decoded_rgb_sha256": "b4ea6c35a0626c38f018ec2d01bbe45fe9e0d470141e89cfa3cc6db975ca0b54",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 743048
+    },
+    {
+      "group": "apparatus",
+      "video_elapsed_s": 990,
+      "time": "16:30",
+      "label": "posted-constrained-ignition-challenge",
+      "path": "frames/apparatus/t16m30s_posted-constrained-ignition-challenge.png",
+      "sha256": "f98bcc0219ce9fb9cfef8fa89bf95c3a06be2e43dd3e233d0d00ecf8c274a0e8",
+      "size_bytes": 1027681,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/apparatus/t16m30s_posted-constrained-ignition-challenge.webp",
+      "lossless_webp_bytes": 509534,
+      "lossless_webp_sha256": "4c6f25424b40f80f74cfd8e3a94db71e49c8c728163286b3548746d991d722c7",
+      "lossless_webp_git_blob_sha1": "87fb6810625eb0449273fd6f15887152c569c1e6",
+      "decoded_rgb_sha256": "cab5cb8bad2748d6f09aca5613862800e8dfd92f1ecb4396c9e2cd3d7b6896fd",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 679380
+    },
+    {
+      "group": "apparatus",
+      "video_elapsed_s": 1020,
+      "time": "17:00",
+      "label": "expanded-original-action-allowances",
+      "path": "frames/apparatus/t17m00s_expanded-original-action-allowances.png",
+      "sha256": "d2adbdc1ecb9b6ab03ba73a63896740c409f329e86a7ec44c531cf39c0e9d06e",
+      "size_bytes": 1037224,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/apparatus/t17m00s_expanded-original-action-allowances.webp",
+      "lossless_webp_bytes": 527710,
+      "lossless_webp_sha256": "5c900d14254eacc549eed428b04feb23338ee8378cdc611a947495830e180e92",
+      "lossless_webp_git_blob_sha1": "63d353883146c857a4295d889026ba2ad1a5631b",
+      "decoded_rgb_sha256": "a99cb514db61cff23eee2237e15c9b02ebc6417c8fbcfd514d17fdcf2020f9aa",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 703616
+    },
+    {
+      "group": "repair",
+      "video_elapsed_s": 1180,
+      "time": "19:40",
+      "label": "acid-fill-and-wall-edit",
+      "path": "frames/repair/t19m40s_acid-fill-and-wall-edit.png",
+      "sha256": "68570b0f062fed09f8c7ec1b5cc241fe18f1f423facfdc5cebb6d7fbab52faa0",
+      "size_bytes": 1092942,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/repair/t19m40s_acid-fill-and-wall-edit.webp",
+      "lossless_webp_bytes": 559202,
+      "lossless_webp_sha256": "35a22a6f6567d71459157f08786ddea7ae4277ea39501deb3163aa745ba615b3",
+      "lossless_webp_git_blob_sha1": "59353f7732afed3a52f574475df11b0eed70fc6f",
+      "decoded_rgb_sha256": "14dee97e1ae1e8c4dc7f358a39a8d7d016a8dcec23679436fcfbf34dead934d3",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 745604
+    },
+    {
+      "group": "repair",
+      "video_elapsed_s": 1200,
+      "time": "20:00",
+      "label": "acid-trim-with-stray-material",
+      "path": "frames/repair/t20m00s_acid-trim-with-stray-material.png",
+      "sha256": "0388d1dc47b8544f2157eeda35053ec31e890d600b4ada0effc7d9a7659f493d",
+      "size_bytes": 1090897,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/repair/t20m00s_acid-trim-with-stray-material.webp",
+      "lossless_webp_bytes": 557446,
+      "lossless_webp_sha256": "c8f836b56be06df930820eb12471363f4b586636c499a1b07118fc174654b807",
+      "lossless_webp_git_blob_sha1": "f68ff65756023986be49cddef3c508b5754a40d9",
+      "decoded_rgb_sha256": "b209d7edc64177cd6b3145b109283d391b9a9c7f05c342e57a38fb1e2bb27bae",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 743264
+    },
+    {
+      "group": "repair",
+      "video_elapsed_s": 1210,
+      "time": "20:10",
+      "label": "user-free-erase-allowance",
+      "path": "frames/repair/t20m10s_user-free-erase-allowance.png",
+      "sha256": "3e1516f2ccde20e3464e8c64fe8b98a6e09d2d18b581be7e57d6992f45ffc423",
+      "size_bytes": 1085737,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/repair/t20m10s_user-free-erase-allowance.webp",
+      "lossless_webp_bytes": 574734,
+      "lossless_webp_sha256": "f977965b332587ca8d5a7b1abc7eb59dfc36f1723dd02b0d2a5e576754341d73",
+      "lossless_webp_git_blob_sha1": "8d8fdd4f2b90bf8b1199ceb2cbc75ac0aabd3a75",
+      "decoded_rgb_sha256": "adf7eabb2a4ef48f537a7777d510a8bee7ca6ac92c345cd87d73331265a1e891",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 766312
+    },
+    {
+      "group": "repair",
+      "video_elapsed_s": 1280,
+      "time": "21:20",
+      "label": "repair-allowed-budget-reset",
+      "path": "frames/repair/t21m20s_repair-allowed-budget-reset.png",
+      "sha256": "7b42d32d291292b53f31ebb387464ada89438d479a1a20a2e1c25a7dbe73c58d",
+      "size_bytes": 1080159,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/repair/t21m20s_repair-allowed-budget-reset.webp",
+      "lossless_webp_bytes": 570566,
+      "lossless_webp_sha256": "ba1fd8f24502395c1ad1b38ac4ba6435fd7b0418b704ea1a62a7b3751bd55931",
+      "lossless_webp_git_blob_sha1": "36d5e83b0dae7c0c7fce761d62ee3b7c4875514a",
+      "decoded_rgb_sha256": "44e3f2cf7c5edc27d71738b6ad0981bd78a4c6d07519036ee9df9b082999f2d0",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 760756
+    },
+    {
+      "group": "repair",
+      "video_elapsed_s": 1360,
+      "time": "22:40",
+      "label": "refilling-and-repairing-chambers",
+      "path": "frames/repair/t22m40s_refilling-and-repairing-chambers.png",
+      "sha256": "12df48e0a4a32d714c74d8d3f36bdd729762a970ed4bc0df08c76ab25207f38e",
+      "size_bytes": 1091786,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/repair/t22m40s_refilling-and-repairing-chambers.webp",
+      "lossless_webp_bytes": 564798,
+      "lossless_webp_sha256": "6f8238d9c8808d24dea94e5f05f6d36bf8a43d0cb3e0013ad7939f22c5d3a078",
+      "lossless_webp_git_blob_sha1": "72137c0d22bc6940a158a4c952feb6d733e14bad",
+      "decoded_rgb_sha256": "5bc56b14fdc17a95ea33cade668b9517ce59923dbed4f22df87c8e50c2377484",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 753064
+    },
+    {
+      "group": "repair",
+      "video_elapsed_s": 1480,
+      "time": "24:40",
+      "label": "first-ignition-attempt-geometry",
+      "path": "frames/repair/t24m40s_first-ignition-attempt-geometry.png",
+      "sha256": "587d67d9acf9aaaf0ee54ecfa21dbbc2e2ecfa74210f172e556bec7515d29d37",
+      "size_bytes": 1111613,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/repair/t24m40s_first-ignition-attempt-geometry.webp",
+      "lossless_webp_bytes": 578978,
+      "lossless_webp_sha256": "a8bbd905ef8d8921eef64a0d6eca477b7b7e4a7a0474333ad99179be0f2ae2f0",
+      "lossless_webp_git_blob_sha1": "759d3c74219d53cdb656bbb8a363a752fef64dcb",
+      "decoded_rgb_sha256": "bf97def1bf095e163a2aaa54014f610110c508456e2cbc4a7a0c1492cdeac22e",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 771972
+    },
+    {
+      "group": "ignition",
+      "video_elapsed_s": 1600,
+      "time": "26:40",
+      "label": "agent-discusses-wood-and-oil-connection",
+      "path": "frames/ignition/t26m40s_agent-discusses-wood-and-oil-connection.png",
+      "sha256": "d815010f585e800ccdb7e1fee0d3057c6d9255c6b2fb6f4ae70e8f6b1308c518",
+      "size_bytes": 1165097,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/ignition/t26m40s_agent-discusses-wood-and-oil-connection.webp",
+      "lossless_webp_bytes": 611416,
+      "lossless_webp_sha256": "e50d574cc06d1a643a0bc3586da7b39632e481efb1f5f3dee8bb48d8e5337ad6",
+      "lossless_webp_git_blob_sha1": "e0a3d78e330e11e4b35213a0d74b50c86de29385",
+      "decoded_rgb_sha256": "c124fe52d96957e35cefec9f420ee5b82ff6a4918324a46d67a99c5fbc82775b",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 815224
+    },
+    {
+      "group": "ignition",
+      "video_elapsed_s": 1640,
+      "time": "27:20",
+      "label": "correction-draft-visible-in-composer",
+      "path": "frames/ignition/t27m20s_correction-draft-visible-in-composer.png",
+      "sha256": "93037a5d9feea5588f82861f9bbca4d61444d2e93829c946435c468e7879a91a",
+      "size_bytes": 1180331,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/ignition/t27m20s_correction-draft-visible-in-composer.webp",
+      "lossless_webp_bytes": 629940,
+      "lossless_webp_sha256": "7624634afbeb6effdbe27102a7fc174e1db3911d8abd8e2f3aaf825187c0c460",
+      "lossless_webp_git_blob_sha1": "8323278786408c189b39bb9310c46b9aa825515e",
+      "decoded_rgb_sha256": "b3e43c299e42affdc323095f53b085286b6fb0a27b716976253fb97fd7ed3e86",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 839920
+    },
+    {
+      "group": "ignition",
+      "video_elapsed_s": 1660,
+      "time": "27:40",
+      "label": "human-grants-additional-precision-erase",
+      "path": "frames/ignition/t27m40s_human-grants-additional-precision-erase.png",
+      "sha256": "dba67ea56a4e6d7492936a7fef25618f2df490b58435407aa2e1cd4358d8f282",
+      "size_bytes": 1140028,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/ignition/t27m40s_human-grants-additional-precision-erase.webp",
+      "lossless_webp_bytes": 597708,
+      "lossless_webp_sha256": "0853b36b5864c6d92b0649bf63e6d61f840dc723ddef0d7f69b586e6907ed9d7",
+      "lossless_webp_git_blob_sha1": "357b09e7ac7d41ad9dee614515f7d23cad77e27a",
+      "decoded_rgb_sha256": "284fb2481c053f92bc9e99d7c7f72322d8466178200cfecfef2384360ecaf270",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 796944
+    },
+    {
+      "group": "ignition",
+      "video_elapsed_s": 1680,
+      "time": "28:00",
+      "label": "before-final-divider-opening",
+      "path": "frames/ignition/t28m00s_before-final-divider-opening.png",
+      "sha256": "334de69012a184febcd62449be989cbac5104f573f0ff483588f3ce7bbeb8fea",
+      "size_bytes": 1151601,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/ignition/t28m00s_before-final-divider-opening.webp",
+      "lossless_webp_bytes": 611372,
+      "lossless_webp_sha256": "405acb2d55940be2075e675983424ddd8ac41436429e041d0cc008ab02238000",
+      "lossless_webp_git_blob_sha1": "b118b42fa4ea918fc9029b3009e7176881354868",
+      "decoded_rgb_sha256": "95327614ac0dca7d20425155f7615ea73fcdf9c895e39c7b9bbc10d9393be9ed",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 815164
+    },
+    {
+      "group": "ignition",
+      "video_elapsed_s": 1690,
+      "time": "28:10",
+      "label": "post-opening-prevalent-gas",
+      "path": "frames/ignition/t28m10s_post-opening-prevalent-gas.png",
+      "sha256": "13fe20287a7e92e2585cad7c4b7abeb255413eb86e5c4d59474b2e83e2af463b",
+      "size_bytes": 1153897,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/ignition/t28m10s_post-opening-prevalent-gas.webp",
+      "lossless_webp_bytes": 605152,
+      "lossless_webp_sha256": "186bb41172fc1e6aea3087234fa586cfe327facd4080ce8d25ff8892aa95b1e1",
+      "lossless_webp_git_blob_sha1": "1d0fa34d906bf359e399beac20fe07e486d293c7",
+      "decoded_rgb_sha256": "c6ddda98de29c60cbecd50b8b6de2d2c5483439b35049afa89b060f647b3c2ba",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 806872
+    },
+    {
+      "group": "ignition",
+      "video_elapsed_s": 1700,
+      "time": "28:20",
+      "label": "first-visible-burning-near-right-edge",
+      "path": "frames/ignition/t28m20s_first-visible-burning-near-right-edge.png",
+      "sha256": "690f245c56366b045e0dfa8da3a524ba1fb2fe73cd405a3bb4fff7b8064cccd4",
+      "size_bytes": 1223609,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/ignition/t28m20s_first-visible-burning-near-right-edge.webp",
+      "lossless_webp_bytes": 631758,
+      "lossless_webp_sha256": "39b2c7d7cc5c0f9455a7a6eff40496f1666692a05d01aa4f1ac9602fdc8783de",
+      "lossless_webp_git_blob_sha1": "5e92cd3c57a04316a279f532d06329b75dd50393",
+      "decoded_rgb_sha256": "c06b5a9699eab86247916b8ecfdb6ac8f53214c0599ecee36d938dbc55faa5fb",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 842344
+    },
+    {
+      "group": "ignition",
+      "video_elapsed_s": 1720,
+      "time": "28:40",
+      "label": "fire-spreading-up-and-through-canopy",
+      "path": "frames/ignition/t28m40s_fire-spreading-up-and-through-canopy.png",
+      "sha256": "0a8397ff2f8073be4d4c3355756fedb91ce2bc65a56393da4c7e12db29064cb4",
+      "size_bytes": 1073011,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/ignition/t28m40s_fire-spreading-up-and-through-canopy.webp",
+      "lossless_webp_bytes": 551016,
+      "lossless_webp_sha256": "a35969e912f5ad808f83bcd1682d568b7b2355b18634ba045ed2c66bee05905d",
+      "lossless_webp_git_blob_sha1": "32c31e57ae44f3622afe3392890e31ee40af9f67",
+      "decoded_rgb_sha256": "909d825c6a39e283a3fdde8af8d04c1ce365c5dc633ca3eb7320e2e69fece134",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 734688
+    },
+    {
+      "group": "ignition",
+      "video_elapsed_s": 1740,
+      "time": "29:00",
+      "label": "forest-burning-and-destruction",
+      "path": "frames/ignition/t29m00s_forest-burning-and-destruction.png",
+      "sha256": "9e027733936041002cee795e4dba8ad3e8422ecf540d73adb252dd8ac5dfabae",
+      "size_bytes": 778365,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/ignition/t29m00s_forest-burning-and-destruction.webp",
+      "lossless_webp_bytes": 427528,
+      "lossless_webp_sha256": "031d168af1796c5d7511405fb6d1237b69cdf2d2ea050fca3084c35b0e59b82b",
+      "lossless_webp_git_blob_sha1": "1e8c0f71439d89781041acaa3865936e040a790e",
+      "decoded_rgb_sha256": "e29b77e265eb7b00c41f77b735937c1081f892ea1fabe122a8de946a691b2f28",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 570040
+    },
+    {
+      "group": "ignition",
+      "video_elapsed_s": 1760,
+      "time": "29:20",
+      "label": "fresh-regrowth-after-burn",
+      "path": "frames/ignition/t29m20s_fresh-regrowth-after-burn.png",
+      "sha256": "0361161c9c87d88575f6ac4e7a2290d4c67ab3f1f043b15b4ed276e06e4cafa2",
+      "size_bytes": 514636,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/ignition/t29m20s_fresh-regrowth-after-burn.webp",
+      "lossless_webp_bytes": 321832,
+      "lossless_webp_sha256": "12807281b06bbdf1676b65b0662809d890ef57c0a385cbbe04a773841d59e6af",
+      "lossless_webp_git_blob_sha1": "9315693446c68ffc29a9ee96acc443de0d09a14a",
+      "decoded_rgb_sha256": "b94293198fbd401194a202277540e7a2de8eedcbc2d06054616bc1f8b239ca71",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 429112
+    },
+    {
+      "group": "ignition",
+      "video_elapsed_s": 1780,
+      "time": "29:40",
+      "label": "regrowth-forest-with-additional-fire",
+      "path": "frames/ignition/t29m40s_regrowth-forest-with-additional-fire.png",
+      "sha256": "f53f45768f529b5585ee7eb1512113176e465fe892132a5f818d806cd329a3c3",
+      "size_bytes": 601059,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/ignition/t29m40s_regrowth-forest-with-additional-fire.webp",
+      "lossless_webp_bytes": 369004,
+      "lossless_webp_sha256": "d026c71d966e797563e48191e40a01ae334342afe6418841dec0a2d893e62e40",
+      "lossless_webp_git_blob_sha1": "f00cd1ee34fc7eafe2c4ea3705a6e77ffdb762c3",
+      "decoded_rgb_sha256": "352253bc9cb9323b0e702bb0c5cbc707be43109bad5af5091e910531d7cc6582",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 492008
+    },
+    {
+      "group": "ignition",
+      "video_elapsed_s": 1800,
+      "time": "30:00",
+      "label": "later-green-regrowth-with-more-fire",
+      "path": "frames/ignition/t30m00s_later-green-regrowth-with-more-fire.png",
+      "sha256": "b372b140233a8333fdf5678a41667d02f974831ee90f90728637a81953960a79",
+      "size_bytes": 811340,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/ignition/t30m00s_later-green-regrowth-with-more-fire.webp",
+      "lossless_webp_bytes": 473674,
+      "lossless_webp_sha256": "47f05e64fe2d7c8151176ee395cb12a7d77405d2f064f550454f38cb26b798ad",
+      "lossless_webp_git_blob_sha1": "1edb82f583d375a423ecea96e829d83c14ad342e",
+      "decoded_rgb_sha256": "d0c1305828d3d070a704e080bf217f77b3535c5ea4a9196afa1802cd90dcb75e",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 631568
+    },
+    {
+      "group": "ignition",
+      "video_elapsed_s": 1860,
+      "time": "31:00",
+      "label": "dense-regrowth-later-in-run",
+      "path": "frames/ignition/t31m00s_dense-regrowth-later-in-run.png",
+      "sha256": "fd98b6e883530352841feba9ab79b4ec73d15c15060eb7751e1f896767658611",
+      "size_bytes": 1692111,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/ignition/t31m00s_dense-regrowth-later-in-run.webp",
+      "lossless_webp_bytes": 908524,
+      "lossless_webp_sha256": "3f3288ca8ebd66427955b558e8318ca56379e04dec7f34d68d76a28cc7dcf893",
+      "lossless_webp_git_blob_sha1": "2e11ffcf72b8e3fa4265c9c6abb2e646541ccbdc",
+      "decoded_rgb_sha256": "a48c032201bfd14ccb73d9c6d0f169625fb58828a1f2572298459f9b28dcf72e",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 1211368
+    },
+    {
+      "group": "ignition",
+      "video_elapsed_s": 1975,
+      "time": "32:55",
+      "label": "end-of-video-retrospective-draft-not-sent",
+      "path": "frames/ignition/t32m55s_end-of-video-retrospective-draft-not-sent.png",
+      "sha256": "8265d3842449c78274a3ba84a528dfec8f77afee9110b5222002885994adf43d",
+      "size_bytes": 1032528,
+      "resolution": [
+        1400,
+        986
+      ],
+      "pixel_format": "RGB",
+      "lossless_webp_path": "frames/ignition/t32m55s_end-of-video-retrospective-draft-not-sent.webp",
+      "lossless_webp_bytes": 586338,
+      "lossless_webp_sha256": "a7582551875ab99f6c9940ef192d8da503f11f500d50853cdbb68255efabeac3",
+      "lossless_webp_git_blob_sha1": "c7518e5bd632727bf3c9dd5c4932281529fcc045",
+      "decoded_rgb_sha256": "24cb2ec8262882fb85a9cb004dd6d1b54e6016fced1e101350cb69ec24103e9c",
+      "lossless_reconstruction_verified": true,
+      "base64_transfer_len": 781784
+    }
+  ],
+  "archive_bytes": 15558760,
+  "frame_count": 31
+}

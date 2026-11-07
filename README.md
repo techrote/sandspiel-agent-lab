@@ -78,6 +78,9 @@ The first agent test uses **structured geometric commands**, which are more accu
 
 ## Project documents
 
+- [Original Luna session: lossless primary frames, provenance, and constraint ledger](research/luna-authoring-session/EVIDENCE_INDEX.md)
+- [Experiment context and relevance to the existing CyberSand client](docs/EXPERIMENT_CONTEXT.md)
+
 - [Engineering plan, evidence ledger and handoff — `RAG.md`](https://github.com/techrote/sandspiel-agent-lab/blob/feat/agent-lab-v1/RAG.md)
 - [Browser agent-control API — `AGENT_LAB.md`](https://github.com/techrote/sandspiel-agent-lab/blob/feat/agent-lab-v1/AGENT_LAB.md)
 - [Implementation findings and evidence — `docs/IMPLEMENTATION_FINDINGS.md`](https://github.com/techrote/sandspiel-agent-lab/blob/feat/agent-lab-v1/docs/IMPLEMENTATION_FINDINGS.md)
