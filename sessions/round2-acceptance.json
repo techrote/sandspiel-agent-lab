@@ -1,0 +1,280 @@
+{
+  "format": "sandspiel-lab-session/v1",
+  "name": "Round 2 continuous recording — tree, cistern, planted plot, native growth and repair",
+  "persistCells": true,
+  "recording": {
+    "mode": "paced",
+    "fps": 12,
+    "stampsPerFrame": 16
+  },
+  "commands": [
+    {
+      "op": "reset",
+      "capture": true,
+      "label": "initial blank native world"
+    },
+    {
+      "op": "rect",
+      "material": "Sand",
+      "x": 0,
+      "y": 283,
+      "width": 300,
+      "height": 6,
+      "label": "ground fills visibly"
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "diameter": 5,
+      "from": {
+        "x": 77,
+        "y": 281
+      },
+      "to": {
+        "x": 77,
+        "y": 165
+      },
+      "capture": true,
+      "label": "tree trunk grows progressively"
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "diameter": 3,
+      "from": {
+        "x": 77,
+        "y": 199
+      },
+      "to": {
+        "x": 52,
+        "y": 183
+      },
+      "label": "left bough"
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "diameter": 3,
+      "from": {
+        "x": 77,
+        "y": 188
+      },
+      "to": {
+        "x": 102,
+        "y": 172
+      },
+      "label": "right bough"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 52,
+      "y": 183,
+      "diameter": 23,
+      "label": "left canopy"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 102,
+      "y": 172,
+      "diameter": 25,
+      "label": "right canopy"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 77,
+      "y": 160,
+      "diameter": 29,
+      "label": "crown"
+    },
+    {
+      "op": "line",
+      "material": "Wall",
+      "diameter": 3,
+      "from": {
+        "x": 201,
+        "y": 276
+      },
+      "to": {
+        "x": 201,
+        "y": 229
+      },
+      "label": "cistern left side"
+    },
+    {
+      "op": "line",
+      "material": "Wall",
+      "diameter": 3,
+      "from": {
+        "x": 201,
+        "y": 276
+      },
+      "to": {
+        "x": 271,
+        "y": 276
+      },
+      "label": "cistern floor"
+    },
+    {
+      "op": "line",
+      "material": "Wall",
+      "diameter": 3,
+      "from": {
+        "x": 271,
+        "y": 276
+      },
+      "to": {
+        "x": 271,
+        "y": 229
+      },
+      "label": "cistern right side"
+    },
+    {
+      "op": "rect",
+      "material": "Water",
+      "x": 209,
+      "y": 252,
+      "width": 53,
+      "height": 17,
+      "capture": true,
+      "label": "water enters constructed cistern"
+    },
+    {
+      "op": "line",
+      "material": "Sand",
+      "diameter": 7,
+      "from": {
+        "x": 123,
+        "y": 280
+      },
+      "to": {
+        "x": 184,
+        "y": 280
+      },
+      "label": "seedbed"
+    },
+    {
+      "op": "paint",
+      "material": "Seed",
+      "x": 137,
+      "y": 272,
+      "diameter": 3,
+      "label": "seed one"
+    },
+    {
+      "op": "paint",
+      "material": "Seed",
+      "x": 157,
+      "y": 272,
+      "diameter": 3,
+      "label": "seed two"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 175,
+      "y": 264,
+      "diameter": 11,
+      "capture": true,
+      "label": "initial sprouts"
+    },
+    {
+      "op": "resume",
+      "ticks": 120,
+      "capture": true,
+      "label": "live native simulation one"
+    },
+    {
+      "op": "inspect",
+      "x": 190,
+      "y": 207,
+      "width": 90,
+      "height": 90,
+      "label": "native water region observation"
+    },
+    {
+      "op": "pause",
+      "label": "pause after observed growth"
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "diameter": 3,
+      "from": {
+        "x": 77,
+        "y": 212
+      },
+      "to": {
+        "x": 113,
+        "y": 198
+      },
+      "label": "repair with new tree branch"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 113,
+      "y": 192,
+      "diameter": 19,
+      "capture": true,
+      "label": "post-simulation canopy correction"
+    },
+    {
+      "op": "resume",
+      "ticks": 140,
+      "capture": true,
+      "label": "live native simulation two"
+    },
+    {
+      "op": "inspect",
+      "x": 105,
+      "y": 190,
+      "width": 90,
+      "height": 100,
+      "label": "native planted area observation"
+    },
+    {
+      "op": "pause",
+      "label": "pause for further embellishment"
+    },
+    {
+      "op": "line",
+      "material": "Stone",
+      "diameter": 2,
+      "from": {
+        "x": 19,
+        "y": 279
+      },
+      "to": {
+        "x": 44,
+        "y": 269
+      },
+      "label": "final stone embellishment"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "x": 127,
+      "y": 259,
+      "diameter": 14,
+      "capture": true,
+      "label": "final planted ornament"
+    },
+    {
+      "op": "resume",
+      "ticks": 60,
+      "capture": true,
+      "label": "final live evolution"
+    },
+    {
+      "op": "pause",
+      "label": "final paused world"
+    },
+    {
+      "op": "status",
+      "label": "end state"
+    }
+  ]
+}

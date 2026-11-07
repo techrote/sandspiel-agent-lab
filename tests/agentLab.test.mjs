@@ -101,3 +101,39 @@ test('observational commands are included in the browser command counter', () =>
   assert.equal(lab.run({op:'status'}).commands,1);
   assert.equal(lab.run({op:'inspect',x:0,y:0,width:1,height:1}).commands,2);
 });
+
+test('bounded native resume auto-pauses at the exact acknowledged tick', () => {
+  const {lab} = fakeLab();
+  assert.equal(lab.run({op:'resume', ticks:4}).status, 'applied');
+  for (let i=0;i<3;i++) lab.notifyTick();
+  assert.equal(lab.status().paused, false);
+  lab.notifyTick();
+  assert.equal(lab.status().paused, true);
+  assert.equal(lab.status().ticksObserved, 4);
+  assert.equal(lab.run({op:'paint',x:8,y:8,material:'Wood'}).status, 'applied');
+  lab.run({op:'resume',ticks:2});
+  lab.notifyTick(); lab.notifyTick();
+  assert.equal(lab.status().paused, true);
+  assert.equal(lab.status().ticksObserved, 6);
+});
+test('paced and immediate painting produce byte-identical native cells', async () => {
+  const commands = [
+    {op:'line',material:'Wood',diameter:3,from:{x:1,y:1},to:{x:32,y:34}},
+    {op:'stroke',material:'Wall',diameter:1,points:[{x:3,y:26},{x:28,y:27},{x:33,y:32}]},
+    {op:'rect',material:'Water',x:5,y:8,width:18,height:12,fill:false},
+    {op:'paint',material:'Wood',x:12,y:20,diameter:9}
+  ];
+  const fast=fakeLab().lab, paced=fakeLab().lab;
+  for (const cmd of commands) {
+    assert.equal(fast.run(cmd).status,'applied');
+    assert.equal((await paced.runPaced(cmd,{fps:20,stampsPerFrame:80})).status,'applied');
+  }
+  assert.equal(paced.run({op:'exportCells'}).cellsBase64,fast.run({op:'exportCells'}).cellsBase64);
+  assert.equal(paced.status().revision,fast.status().revision);
+});
+test('invalid paced edit cannot apply partial stamps', async () => {
+  const {lab}=fakeLab();
+  assert.equal((await lab.runPaced({op:'line',material:'Wood',from:{x:1,y:1},to:{x:900,y:1}}, {fps:12})).status,'refused');
+  assert.equal((await lab.runPaced({op:'paint',material:'Wood',x:5,y:5}, {fps:0})).status,'refused');
+  assert.equal(lab.run({op:'inspect',x:0,y:0,width:40,height:40}).region.counts.Empty,1600);
+});
