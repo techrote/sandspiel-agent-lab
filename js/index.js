@@ -22,6 +22,7 @@ import { Universe } from "../crate/pkg";
 import { Species } from "../crate/pkg/sandtable";
 import * as wasm from "../crate/pkg/sandtable_bg.wasm";
 import { createAgentLab } from "./agentLab";
+import { createAgentCapture } from "./agentCapture";
 
 import { startWebGL } from "./render";
 import { fps } from "./fps";
@@ -108,6 +109,7 @@ let agentLab = null;
 if (!isBench && isAgentMode) {
   agentLab = createAgentLab({ universe, memory: wasm.memory, species: Species, fluid, render: drawSand, mode: "lab" });
   window.agentLab = agentLab;
+  window.agentCapture = createAgentCapture(canvas);
 }
 
 const renderLoop = () => {

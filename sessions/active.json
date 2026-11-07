@@ -1,27 +1,1284 @@
 {
   "format": "sandspiel-lab-session/v1",
-  "name": "bounded woodland and water experiment",
+  "name": "THE MOTH-LIGHT OBSERVATORY — a ruined eclipse garden (round2-open v1)",
   "persistCells": true,
+  "recording": {
+    "mode": "paced",
+    "fps": 12,
+    "stampsPerFrame": 16
+  },
   "commands": [
-    {"op":"reset", "capture":true, "label":"blank baseline"},
-    {"op":"rect", "material":"Sand", "x":0, "y":280, "width":300, "height":20, "capture":true, "label":"sandy ground"},
-    {"op":"line", "material":"Wood", "diameter":5, "from":{"x":80,"y":278}, "to":{"x":80,"y":145}, "label":"left trunk"},
-    {"op":"line", "material":"Wood", "diameter":5, "from":{"x":160,"y":278}, "to":{"x":160,"y":120}, "label":"main trunk"},
-    {"op":"line", "material":"Wood", "diameter":3, "from":{"x":80,"y":165}, "to":{"x":49,"y":149}},
-    {"op":"line", "material":"Wood", "diameter":3, "from":{"x":80,"y":170}, "to":{"x":114,"y":144}},
-    {"op":"line", "material":"Wood", "diameter":3, "from":{"x":160,"y":150}, "to":{"x":123,"y":129}},
-    {"op":"line", "material":"Wood", "diameter":3, "from":{"x":160,"y":149}, "to":{"x":195,"y":123}},
-    {"op":"paint", "material":"Plant", "x":49,"y":149,"diameter":29},
-    {"op":"paint", "material":"Plant", "x":114,"y":144,"diameter":33},
-    {"op":"paint", "material":"Plant", "x":123,"y":129,"diameter":33},
-    {"op":"paint", "material":"Plant", "x":195,"y":123,"diameter":33, "capture":true, "label":"initial canopy"},
-    {"op":"paint", "material":"Seed", "x":34,"y":273,"diameter":3},
-    {"op":"paint", "material":"Seed", "x":127,"y":275,"diameter":3},
-    {"op":"paint", "material":"Seed", "x":235,"y":274,"diameter":3},
-    {"op":"paint", "material":"Water", "x":40,"y":266,"diameter":13},
-    {"op":"paint", "material":"Water", "x":126,"y":264,"diameter":13},
-    {"op":"step", "ticks":120, "capture":true, "label":"growth test"},
-    {"op":"inspect", "x":50,"y":110,"width":100,"height":100, "label":"canopy census"},
-    {"op":"step", "ticks":120, "capture":true, "label":"second growth interval"}
+    {
+      "op": "reset",
+      "label": "blank chamber",
+      "capture": true
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 22,
+      "points": [
+        {
+          "x": 0,
+          "y": 292
+        },
+        {
+          "x": 17,
+          "y": 279
+        },
+        {
+          "x": 25,
+          "y": 255
+        },
+        {
+          "x": 29,
+          "y": 210
+        },
+        {
+          "x": 30,
+          "y": 170
+        },
+        {
+          "x": 39,
+          "y": 135
+        },
+        {
+          "x": 57,
+          "y": 111
+        }
+      ],
+      "label": "left ruin: eroded monolith"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 24,
+      "points": [
+        {
+          "x": 299,
+          "y": 289
+        },
+        {
+          "x": 280,
+          "y": 280
+        },
+        {
+          "x": 271,
+          "y": 253
+        },
+        {
+          "x": 263,
+          "y": 220
+        },
+        {
+          "x": 266,
+          "y": 176
+        },
+        {
+          "x": 254,
+          "y": 138
+        },
+        {
+          "x": 235,
+          "y": 114
+        }
+      ],
+      "label": "right ruin: broken monolith",
+      "capture": true
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 11,
+      "points": [
+        {
+          "x": 0,
+          "y": 297
+        },
+        {
+          "x": 25,
+          "y": 291
+        },
+        {
+          "x": 55,
+          "y": 287
+        },
+        {
+          "x": 82,
+          "y": 276
+        }
+      ],
+      "label": "foundation stones: left"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 11,
+      "points": [
+        {
+          "x": 298,
+          "y": 296
+        },
+        {
+          "x": 272,
+          "y": 290
+        },
+        {
+          "x": 242,
+          "y": 283
+        },
+        {
+          "x": 217,
+          "y": 275
+        }
+      ],
+      "label": "foundation stones: right"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 7,
+      "points": [
+        {
+          "x": 46,
+          "y": 114
+        },
+        {
+          "x": 64,
+          "y": 92
+        },
+        {
+          "x": 88,
+          "y": 76
+        },
+        {
+          "x": 107,
+          "y": 73
+        }
+      ],
+      "label": "left roof fragment"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 6,
+      "points": [
+        {
+          "x": 241,
+          "y": 119
+        },
+        {
+          "x": 223,
+          "y": 89
+        },
+        {
+          "x": 202,
+          "y": 75
+        },
+        {
+          "x": 187,
+          "y": 79
+        }
+      ],
+      "label": "right roof fragment",
+      "capture": true
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 6,
+      "points": [
+        {
+          "x": 94,
+          "y": 258
+        },
+        {
+          "x": 103,
+          "y": 282
+        },
+        {
+          "x": 196,
+          "y": 282
+        },
+        {
+          "x": 207,
+          "y": 258
+        }
+      ],
+      "label": "central ritual basin"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 91,
+          "y": 262
+        },
+        {
+          "x": 99,
+          "y": 252
+        },
+        {
+          "x": 110,
+          "y": 248
+        }
+      ],
+      "label": "basin left lip"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 209,
+          "y": 262
+        },
+        {
+          "x": 200,
+          "y": 251
+        },
+        {
+          "x": 188,
+          "y": 248
+        }
+      ],
+      "label": "basin right lip"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 5,
+      "points": [
+        {
+          "x": 96,
+          "y": 138
+        },
+        {
+          "x": 98,
+          "y": 133
+        },
+        {
+          "x": 99,
+          "y": 127
+        },
+        {
+          "x": 102,
+          "y": 122
+        },
+        {
+          "x": 104,
+          "y": 117
+        },
+        {
+          "x": 107,
+          "y": 113
+        },
+        {
+          "x": 111,
+          "y": 108
+        },
+        {
+          "x": 115,
+          "y": 104
+        },
+        {
+          "x": 119,
+          "y": 101
+        },
+        {
+          "x": 123,
+          "y": 98
+        },
+        {
+          "x": 128,
+          "y": 95
+        },
+        {
+          "x": 133,
+          "y": 93
+        },
+        {
+          "x": 138,
+          "y": 92
+        },
+        {
+          "x": 143,
+          "y": 91
+        },
+        {
+          "x": 148,
+          "y": 90
+        },
+        {
+          "x": 153,
+          "y": 90
+        },
+        {
+          "x": 158,
+          "y": 91
+        },
+        {
+          "x": 163,
+          "y": 92
+        },
+        {
+          "x": 168,
+          "y": 93
+        },
+        {
+          "x": 173,
+          "y": 96
+        },
+        {
+          "x": 178,
+          "y": 98
+        },
+        {
+          "x": 182,
+          "y": 101
+        },
+        {
+          "x": 186,
+          "y": 105
+        },
+        {
+          "x": 190,
+          "y": 109
+        },
+        {
+          "x": 193,
+          "y": 113
+        },
+        {
+          "x": 196,
+          "y": 118
+        },
+        {
+          "x": 199,
+          "y": 123
+        },
+        {
+          "x": 201,
+          "y": 128
+        }
+      ],
+      "label": "eclipse arch: fractured upper orbit",
+      "capture": true
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 5,
+      "points": [
+        {
+          "x": 203,
+          "y": 169
+        },
+        {
+          "x": 201,
+          "y": 174
+        },
+        {
+          "x": 199,
+          "y": 179
+        },
+        {
+          "x": 196,
+          "y": 184
+        },
+        {
+          "x": 193,
+          "y": 189
+        },
+        {
+          "x": 190,
+          "y": 193
+        },
+        {
+          "x": 186,
+          "y": 197
+        },
+        {
+          "x": 183,
+          "y": 200
+        },
+        {
+          "x": 178,
+          "y": 203
+        },
+        {
+          "x": 174,
+          "y": 206
+        },
+        {
+          "x": 169,
+          "y": 208
+        },
+        {
+          "x": 165,
+          "y": 210
+        },
+        {
+          "x": 160,
+          "y": 211
+        },
+        {
+          "x": 155,
+          "y": 212
+        },
+        {
+          "x": 150,
+          "y": 212
+        },
+        {
+          "x": 145,
+          "y": 212
+        },
+        {
+          "x": 140,
+          "y": 211
+        },
+        {
+          "x": 135,
+          "y": 210
+        },
+        {
+          "x": 130,
+          "y": 208
+        },
+        {
+          "x": 125,
+          "y": 206
+        },
+        {
+          "x": 121,
+          "y": 203
+        },
+        {
+          "x": 117,
+          "y": 200
+        }
+      ],
+      "label": "eclipse arch: descending orbit"
+    },
+    {
+      "op": "stroke",
+      "material": "Wall",
+      "diameter": 5,
+      "points": [
+        {
+          "x": 108,
+          "y": 190
+        },
+        {
+          "x": 105,
+          "y": 186
+        },
+        {
+          "x": 103,
+          "y": 182
+        },
+        {
+          "x": 100,
+          "y": 177
+        },
+        {
+          "x": 99,
+          "y": 173
+        },
+        {
+          "x": 97,
+          "y": 168
+        },
+        {
+          "x": 96,
+          "y": 163
+        },
+        {
+          "x": 95,
+          "y": 158
+        },
+        {
+          "x": 95,
+          "y": 153
+        },
+        {
+          "x": 95,
+          "y": 148
+        }
+      ],
+      "label": "eclipse arch: cracked left flank"
+    },
+    {
+      "op": "stroke",
+      "material": "Ice",
+      "diameter": 2,
+      "points": [
+        {
+          "x": 106,
+          "y": 133
+        },
+        {
+          "x": 108,
+          "y": 126
+        },
+        {
+          "x": 112,
+          "y": 120
+        },
+        {
+          "x": 116,
+          "y": 114
+        },
+        {
+          "x": 121,
+          "y": 109
+        },
+        {
+          "x": 126,
+          "y": 105
+        },
+        {
+          "x": 132,
+          "y": 102
+        },
+        {
+          "x": 138,
+          "y": 100
+        },
+        {
+          "x": 145,
+          "y": 98
+        },
+        {
+          "x": 151,
+          "y": 98
+        },
+        {
+          "x": 158,
+          "y": 99
+        },
+        {
+          "x": 164,
+          "y": 100
+        },
+        {
+          "x": 170,
+          "y": 103
+        },
+        {
+          "x": 176,
+          "y": 107
+        },
+        {
+          "x": 181,
+          "y": 111
+        }
+      ],
+      "label": "pale inner glint"
+    },
+    {
+      "op": "stroke",
+      "material": "Ice",
+      "diameter": 2,
+      "points": [
+        {
+          "x": 183,
+          "y": 188
+        },
+        {
+          "x": 179,
+          "y": 192
+        },
+        {
+          "x": 175,
+          "y": 196
+        },
+        {
+          "x": 170,
+          "y": 199
+        },
+        {
+          "x": 165,
+          "y": 201
+        },
+        {
+          "x": 160,
+          "y": 203
+        },
+        {
+          "x": 155,
+          "y": 204
+        },
+        {
+          "x": 150,
+          "y": 204
+        },
+        {
+          "x": 145,
+          "y": 204
+        },
+        {
+          "x": 139,
+          "y": 203
+        },
+        {
+          "x": 134,
+          "y": 201
+        },
+        {
+          "x": 129,
+          "y": 199
+        }
+      ],
+      "label": "lower light edge"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 6,
+      "points": [
+        {
+          "x": 53,
+          "y": 139
+        },
+        {
+          "x": 71,
+          "y": 127
+        },
+        {
+          "x": 92,
+          "y": 121
+        },
+        {
+          "x": 105,
+          "y": 130
+        },
+        {
+          "x": 117,
+          "y": 143
+        }
+      ],
+      "label": "root reaches left orbit"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 5,
+      "points": [
+        {
+          "x": 237,
+          "y": 143
+        },
+        {
+          "x": 218,
+          "y": 127
+        },
+        {
+          "x": 205,
+          "y": 129
+        },
+        {
+          "x": 192,
+          "y": 145
+        }
+      ],
+      "label": "root reaches right orbit"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 4,
+      "points": [
+        {
+          "x": 88,
+          "y": 123
+        },
+        {
+          "x": 84,
+          "y": 154
+        },
+        {
+          "x": 91,
+          "y": 179
+        },
+        {
+          "x": 107,
+          "y": 188
+        }
+      ],
+      "label": "left root tendril"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 219,
+          "y": 130
+        },
+        {
+          "x": 221,
+          "y": 159
+        },
+        {
+          "x": 212,
+          "y": 188
+        },
+        {
+          "x": 199,
+          "y": 197
+        }
+      ],
+      "label": "right root tendril",
+      "capture": true
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 150,
+          "y": 117
+        },
+        {
+          "x": 137,
+          "y": 126
+        },
+        {
+          "x": 133,
+          "y": 141
+        },
+        {
+          "x": 141,
+          "y": 160
+        },
+        {
+          "x": 151,
+          "y": 171
+        },
+        {
+          "x": 162,
+          "y": 158
+        },
+        {
+          "x": 169,
+          "y": 139
+        },
+        {
+          "x": 160,
+          "y": 125
+        },
+        {
+          "x": 150,
+          "y": 117
+        }
+      ],
+      "label": "central seed-heart cage"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "diameter": 18,
+      "x": 150,
+      "y": 144,
+      "label": "heart foliage"
+    },
+    {
+      "op": "paint",
+      "material": "Seed",
+      "diameter": 5,
+      "x": 150,
+      "y": 138,
+      "label": "seed in seed-heart"
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "diameter": 3,
+      "from": {
+        "x": 42,
+        "y": 153
+      },
+      "to": {
+        "x": 62,
+        "y": 166
+      },
+      "label": "left balcony"
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "diameter": 3,
+      "from": {
+        "x": 262,
+        "y": 156
+      },
+      "to": {
+        "x": 241,
+        "y": 174
+      },
+      "label": "right balcony"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 2,
+      "points": [
+        {
+          "x": 65,
+          "y": 169
+        },
+        {
+          "x": 72,
+          "y": 187
+        },
+        {
+          "x": 70,
+          "y": 201
+        }
+      ],
+      "label": "left suspended vine"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 2,
+      "points": [
+        {
+          "x": 237,
+          "y": 173
+        },
+        {
+          "x": 229,
+          "y": 197
+        },
+        {
+          "x": 226,
+          "y": 218
+        }
+      ],
+      "label": "right suspended vine"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "diameter": 16,
+      "x": 63,
+      "y": 163
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "diameter": 12,
+      "x": 72,
+      "y": 195
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "diameter": 15,
+      "x": 231,
+      "y": 185
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "diameter": 13,
+      "x": 224,
+      "y": 215
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "diameter": 13,
+      "x": 47,
+      "y": 143
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "diameter": 14,
+      "x": 252,
+      "y": 143
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "diameter": 13,
+      "x": 87,
+      "y": 115
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "diameter": 13,
+      "x": 204,
+      "y": 118
+    },
+    {
+      "op": "paint",
+      "material": "Fungus",
+      "diameter": 12,
+      "x": 57,
+      "y": 190,
+      "label": "left mauve flowering shelf"
+    },
+    {
+      "op": "paint",
+      "material": "Fungus",
+      "diameter": 12,
+      "x": 244,
+      "y": 202,
+      "label": "right mauve flowering shelf"
+    },
+    {
+      "op": "line",
+      "material": "Wall",
+      "diameter": 3,
+      "from": {
+        "x": 41,
+        "y": 198
+      },
+      "to": {
+        "x": 65,
+        "y": 198
+      },
+      "label": "broken balcony fragment"
+    },
+    {
+      "op": "line",
+      "material": "Wall",
+      "diameter": 3,
+      "from": {
+        "x": 235,
+        "y": 211
+      },
+      "to": {
+        "x": 257,
+        "y": 211
+      },
+      "label": "right stone flower perch"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "diameter": 12,
+      "x": 74,
+      "y": 265,
+      "label": "sapling on left basin bank"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "diameter": 12,
+      "x": 228,
+      "y": 264,
+      "label": "sapling on right basin bank"
+    },
+    {
+      "op": "rect",
+      "material": "Water",
+      "x": 117,
+      "y": 270,
+      "width": 65,
+      "height": 10,
+      "label": "blue reflected moon in basin",
+      "capture": true
+    },
+    {
+      "op": "paint",
+      "material": "Water",
+      "diameter": 13,
+      "x": 151,
+      "y": 100,
+      "label": "first rain caught by orbit"
+    },
+    {
+      "op": "resume",
+      "ticks": 110,
+      "label": "evolution I: the first rain",
+      "capture": true
+    },
+    {
+      "op": "inspect",
+      "x": 91,
+      "y": 89,
+      "width": 118,
+      "height": 118,
+      "includeCells": false,
+      "label": "evolution I: orbit and heart census"
+    },
+    {
+      "op": "inspect",
+      "x": 100,
+      "y": 210,
+      "width": 100,
+      "height": 88,
+      "includeCells": false,
+      "label": "evolution I: basin census"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 66,
+          "y": 200
+        },
+        {
+          "x": 94,
+          "y": 216
+        },
+        {
+          "x": 104,
+          "y": 238
+        }
+      ],
+      "label": "adaptation I: add living counterweight"
+    },
+    {
+      "op": "stroke",
+      "material": "Wood",
+      "diameter": 3,
+      "points": [
+        {
+          "x": 226,
+          "y": 218
+        },
+        {
+          "x": 207,
+          "y": 233
+        },
+        {
+          "x": 196,
+          "y": 242
+        }
+      ],
+      "label": "adaptation I: echo right side"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "diameter": 15,
+      "x": 104,
+      "y": 236,
+      "label": "adaptation I: leaf at left root tip"
+    },
+    {
+      "op": "paint",
+      "material": "Fungus",
+      "diameter": 10,
+      "x": 200,
+      "y": 239,
+      "label": "adaptation I: flowering at right root tip"
+    },
+    {
+      "op": "paint",
+      "material": "Water",
+      "diameter": 8,
+      "x": 142,
+      "y": 101,
+      "label": "adaptation I: renewed rain",
+      "capture": true
+    },
+    {
+      "op": "resume",
+      "ticks": 130,
+      "label": "evolution II: descend through roots",
+      "capture": true
+    },
+    {
+      "op": "inspect",
+      "x": 0,
+      "y": 94,
+      "width": 100,
+      "height": 185,
+      "includeCells": false,
+      "label": "evolution II: left ruined tower census"
+    },
+    {
+      "op": "inspect",
+      "x": 200,
+      "y": 94,
+      "width": 100,
+      "height": 185,
+      "includeCells": false,
+      "label": "evolution II: right ruined tower census"
+    },
+    {
+      "op": "stroke",
+      "material": "Ice",
+      "diameter": 2,
+      "points": [
+        {
+          "x": 103,
+          "y": 103
+        },
+        {
+          "x": 110,
+          "y": 97
+        },
+        {
+          "x": 115,
+          "y": 99
+        }
+      ],
+      "label": "adaptation II: crystal in western fracture"
+    },
+    {
+      "op": "stroke",
+      "material": "Ice",
+      "diameter": 2,
+      "points": [
+        {
+          "x": 201,
+          "y": 184
+        },
+        {
+          "x": 210,
+          "y": 191
+        },
+        {
+          "x": 215,
+          "y": 184
+        }
+      ],
+      "label": "adaptation II: cold eastern shard"
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "diameter": 2,
+      "from": {
+        "x": 107,
+        "y": 185
+      },
+      "to": {
+        "x": 115,
+        "y": 199
+      },
+      "label": "adaptation II: grown descending root"
+    },
+    {
+      "op": "line",
+      "material": "Wood",
+      "diameter": 2,
+      "from": {
+        "x": 193,
+        "y": 182
+      },
+      "to": {
+        "x": 185,
+        "y": 202
+      },
+      "label": "adaptation II: balanced descending root"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "diameter": 11,
+      "x": 114,
+      "y": 197,
+      "label": "adaptation II: first hanging frond"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "diameter": 13,
+      "x": 186,
+      "y": 199,
+      "label": "adaptation II: second hanging frond"
+    },
+    {
+      "op": "paint",
+      "material": "Water",
+      "diameter": 9,
+      "x": 153,
+      "y": 108,
+      "label": "adaptation II: replenish water",
+      "capture": true
+    },
+    {
+      "op": "resume",
+      "ticks": 130,
+      "label": "evolution III: last flowering",
+      "capture": true
+    },
+    {
+      "op": "inspect",
+      "x": 106,
+      "y": 113,
+      "width": 90,
+      "height": 100,
+      "includeCells": false,
+      "label": "evolution III: seed-heart census"
+    },
+    {
+      "op": "inspect",
+      "x": 96,
+      "y": 238,
+      "width": 113,
+      "height": 60,
+      "includeCells": false,
+      "label": "evolution III: final basin census"
+    },
+    {
+      "op": "paint",
+      "material": "Fungus",
+      "diameter": 13,
+      "x": 93,
+      "y": 187,
+      "label": "final accents: western bloom"
+    },
+    {
+      "op": "paint",
+      "material": "Fungus",
+      "diameter": 12,
+      "x": 210,
+      "y": 176,
+      "label": "final accents: eastern bloom"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "diameter": 10,
+      "x": 129,
+      "y": 222,
+      "label": "final accents: lower moss"
+    },
+    {
+      "op": "paint",
+      "material": "Plant",
+      "diameter": 10,
+      "x": 172,
+      "y": 223,
+      "label": "final accents: lower moss"
+    },
+    {
+      "op": "resume",
+      "ticks": 90,
+      "label": "final equilibrium: fourth observed interval",
+      "capture": true
+    },
+    {
+      "op": "inspect",
+      "x": 103,
+      "y": 114,
+      "width": 90,
+      "height": 98,
+      "includeCells": false,
+      "label": "final seed-heart material evidence"
+    },
+    {
+      "op": "status",
+      "label": "complete: 460 native simulation ticks"
+    }
   ]
 }
